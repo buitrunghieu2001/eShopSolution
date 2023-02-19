@@ -16,7 +16,7 @@ namespace eShopSolution.Data.Configurations
         {
             builder.ToTable("Products");
 
-            builder.HasKey(p => p.ID);
+            builder.HasKey(p => p.Id);
 
             builder.Property(x => x.Price).IsRequired();
 
