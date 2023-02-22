@@ -10,4 +10,5 @@
 - Microsoft.Extensions.Configuration.FileExtensions
 - Microsoft.Extensions.Configuration.Json
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore
+- ...
 -- Cung cấp các lớp và phương thức để quản lý xác thực người dùng và phân quyền trong ứng dụng web.
