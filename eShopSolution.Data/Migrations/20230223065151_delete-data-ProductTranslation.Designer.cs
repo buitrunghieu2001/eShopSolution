@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.EF;
 
@@ -11,9 +12,11 @@ using eShopSolution.Data.EF;
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230223065151_delete-data-ProductTranslation")]
+    partial class deletedataProductTranslation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,7 +268,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa01e896-e4cc-4d91-8dce-db86d0d94510",
+                            ConcurrencyStamp = "ce583a37-7a7b-482e-b063-db71b7db7e34",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -274,7 +277,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEr0BMZCoJgMKHn/kM3d9ybzmLxRfBQ+MA5OMAKXJ58bSZTOfLgC+zMyZPQSfVtuCg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAvOZBa6voDja4j+SLzlvrKDa4rSLtZo55bPX9zy+TtfzwQkv6pi3A7j+qPAzl/E/g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -615,7 +618,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 2, 23, 13, 53, 1, 520, DateTimeKind.Local).AddTicks(1006),
+                            DateCreated = new DateTime(2023, 2, 23, 13, 51, 51, 280, DateTimeKind.Local).AddTicks(5719),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -736,32 +739,6 @@ namespace eShopSolution.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductTranslations", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Áo sơ mi nam trắng Việt Tiến",
-                            Details = "Áo sơ mi nam trắng Việt Tiến",
-                            LanguageId = "vi-VN",
-                            Name = "Áo sơ mi nam trắng Việt Tiến",
-                            ProductId = 1,
-                            SeoAlias = "ao-so-mi-nam-trang-viet-tien",
-                            SeoDescription = "Áo sơ mi nam trắng Việt Tiến",
-                            SeoTitle = "Áo sơ mi nam trắng Việt Tiến"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Viet Tien Men T-Shirt",
-                            Details = "Viet Tien Men T-Shirt",
-                            LanguageId = "en-US",
-                            Name = "Viet Tien Men T-Shirt",
-                            ProductId = 1,
-                            SeoAlias = "viet-tien-men-t-shirt",
-                            SeoDescription = "Viet Tien Men T-Shirt",
-                            SeoTitle = "Viet Tien Men T-Shirt"
-                        });
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Promotion", b =>

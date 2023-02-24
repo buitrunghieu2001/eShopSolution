@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-namespace eShopSolution.ViewModels.Catalog.Products
+namespace eShopSolution.ViewModels.Catalog.ProductImages
 {
     public class ProductImageUpdateRequest
     {
