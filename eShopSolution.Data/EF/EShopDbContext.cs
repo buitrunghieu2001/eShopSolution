@@ -1,4 +1,4 @@
-﻿using eShopSolution.Data.Configurations;
+using eShopSolution.Data.Configurations;
 using eShopSolution.Data.Entities;
 using eShopSolution.Data.Extensions;
 using Microsoft.AspNetCore.Identity;
@@ -41,6 +41,12 @@ namespace eShopSolution.Data.EF
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+
+
+
+            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
+
 
             // config những table còn lại của Identity
             // Guid làm khóa chính
