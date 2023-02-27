@@ -265,11 +265,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-
                             ConcurrencyStamp = "fa01e896-e4cc-4d91-8dce-db86d0d94510",
-
-                            ConcurrencyStamp = "ab660f45-3cb3-4648-9bc8-8b9da8e444be",
-
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -278,11 +274,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEEr0BMZCoJgMKHn/kM3d9ybzmLxRfBQ+MA5OMAKXJ58bSZTOfLgC+zMyZPQSfVtuCg==",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEFNfyWmRJESKaOOvBzj/T4fzRfe7v+YNuAb35l/S3HzL2+yjprshA++DwAQHD3XZrQ==",
-
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -625,9 +617,6 @@ namespace eShopSolution.Data.Migrations
                             Id = 1,
 
                             DateCreated = new DateTime(2023, 2, 23, 13, 53, 1, 520, DateTimeKind.Local).AddTicks(1006),
-
-                            DateCreated = new DateTime(2023, 2, 19, 14, 15, 3, 634, DateTimeKind.Local).AddTicks(2556),
-
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,

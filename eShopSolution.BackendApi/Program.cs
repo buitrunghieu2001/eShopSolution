@@ -1,15 +1,19 @@
-using eShopSolution.Application.Catalog.Products;
+﻿using eShopSolution.Application.Catalog.Products;
 using eShopSolution.Application.Common;
 using eShopSolution.Application.System.Users;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 using eShopSolution.Utilities.Constants;
+using eShopSolution.ViewModels.System.Users;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,9 +37,15 @@ builder.Services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 builder.Services.AddTransient<IUserService, UserService>();
 
+//builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+//builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
+
 
 // Add services to the container.
-builder.Services.AddControllers();
+// phương thức RegisterValidatorsFromAssemblyContaining sẽ quét toàn bộ các class có kế thừa từ lớp AbstractValidator trong assembly chứa lớp LoginRequestValidator và đăng ký chúng với FluentValidation.
+// Do đó, nếu trong cùng assembly đó có các validator khác cũng được kế thừa từ AbstractValidator, thì chúng cũng sẽ được đăng ký và sử dụng được trong ứng dụng.
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger eShopSolution", Version = "v1" });
@@ -108,6 +118,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseAuthentication();
+app.UseRouting();
+
+app.UseAuthorization();
 
 // Use swagger
 app.UseSwagger();
@@ -117,9 +131,6 @@ app.UseSwaggerUI(c =>
 });
 
 
-app.UseRouting();
-
-app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
