@@ -1,9 +1,12 @@
 ﻿using eShopSolution.Data.Entities;
 using eShopSolution.utilities.Exceptions;
+using eShopSolution.ViewModels.Catalog.Products;
+using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -59,16 +62,47 @@ namespace eShopSolution.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public async Task<PagedResult<UserVM>> GetUsersPaging(GetUserPagingRequest request)
+        {
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(request.KeyWord))
+            {
+                query = query.Where(x => x.UserName.Contains(request.KeyWord) || x.PhoneNumber.Contains(request.KeyWord));
+            }
+            // step 3: paging
+            int totalRow = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new UserVM()
+                {
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    UserName = x.UserName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Id = x.Id
+
+                }).ToListAsync();
+
+            // step 4: select and projection
+            var pagedResult = new PagedResult<UserVM>()
+            {
+                TotalRecord = totalRow,
+                Items = data
+            };
+            return pagedResult;
+        }
+
         public async Task<bool> Register(RegisterRequest request)
         {
             var user = new AppUser()
             {
-                Dob = request.Dod,
+                Dob = request.Dob,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                PhoneNumber = request.PhonNumber
+                PhoneNumber = request.PhoneNumber
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
