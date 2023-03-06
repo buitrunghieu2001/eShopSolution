@@ -30,6 +30,7 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(resultToken);
         }
 
+        // /users/register
         [HttpPost("register")]
         //AllowAnonymous: chưa đăng nhập vẫn có thể gọi được
         [AllowAnonymous]
@@ -45,8 +46,9 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok();
         }
 
-        // /paging?pageIndex=1&pageSize=10&keyword=admin
-        [HttpGet("paging")]
+        // /users?pageIndex=1&pageSize=10&keyword=admin
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllPaging([FromQuery]GetUserPagingRequest request)
         {
             var products = await _userService.GetUsersPaging(request);
