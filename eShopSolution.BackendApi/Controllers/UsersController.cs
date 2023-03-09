@@ -8,6 +8,7 @@ namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -23,16 +24,15 @@ namespace eShopSolution.BackendApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);      
             
-            var resultToken = await _userService.Authenticate(request);
-            if (string.IsNullOrEmpty(resultToken))
-                return BadRequest("Username or Password is incorrect");
+            var result = await _userService.Authenticate(request);
+            if (string.IsNullOrEmpty(result.ResultObj))
+                return BadRequest(result);
 
-            return Ok(resultToken);
+            return Ok(result);
         }
 
-        // /users/register
-        [HttpPost("register")]
-        //AllowAnonymous: chưa đăng nhập vẫn có thể gọi được
+        // /users
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -40,19 +40,41 @@ namespace eShopSolution.BackendApi.Controllers
                 return BadRequest(ModelState);
 
             var result = await _userService.Register(request);
-            if (!result)
-                return BadRequest("Register unsuccessful");
-                
-            return Ok();
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
-        // /users?pageIndex=1&pageSize=10&keyword=admin
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetAllPaging([FromQuery]GetUserPagingRequest request)
+        // /users/id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Update(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        // /users/paging?pageIndex=1&pageSize=10&keyword=admin
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
             var products = await _userService.GetUsersPaging(request);
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return Ok(user);
         }
     }
 }
