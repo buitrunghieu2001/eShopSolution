@@ -1,4 +1,5 @@
-﻿using eShopSolution.Data.Entities;
+﻿using Azure.Core;
+using eShopSolution.Data.Entities;
 using eShopSolution.utilities.Exceptions;
 using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.Common;
@@ -75,6 +76,7 @@ namespace eShopSolution.Application.System.Users
                 LastName = user.LastName,
                 Dob = user.Dob,
                 Id = user.Id,
+                UserName = user.UserName
             };
             return new ApiSuccessResult<UserVM>(userVM);
         }
@@ -104,7 +106,9 @@ namespace eShopSolution.Application.System.Users
             // step 4: select and projection
             var pagedResult = new PagedResult<UserVM>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
                 Items = data
             };
             return new ApiSuccessResult<PagedResult<UserVM>>(pagedResult);
@@ -160,5 +164,6 @@ namespace eShopSolution.Application.System.Users
             }
             return new ApiErrorResult<bool>("Cập nhật không thành công");
         }
+
     }
 }

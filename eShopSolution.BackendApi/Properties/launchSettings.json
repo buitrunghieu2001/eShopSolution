@@ -20,7 +20,7 @@
     },
     "eShopSolution.BackendApi": {
       "commandName": "Project",
-      "launchBrowser": false,
+      "launchBrowser": true,
       //tự động vào swagger khi chạy
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:5001",
