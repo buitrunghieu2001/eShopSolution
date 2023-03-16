@@ -4,6 +4,11 @@ using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace eShopSolution.BackendApi.Controllers
 {
@@ -13,8 +18,10 @@ namespace eShopSolution.BackendApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UsersController(IUserService userService) {
+        private readonly IConfiguration _configuration;
+        public UsersController(IUserService userService, IConfiguration configuration) {
             _userService = userService;
+            _configuration = configuration;
         }
 
         [HttpPost("authenticate")]
@@ -65,6 +72,7 @@ namespace eShopSolution.BackendApi.Controllers
 
         // /users/paging?pageIndex=1&pageSize=10&keyword=admin
         [HttpGet("paging")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
             var products = await _userService.GetUsersPaging(request);
@@ -76,6 +84,13 @@ namespace eShopSolution.BackendApi.Controllers
         {
             var user = await _userService.GetById(id);
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _userService.Delete(id);
+            return Ok(result);
         }
     }
 }
