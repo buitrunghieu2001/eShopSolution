@@ -72,7 +72,6 @@ namespace eShopSolution.BackendApi.Controllers
 
         // /users/paging?pageIndex=1&pageSize=10&keyword=admin
         [HttpGet("paging")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
             var products = await _userService.GetUsersPaging(request);

@@ -6,6 +6,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts {
+    <script>
+        setTimeout(function() {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);
+    </script>
+}
+
 <div class="container-fluid px-4">
     <h1 class="mt-4">Danh sách người dùng</h1>
     <ol class="breadcrumb mb-4">
@@ -75,4 +83,12 @@
             @await Component.InvokeAsync("Pager", Model)
         </div>
     </div>
+
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div id="msgAlert" class="alert alert-success position-absolute" style="top: 30px; right: 30px;" role="alert">
+            @ViewBag.SuccessMsg
+        </div>
+    }
+
 </div>

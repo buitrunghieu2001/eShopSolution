@@ -45,7 +45,7 @@ namespace eShopSolution.AdminApp.Controllers
             var userPrincipal = this.ValidateToken(result.ResultObj);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10), // thời gian sống của cookie
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30), // thời gian sống của cookie
                 IsPersistent = true // lưu cookie lâu dài
             };
             HttpContext.Session.SetString("Token", result.ResultObj);
