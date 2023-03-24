@@ -70,6 +70,21 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(result);
         }
 
+        // /users/id/roles
+        [HttpPut("{id}/roles")]
+        public async Task<IActionResult> RoleAssign([FromBody] RoleAssignRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.RoleAssign(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
         // /users/paging?pageIndex=1&pageSize=10&keyword=admin
         [HttpGet("paging")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
