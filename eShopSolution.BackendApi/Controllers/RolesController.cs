@@ -1,8 +1,5 @@
-﻿using eShopSolution.Application.System.Roles;
-using eShopSolution.Data.Entities;
+﻿using eShopSolution.Application.System.Languages;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShopSolution.BackendApi.Controllers
@@ -12,8 +9,8 @@ namespace eShopSolution.BackendApi.Controllers
     [Authorize]
     public class RolesController : ControllerBase
     {
-        private readonly IRoleService _roleService;
-        public RolesController(IRoleService roleService) 
+        private readonly ILanguageService _roleService;
+        public RolesController(ILanguageService roleService) 
         {
             _roleService = roleService;
         }

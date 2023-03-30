@@ -20,23 +20,17 @@ namespace eShopSolution.AdminApp.Services
         }
         public async Task<ApiResult<List<RoleVM>>> GetAll()
         {
-            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
             var client = _httpClientFactory.CreateClient();
-            //var client = new HttpClient();
-            // _configuration["BaseAddress"]: lấy từ appsetting dev
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
             var response = await client.GetAsync($"/api/roles");
             var body = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                List<RoleVM> myDeserializedObject = (List<RoleVM>)JsonConvert.DeserializeObject(body, typeof(List<RoleVM>));
-                return new ApiSuccessResult<List<RoleVM>>(myDeserializedObject);
+                List<RoleVM> myDeserializedObjList = (List<RoleVM>)JsonConvert.DeserializeObject(body, typeof(List<RoleVM>));
+                return new ApiSuccessResult<List<RoleVM>>(myDeserializedObjList);
             }
-
-            if (response.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<ApiSuccessResult<List<RoleVM>>>(body);
-
             return JsonConvert.DeserializeObject<ApiErrorResult<List<RoleVM>>>(body);
         }
     }

@@ -30,6 +30,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 builder.Services.AddTransient<IRoleApiClient, RoleApiClient>();
+builder.Services.AddTransient<ILanguageApiClient, LanguageApiClient>();
 
 
 // package runtime automatically compile without rerun
