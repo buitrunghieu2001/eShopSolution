@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.ViewModels.Catalog.Products
 {
-    public class ProductViewModel
+    public class ProductVM
     {
         public int Id { get; set; }
         public decimal Price { get; set; }

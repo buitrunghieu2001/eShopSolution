@@ -21,12 +21,10 @@ namespace eShopSolution.BackendApi.Controllers
             _productService = productService;
         }
 
-        // /product?pageIndex=1&pageSize=10&CategoryId=
-        [HttpGet("{languageId}")]
-        // [FromQuery]: tất cả tham số trong GetPublicProductPagingRequest lấy từ FromQuery ra
-        public async Task<IActionResult> GetAllPaging(string languageId, [FromQuery]GetPublicProductPagingRequest request)
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery]GetManageProductPagingRequest request)
         {
-            var products = await _productService.GetAllByCategoryId(languageId, request);
+            var products = await _productService.GetAllPaging(request);
             return Ok(products);
         }
 
