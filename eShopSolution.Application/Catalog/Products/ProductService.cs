@@ -131,18 +131,18 @@ namespace eShopSolution.Application.Catalog.Products
             // step 1: select join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
-                        join c in _context.Categories on pic.CategoryId equals c.Id
+                        //join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        //join c in _context.Categories on pic.CategoryId equals c.Id
                         where pt.LanguageId == request.LanguageId
-                        select new { p, pt, pic };
+                        select new { p, pt };
             // step 2: filter
             if (!string.IsNullOrEmpty(request.KeyWord))
                 query = query.Where(x => x.pt.Name.Contains(request.KeyWord));
             
-            if (request.CategoryId != null && request.CategoryId != 0)
-            {
-                query = query.Where(p => p.pic.CategoryId == request.CategoryId);
-            }
+            //if (request.CategoryId != null && request.CategoryId != 0)
+            //{
+            //    query = query.Where(p => p.pic.CategoryId == request.CategoryId);
+            //}
             // step 3: paging
             // number of records
             int totalRow = await query.CountAsync();
@@ -314,10 +314,13 @@ namespace eShopSolution.Application.Catalog.Products
             return await _context.SaveChangesAsync() > 0;
         }
 
+        // save image 
         private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            // create a new name for the image to avoid the same name
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            // save image to user-content
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return fileName;
         }
