@@ -29,15 +29,15 @@
                         <input type="text" class="form-control" value="@ViewBag.Keyword" name="keyword" placeholder="Từ khóa ...">
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                    </div>
-                </form>
-                <form class="row g-3 ms-3" asp-action="Index" method="get">
-                    <div class="col-auto d-none">
-                        <input type="text" class="form-control" value="" name="keyword">
+                        <select name="categoryId" onchange="this.form.submit()" asp-items="@ViewBag.Categories" class="form-control">
+                            <option>--Chọn danh mục--</option>
+                        </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-warning">Xóa tìm kiếm</button>
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" onclick="window.location.href='/product/index'" class="btn btn-warning">Xóa tìm kiếm</button>
                     </div>
                 </form>
             </div>

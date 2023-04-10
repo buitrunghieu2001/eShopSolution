@@ -4,6 +4,7 @@ using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace eShopSolution.AdminApp.Controllers
 {
@@ -11,10 +12,12 @@ namespace eShopSolution.AdminApp.Controllers
     {
         private readonly IProductApiClient _productApiClient;
         private readonly IConfiguration _configuration;
-        public ProductController(IProductApiClient productApiClient, IConfiguration configuration)
+        private readonly ICategoryApiClient _categoryApiClient;
+        public ProductController(IProductApiClient productApiClient, IConfiguration configuration, ICategoryApiClient categoryApiClient)
         {
             _productApiClient = productApiClient;
             _configuration = configuration;
+            _categoryApiClient = categoryApiClient;
         }
 
         [HttpGet]
@@ -32,7 +35,13 @@ namespace eShopSolution.AdminApp.Controllers
             var data = await _productApiClient.GetPagings(request);
             ViewBag.Keyword = keyWord;
 
-
+            var categories = await _categoryApiClient.GetAll(languageId);
+            ViewBag.Categories = categories.Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+                Selected = categoryId.HasValue && categoryId.Value == x.Id
+            });
             if (TempData["result"] != null)
             {
                 ViewBag.SuccessMsg = TempData["result"];

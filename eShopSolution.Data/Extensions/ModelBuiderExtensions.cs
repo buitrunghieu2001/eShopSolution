@@ -110,7 +110,7 @@ namespace eShopSolution.Data.Extensions
                 Email = "admin@gmail.com",
                 NormalizedEmail = "admin@gmail.com",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "admin"),
+                PasswordHash = hasher.HashPassword(null, "Admin123@"),
                 SecurityStamp = string.Empty,
                 FirstName = "Trung",
                 LastName = "Hieu",

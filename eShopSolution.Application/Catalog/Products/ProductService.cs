@@ -131,18 +131,18 @@ namespace eShopSolution.Application.Catalog.Products
             // step 1: select join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        //join pic in _context.ProductInCategories on p.Id equals pic.ProductId
-                        //join c in _context.Categories on pic.CategoryId equals c.Id
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryId equals c.Id
                         where pt.LanguageId == request.LanguageId
-                        select new { p, pt };
+                        select new { p, pt, pic };
             // step 2: filter
             if (!string.IsNullOrEmpty(request.KeyWord))
                 query = query.Where(x => x.pt.Name.Contains(request.KeyWord));
-            
-            //if (request.CategoryId != null && request.CategoryId != 0)
-            //{
-            //    query = query.Where(p => p.pic.CategoryId == request.CategoryId);
-            //}
+
+            if (request.CategoryId != null && request.CategoryId != 0)
+            {
+                query = query.Where(p => p.pic.CategoryId == request.CategoryId);
+            }
             // step 3: paging
             // number of records
             int totalRow = await query.CountAsync();
@@ -161,7 +161,7 @@ namespace eShopSolution.Application.Catalog.Products
                     Price = x.p.Price,
                     SeoAlias = x.pt.SeoAlias,
                     Stock = x.p.Stock,
-                    ViewCount = x.p.ViewCount,
+                    ViewCount = x.p.ViewCount
                 }).ToListAsync();
             //ToListAsync(): chuyển thành một List<Product>
 

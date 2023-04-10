@@ -12,8 +12,8 @@ using eShopSolution.Data.EF;
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    [Migration("20230223064941_update-data")]
-    partial class updatedata
+    [Migration("20230410083436_update-account")]
+    partial class updateaccount
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,7 +268,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9795044c-ed97-4195-98e1-f67eb97fc3d2",
+                            ConcurrencyStamp = "440fc890-ca4c-448a-bced-3e7f7bdf4272",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -277,7 +277,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBy6rAWaoETWNPNI0zoXSpLfIQ11TA1GZA6pyCbT+EeMLbwkiUWRqGyaXgVPI2dGXQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMXzHuZT10rrxUsUn7fQQKfJt+HpXoxonf5Z+zH1FRLiAf5YnNIMXojClg7AeQQhhw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -618,7 +618,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 2, 23, 13, 49, 41, 536, DateTimeKind.Local).AddTicks(970),
+                            DateCreated = new DateTime(2023, 4, 10, 15, 34, 35, 613, DateTimeKind.Local).AddTicks(1001),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
