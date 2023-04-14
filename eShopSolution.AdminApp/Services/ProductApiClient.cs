@@ -21,6 +21,25 @@ namespace eShopSolution.AdminApp.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<ApiResult<bool>> CategoryAssign(int id, CategoryAssignRequest request)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/products/{request.Id}/categories", httpContent);
+            var result = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(result);
+
+            return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(result);
+        }
+
         public async Task<bool> CreateProduct(ProductCreateRequest request)
         {
             var session = _httpContextAccessor.HttpContext.Session.GetString(SystemConstants.AppSettings.Token);
@@ -58,9 +77,15 @@ namespace eShopSolution.AdminApp.Services
             return reponse.IsSuccessStatusCode;
         }
 
-        public Task<PagedResult<ProductVM>> GetPagings(GetManageProductPagingRequest request)
+        public async Task<ProductVM> GetById(int id, string languageId)
         {
-            var data = GetAsync<PagedResult<ProductVM>>($"api/products/paging?pageIndex={request.PageIndex}&pageSize={request.PageSize}&keyword={request.KeyWord}&languageId={request.LanguageId}&categoryId={request.CategoryId}");
+            var data = await GetAsync<ProductVM>($"api/products/{id}/{languageId}");
+            return data;
+        }
+
+        public async Task<PagedResult<ProductVM>> GetPagings(GetManageProductPagingRequest request)
+        {
+            var data = await GetAsync<PagedResult<ProductVM>>($"api/products/paging?pageIndex={request.PageIndex}&pageSize={request.PageSize}&keyword={request.KeyWord}&languageId={request.LanguageId}&categoryId={request.CategoryId}");
             return data;
         }
     }

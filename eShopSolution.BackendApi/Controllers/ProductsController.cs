@@ -1,6 +1,7 @@
 ﻿using eShopSolution.Application.Catalog.Products;
 using eShopSolution.ViewModels.Catalog.ProductImages;
 using eShopSolution.ViewModels.Catalog.Products;
+using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -123,6 +124,21 @@ namespace eShopSolution.BackendApi.Controllers
             if (image == null)
                 return BadRequest("Cannot find product");
             return Ok(image);
+        }
+
+        // /products/id/roles
+        [HttpPut("{id}/categories")]
+        public async Task<IActionResult> RoleAssign(int id, [FromBody] CategoryAssignRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _productService.CategoryAssign(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }
