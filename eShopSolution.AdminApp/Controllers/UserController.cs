@@ -159,12 +159,12 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RoleAssign(RoleAssignRequest request)
+        public async Task<IActionResult> RoleAssign(Guid id, RoleAssignRequest request)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            var result = await _userApiClient.RoleAssign(request);
+            var result = await _userApiClient.RoleAssign(id, request);
 
             if (result.IsSuccessed)
             {

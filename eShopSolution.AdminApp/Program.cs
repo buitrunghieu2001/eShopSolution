@@ -22,7 +22,7 @@ builder.Services.AddControllersWithViews()
 // set time expire session
 builder.Services.AddSession(options =>
 {
-    // Thiết lập thời gian sống của session
+    // Thiết lập thời gian hủy của phiên làm việc khi không có hoạt động
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.IsEssential = true;
 });

@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 using eShopSolution.utilities.Exceptions;
 using eShopSolution.ViewModels.Catalog.Products;
@@ -27,16 +28,19 @@ namespace eShopSolution.Application.System.Users
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _config;
+        private readonly EShopDbContext _context;
 
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager,
-            IConfiguration config)
+            IConfiguration config,
+            EShopDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _config = config;
+            _context = context;
         }
         public async Task<ApiResult<string>> Authenticate(LoginRequest request)
         {
@@ -62,7 +66,7 @@ namespace eShopSolution.Application.System.Users
             var token = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddDays(30),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: creds);
 
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
@@ -163,7 +167,7 @@ namespace eShopSolution.Application.System.Users
             return new ApiErrorResult<bool>("Đăng ký không thành công");
         }
 
-        public async Task<ApiResult<bool>> RoleAssign(RoleAssignRequest request)
+        public async Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request)
         {
             var user = await _userManager.FindByIdAsync(request.Id.ToString());
             if (user == null)
@@ -176,14 +180,14 @@ namespace eShopSolution.Application.System.Users
             {
                 foreach (var role in request.Roles)
                 {
-                    var b = await _userManager.IsInRoleAsync(user, role.Name);
-                    if (role.Selected && !await _userManager.IsInRoleAsync(user, role.Name))
+                    var a = await _userManager.GetRolesAsync(user);
+                    if (role.Selected && !await _userManager.IsInRoleAsync(user, role.Id))
                     {
                         await _userManager.AddToRoleAsync(user, role.Name);
                     }
                     else if (!role.Selected || await _userManager.IsInRoleAsync(user, role.Name))
                     {
-                        var a = await _userManager.RemoveFromRoleAsync(user, role.Name);
+                        await _userManager.RemoveFromRoleAsync(user, role.Name);
                     }
 
                 }
