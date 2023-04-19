@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace eShopSolution.WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class PagesController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<PagesController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public PagesController(ILogger<PagesController> logger)
         {
             _logger = logger;
         }
@@ -18,10 +18,26 @@ namespace eShopSolution.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult SanPham()
         {
             return View();
         }
+
+        public IActionResult VeChungToi()
+        {
+            return View();
+        }
+
+        public IActionResult Blog()
+        {
+            return View();
+        }
+
+        public IActionResult LienHe()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

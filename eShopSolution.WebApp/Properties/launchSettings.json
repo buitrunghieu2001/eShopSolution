@@ -26,6 +26,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "eShopSolution.AdminApp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5003",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
