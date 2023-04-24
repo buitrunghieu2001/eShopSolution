@@ -1,4 +1,6 @@
 ﻿using eShopSolution.WebApp.Models;
+using LazZiya.ExpressLocalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,14 +9,18 @@ namespace eShopSolution.WebApp.Controllers
     public class PagesController : Controller
     {
         private readonly ILogger<PagesController> _logger;
+        private readonly ISharedCultureLocalizer _loc;
 
-        public PagesController(ILogger<PagesController> logger)
+        public PagesController(ILogger<PagesController> logger, ISharedCultureLocalizer loc)
         {
             _logger = logger;
+            _loc = loc;
         }
 
         public IActionResult Index()
         {
+            // get value use key in file .resx
+            var msg = _loc.GetLocalizedString("Vietnamese");
             return View();
         }
 
@@ -43,6 +49,17 @@ namespace eShopSolution.WebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult SetCultureCookie(string cltr, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(cltr)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+                );
+
+            return LocalRedirect(returnUrl);
         }
     }
 }

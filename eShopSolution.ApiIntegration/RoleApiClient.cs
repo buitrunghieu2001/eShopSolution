@@ -1,11 +1,11 @@
 ﻿using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Roles;
-using eShopSolution.ViewModels.System.Users;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using System.Net.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
-namespace eShopSolution.AdminApp.Services
+namespace eShopSolution.ApiIntegration
 {
     public class RoleApiClient : IRoleApiClient
     {

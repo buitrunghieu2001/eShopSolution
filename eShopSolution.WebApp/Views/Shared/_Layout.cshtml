@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+@*2 cách thêm localize: 
+#1: add `localize-content` to attr
+#2: add tag <localize></localize> to both side *@
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,7 +15,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png">
     <!-- Material Design Iconic Font-V2.2.0 -->
     <link rel="stylesheet" href="~/css/material-design-iconic-font.min.css">
     <!-- Font Awesome -->        
@@ -51,7 +59,7 @@
                     <div class="col-lg-3 col-md-4">
                         <div class="header-top-left">
                             <ul class="phone-wrap">
-                                <li><span>Điện thoại:</span><a href="#">(+123) 123 321 345</a></li>
+                                <li><span><localize>Telephone Enquiry</localize>:</span><a href="#">(+123) 123 321 345</a></li>
                             </ul>
                         </div>
                     </div>
@@ -62,19 +70,19 @@
                             <ul class="ht-menu">
                                 <!-- Begin Setting Area -->
                                 <li>
-                                    <div class="ht-setting-trigger"><span>Tùy chọn</span></div>
+                                    <div class="ht-setting-trigger"><span><localize>Setting</localize></span></div>
                                     <div class="setting ht-setting">
                                         <ul class="ht-setting-list">
-                                            <li><a href="login-register.html">Tài khoản</a></li>
-                                            <li><a href="checkout.html">Thanh toán</a></li>
-                                            <li><a href="login-register.html">Đăng nhập</a></li>
+                                            <li><a href="login-register.html"><localize>My Account</localize></a></li>
+                                            <li><a href="checkout.html"><localize>Checkout</localize></a></li>
+                                            <li><a href="login-register.html"><localize>Sign In</localize></a></li>
                                         </ul>
                                     </div>
                                 </li>
                                 <!-- Setting Area End Here -->
                                 <!-- Begin Currency Area -->
                                 <li>
-                                    <span class="currency-selector-wrapper">Tiền tệ :</span>
+                                    <span class="currency-selector-wrapper"><localize>Currency</localize> :</span>
                                     <div class="ht-currency-trigger"><span>USD $</span></div>
                                     <div class="currency ht-currency">
                                         <ul class="ht-setting-list">
@@ -86,14 +94,27 @@
                                 <!-- Currency Area End Here -->
                                 <!-- Begin Language Area -->
                                 <li>
-                                    <span class="language-selector-wrapper">Ngôn ngữ :</span>
-                                    <div class="ht-language-trigger"><span>Tiếng Anh</span></div>
+                                    <span class="language-selector-wrapper"><localize>Language</localize> :</span>
+                                    @*<div class="ht-language-trigger"><span>Vietnamese</span></div>
                                     <div class="language ht-language">
                                         <ul class="ht-setting-list">
-                                            <li class="active"><a href="#"><img src="images/menu/flag-icon/1.jpg" alt="">Tiếng Anh</a></li>
-                                            <li><a href="#"><img src="images/menu/flag-icon/2.jpg" alt="">Tiếng Việt</a></li>
+                                            <li>
+                                                <a href="/vi/Pages/SetCultureCookie?cltr=vi&returnUrl=/vi">
+                                                    <img src="/images/menu/flag-icon/1.jpg" alt="">
+                                                    <localize>Vietnamese</localize>
+                                                </a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="/en/Pages/SetCultureCookie?cltr=en&returnUrl=/en">
+                                                    <img src="/images/menu/flag-icon/2.jpg" alt="" >
+                                                    <localize>English</localize>
+                                                </a>
+                                            </li>
                                         </ul>
-                                    </div>
+                                    </div>*@
+                                    <language-nav language-label="NativeName"
+                                        cookie-handler-url="@(Url.Action("SetCultureCookie", "Pages", new { area= "", cltr="{0}", returnUrl="{1}" }))">
+                                    </language-nav> 
                                 </li>
                                 <!-- Language Area End Here -->
                             </ul>
@@ -112,7 +133,7 @@
                     <div class="col-lg-3">
                         <div class="logo pb-sm-30 pb-xs-30">
                             <a href="index.html">
-                                <img src="images/menu/logo/1.jpg" alt="">
+                                <img src="/images/menu/logo/1.jpg" alt="">
                             </a>
                         </div>
                     </div>
@@ -122,7 +143,7 @@
                         <!-- Begin Header Middle Searchbox Area -->
                         <form action="#" class="hm-searchbox">
                             <select class="nice-select select-search-category">
-                                <option value="0">All</option>
+                                <option value="0" localize-content>All</option>
                                 <option value="10">Laptops</option>
                                 <option value="17">- -  Prime Video</option>
                                 <option value="20">- - - -  All Videos</option>
@@ -222,7 +243,7 @@
                                         <ul class="minicart-product-list">
                                             <li>
                                                 <a href="single-product.html" class="minicart-product-image">
-                                                    <img src="images/product/small-size/5.jpg" alt="cart products">
+                                                    <img src="/images/product/small-size/5.jpg" alt="cart products">
                                                 </a>
                                                 <div class="minicart-product-details">
                                                     <h6><a href="single-product.html">Aenean eu tristique</a></h6>
@@ -234,7 +255,7 @@
                                             </li>
                                             <li>
                                                 <a href="single-product.html" class="minicart-product-image">
-                                                    <img src="images/product/small-size/6.jpg" alt="cart products">
+                                                    <img src="/images/product/small-size/6.jpg" alt="cart products">
                                                 </a>
                                                 <div class="minicart-product-details">
                                                     <h6><a href="single-product.html">Aenean eu tristique</a></h6>
@@ -275,11 +296,11 @@
                         <div class="hb-menu">
                             <nav>
                                 <ul>
-                                    <li><a asp-controller="Pages" asp-action="Index">Trang chủ</a></li>
-                                    <li><a asp-controller="Pages" asp-action="SanPham">Sản phẩm</a></li>
-                                    <li><a asp-controller="Pages" asp-action="Blog">Blog</a></li>
-                                    <li><a asp-controller="Pages" asp-action="VeChungToi">Về chúng tôi</a></li>
-                                    <li><a asp-controller="Pages" asp-action="LienHe">Liên hệ</a></li>
+                                    <li><a asp-controller="Pages" asp-action="Index"><localize>Home</localize></a></li>
+                                    <li><a asp-controller="Pages" asp-action="SanPham"><localize>Shop</localize></a></li>
+                                    <li><a asp-controller="Pages" asp-action="Blog"><localize>Blog</localize></a></li>
+                                    <li><a asp-controller="Pages" asp-action="VeChungToi"><localize>About Us</localize></a></li>
+                                    <li><a asp-controller="Pages" asp-action="LienHe"><localize>Contact</localize></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -318,7 +339,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                             <div class="li-shipping-inner-box">
                                 <div class="shipping-icon">
-                                    <img src="images/shipping-icon/1.png" alt="Shipping Icon">
+                                    <img src="/images/shipping-icon/1.png" alt="Shipping Icon">
                                 </div>
                                 <div class="shipping-text">
                                     <h2>Free Delivery</h2>
@@ -331,7 +352,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                             <div class="li-shipping-inner-box">
                                 <div class="shipping-icon">
-                                    <img src="images/shipping-icon/2.png" alt="Shipping Icon">
+                                    <img src="/images/shipping-icon/2.png" alt="Shipping Icon">
                                 </div>
                                 <div class="shipping-text">
                                     <h2>Safe Payment</h2>
@@ -344,7 +365,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                             <div class="li-shipping-inner-box">
                                 <div class="shipping-icon">
-                                    <img src="images/shipping-icon/3.png" alt="Shipping Icon">
+                                    <img src="/images/shipping-icon/3.png" alt="Shipping Icon">
                                 </div>
                                 <div class="shipping-text">
                                     <h2>Shop with Confidence</h2>
@@ -357,7 +378,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                             <div class="li-shipping-inner-box">
                                 <div class="shipping-icon">
-                                    <img src="images/shipping-icon/4.png" alt="Shipping Icon">
+                                    <img src="/images/shipping-icon/4.png" alt="Shipping Icon">
                                 </div>
                                 <div class="shipping-text">
                                     <h2>24/7 Help Center</h2>
@@ -380,7 +401,7 @@
                         <!-- Begin Footer Logo Area -->
                         <div class="col-lg-4 col-md-6">
                             <div class="footer-logo">
-                                <img src="images/menu/logo/1.jpg" alt="Footer Logo">
+                                <img src="/images/menu/logo/1.jpg" alt="Footer Logo">
                                 <p class="info">
                                     We are a team of designers and developers that create high quality HTML Template & Woocommerce, Shopify Theme.
                                 </p>
@@ -517,7 +538,7 @@
                         <!-- Begin Footer Payment Area -->
                         <div class="copyright text-center">
                             <a href="#">
-                                <img src="images/payment/1.png" alt="">
+                                <img src="/images/payment/1.png" alt="">
                             </a>
                         </div>
                         <!-- Footer Payment Area End Here -->

@@ -2,7 +2,7 @@
 using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Languages;
 
-namespace eShopSolution.AdminApp.Services
+namespace eShopSolution.ApiIntegration
 {
     public interface ICategoryApiClient
     {

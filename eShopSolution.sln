@@ -26,7 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Host", "3. Host", "{BDA71E5C-4960-40A1-8DD7-87B64F718D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.AdminApp", "eShopSolution.AdminApp\eShopSolution.AdminApp.csproj", "{5E8690CA-DDED-4561-9833-DCA5B88773D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.AdminApp", "eShopSolution.AdminApp\eShopSolution.AdminApp.csproj", "{5E8690CA-DDED-4561-9833-DCA5B88773D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.ApiIntegration", "eShopSolution.ApiIntegration\eShopSolution.ApiIntegration.csproj", "{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{5E8690CA-DDED-4561-9833-DCA5B88773D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E8690CA-DDED-4561-9833-DCA5B88773D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E8690CA-DDED-4561-9833-DCA5B88773D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{BF35A7CF-D3FF-48FD-A2D7-5FB5AC2B1B4C} = {D1B837A6-3682-4D2E-B3CF-F1A3C424F6A8}
 		{75A8AAE9-B807-40EF-B89F-3BA8A76520DD} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
 		{5E8690CA-DDED-4561-9833-DCA5B88773D9} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
+		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28D4B817-24C8-4B75-B5F5-DF24C2E251BE}

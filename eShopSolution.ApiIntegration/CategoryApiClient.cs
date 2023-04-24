@@ -1,9 +1,8 @@
 ﻿using eShopSolution.ViewModels.Catalog.Categories;
-using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Languages;
-using System.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
-namespace eShopSolution.AdminApp.Services
+namespace eShopSolution.ApiIntegration
 {
     public class CategoryApiClient : BaseApiClient, ICategoryApiClient
     {

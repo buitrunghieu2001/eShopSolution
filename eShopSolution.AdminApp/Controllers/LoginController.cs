@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using eShopSolution.ViewModels.System.Users;
-using eShopSolution.AdminApp.Services;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using eShopSolution.Utilities.Constants;
+using eShopSolution.ApiIntegration;
 
 namespace eShopSolution.AdminApp.Controllers
 {

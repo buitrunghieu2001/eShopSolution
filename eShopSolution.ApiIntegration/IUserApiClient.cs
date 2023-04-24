@@ -2,7 +2,7 @@
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace eShopSolution.AdminApp.Services
+namespace eShopSolution.ApiIntegration
 {
     public interface IUserApiClient
     {
