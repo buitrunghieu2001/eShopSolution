@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.WebApp", "eShopSolution.WebApp\eShopSolution.WebApp.csproj", "{7C40307C-3603-4FDC-A642-03C09CFC6C03}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Data", "eShopSolution.Data\eShopSolution.Data.csproj", "{6BDBDBB2-772B-4FB8-91C0-9A1A7A38F9F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Application", "eShopSolution.Application\eShopSolution.Application.csproj", "{10132630-8E16-4485-BF09-77738EDC2329}"
@@ -28,7 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Host", "3. Host", "{BDA7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.AdminApp", "eShopSolution.AdminApp\eShopSolution.AdminApp.csproj", "{5E8690CA-DDED-4561-9833-DCA5B88773D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.ApiIntegration", "eShopSolution.ApiIntegration\eShopSolution.ApiIntegration.csproj", "{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.ApiIntegration", "eShopSolution.ApiIntegration\eShopSolution.ApiIntegration.csproj", "{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.WebApp", "WebApplication2\eShopSolution.WebApp.csproj", "{D35271B9-BA45-4B86-8896-6AA561B57524}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +36,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7C40307C-3603-4FDC-A642-03C09CFC6C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C40307C-3603-4FDC-A642-03C09CFC6C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C40307C-3603-4FDC-A642-03C09CFC6C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C40307C-3603-4FDC-A642-03C09CFC6C03}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BDBDBB2-772B-4FB8-91C0-9A1A7A38F9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BDBDBB2-772B-4FB8-91C0-9A1A7A38F9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BDBDBB2-772B-4FB8-91C0-9A1A7A38F9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,12 +64,15 @@ Global
 		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35271B9-BA45-4B86-8896-6AA561B57524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35271B9-BA45-4B86-8896-6AA561B57524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35271B9-BA45-4B86-8896-6AA561B57524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35271B9-BA45-4B86-8896-6AA561B57524}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7C40307C-3603-4FDC-A642-03C09CFC6C03} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
 		{6BDBDBB2-772B-4FB8-91C0-9A1A7A38F9F0} = {5D479F07-D64D-41AD-B77A-3D20831B15FA}
 		{10132630-8E16-4485-BF09-77738EDC2329} = {5D479F07-D64D-41AD-B77A-3D20831B15FA}
 		{7465560E-D018-48B2-87B8-CA523E5DB469} = {D1B837A6-3682-4D2E-B3CF-F1A3C424F6A8}
@@ -81,6 +80,7 @@ Global
 		{75A8AAE9-B807-40EF-B89F-3BA8A76520DD} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
 		{5E8690CA-DDED-4561-9833-DCA5B88773D9} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
 		{9F1ACF0C-C7D7-40EA-BD7B-6B9D0C1E211D} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
+		{D35271B9-BA45-4B86-8896-6AA561B57524} = {BDA71E5C-4960-40A1-8DD7-87B64F718D2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28D4B817-24C8-4B75-B5F5-DF24C2E251BE}

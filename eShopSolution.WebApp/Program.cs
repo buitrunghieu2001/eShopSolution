@@ -1,12 +1,32 @@
-// file main, first start
+﻿// file main, first start
 
+using eShopSolution.ApiIntegration;
 using eShopSolution.WebApp.LocalizationResources;
 using LazZiya.ExpressLocalization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Globalization;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient();
+
+// set time expire session
+builder.Services.AddSession(options =>
+{
+    // Thiết lập thời gian hủy của phiên làm việc khi không có hoạt động
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddTransient<ISlideApiClient, SlideApiClient>();
+builder.Services.AddTransient<IProductApiClient, ProductApiClient>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -49,6 +69,8 @@ builder.Services.AddControllersWithViews()
         };
     });
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,6 +87,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 app.UseRequestLocalization();
 app.MapControllerRoute(
     name: "default",

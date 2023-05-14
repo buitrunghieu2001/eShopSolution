@@ -265,7 +265,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "440fc890-ca4c-448a-bced-3e7f7bdf4272",
+                            ConcurrencyStamp = "34f9b521-0699-4766-b0be-80dce7d1ca9f",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -274,7 +274,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMXzHuZT10rrxUsUn7fQQKfJt+HpXoxonf5Z+zH1FRLiAf5YnNIMXojClg7AeQQhhw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI/JswPShoWKimun7NFwiGDABGSQ7X78FXB/9VjsNcrpQyL65NzSApa460ESQ5Dg8g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -591,6 +591,9 @@ namespace eShopSolution.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -615,7 +618,8 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 4, 10, 15, 34, 35, 613, DateTimeKind.Local).AddTicks(1001),
+                            DateCreated = new DateTime(2023, 5, 7, 19, 1, 3, 784, DateTimeKind.Local).AddTicks(8092),
+                            IsFeatured = true,
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -699,8 +703,7 @@ namespace eShopSolution.Data.Migrations
 
                     b.Property<string>("Details")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LanguageId")
                         .IsRequired()
@@ -805,6 +808,83 @@ namespace eShopSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Promotions", (string)null);
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.Slide", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Slides", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Work Desk Surface Studio 2023",
+                            Image = "images/slider/2.jpg",
+                            Name = "Black Friday",
+                            Price = 824.0,
+                            SortOrder = 1,
+                            Status = 1,
+                            Url = "shop-left-sidebar.html"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Work Desk Surface Studio 2023",
+                            Image = "images/slider/1.jpg",
+                            Name = "Black Friday",
+                            Price = 824.0,
+                            SortOrder = 1,
+                            Status = 1,
+                            Url = "shop-left-sidebar.html"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Phantom 4 Pro+ Obsidian",
+                            Image = "images/slider/3.jpg",
+                            Name = "-10% Off",
+                            Price = 1849.0,
+                            SortOrder = 1,
+                            Status = 1,
+                            Url = "shop-left-sidebar.html"
+                        });
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Transaction", b =>
