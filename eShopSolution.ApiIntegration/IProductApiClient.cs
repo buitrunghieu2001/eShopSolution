@@ -8,6 +8,7 @@ namespace eShopSolution.ApiIntegration
     {
         Task<PagedResult<ProductVM>> GetPagings(GetManageProductPagingRequest request);
         Task<bool> CreateProduct(ProductCreateRequest request);
+        Task<bool> UpdateProduct(ProductUpdateRequest request);
         Task<ApiResult<bool>> CategoryAssign(int id, CategoryAssignRequest request);
         Task<ProductVM> GetById(int id, string languageId);
         Task<List<ProductVM>> GetFeaturedProducts(string languageId, int take);
