@@ -87,7 +87,36 @@ app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
 app.MapControllerRoute(
+    name: "Product Category en-US",
+    pattern: "{culture}/categories/{id}", new
+    {
+        controller = "Product",
+        action = "Category"
+    });
+app.MapControllerRoute(
+    name: "Product Category vi-VN",
+    pattern: "{culture}/danh-muc/{id}", new
+    {
+        controller = "Product",
+        action = "Category"
+    });
+app.MapControllerRoute(
+    name: "Product Detail en-US",
+    pattern: "{culture}/products/{id}", new
+    {
+        controller = "Product",
+        action = "Detail"
+    });
+app.MapControllerRoute(
+    name: "Product Detail vi-VN",
+    pattern: "{culture}/san-pham/{id}", new
+    {
+        controller = "Product",
+        action = "Detail"
+    });
+app.MapControllerRoute(
     name: "default",
-    pattern: "{culture=vi}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{culture=vi-VN}/{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

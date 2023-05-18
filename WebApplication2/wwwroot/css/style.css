@@ -2106,7 +2106,6 @@ textarea:focus {
 	color: #c8c8c8;
 	cursor: pointer;
 	display: inline-block;
-	font-family: 'Rubik', sans-serif;
 	font-size: 20px;
 	font-weight: 500;
 	line-height: 18px;
@@ -2131,11 +2130,6 @@ textarea:focus {
   position: relative;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 300ms ease-in 0s;
-}
-.single-product-wrap:hover {
-  margin: 0 0 -75px;
-  padding: 0 0 75px;
-  z-index: 9;
 }
 .single-product-wrap.mt-40:hover {
   margin: 40px 0 -85px;
