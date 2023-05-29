@@ -83,6 +83,19 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+//cho phép tất cả web đều có thể đọc được API
+builder.Services.AddCors(option =>
+{
+    option.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
+builder.Services.AddControllers();
+
+
 string issuer = builder.Configuration.GetValue<string>("Tokens:Issuer");
 string signingKey = builder.Configuration.GetValue<string>("Tokens:Key");
 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
@@ -133,7 +146,7 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
 });
 
-
+app.UseCors();
 
 app.MapControllerRoute(
     name: "default",

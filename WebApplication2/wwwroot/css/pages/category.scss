@@ -1,0 +1,47 @@
+﻿body {
+    .product-layout-list {
+        margin-top: 20px;
+        min-height: 300px;
+    }
+
+    .categori-checkbox ul li {
+        color: #fed700;
+        cursor: pointer;
+
+        i.no-star {
+            color: #e3e3e3;
+        }
+
+        span {
+            color: #363f4d;
+            font-size: 16px;
+            margin-left: 15px;
+            margin-top: 0;
+        }
+    }
+
+    .product_desc {
+        .product_desc_info {
+            p {
+                display: -webkit-box;
+                -webkit-line-clamp: 6; /* Số dòng hiển thị tối đa */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .price-box {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .new-price {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .paginatoin-area {
+        border: unset;
+    }
+}

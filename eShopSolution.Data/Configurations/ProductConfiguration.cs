@@ -28,6 +28,8 @@ namespace eShopSolution.Data.Configurations
 
             builder.Property(x => x.IsFeatured).IsRequired();
 
+            builder.Property(x => x.Rating).IsRequired().HasDefaultValue(5);
+
         }
 
     }

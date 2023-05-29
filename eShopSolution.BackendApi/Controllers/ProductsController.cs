@@ -23,6 +23,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpGet("paging")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllPaging([FromQuery]GetManageProductPagingRequest request)
         {
             var products = await _productService.GetAllPaging(request);
@@ -57,7 +58,7 @@ namespace eShopSolution.BackendApi.Controllers
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
+        public async Task<IActionResult> CreateProduct([FromForm] ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -72,7 +73,7 @@ namespace eShopSolution.BackendApi.Controllers
 
         [HttpPut("{productId}")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Update([FromRoute] int productId, [FromForm] ProductUpdateRequest request)
+        public async Task<IActionResult> UpdateProduct([FromRoute] int productId, [FromForm] ProductUpdateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +87,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpDelete("{productId}")]
-        public async Task<IActionResult> Delete(int productId)
+        public async Task<IActionResult> DeleteProduct(int productId)
         {
             var affectedResult = await _productService.Delete(productId);
             if (affectedResult == 0) 
@@ -146,7 +147,7 @@ namespace eShopSolution.BackendApi.Controllers
 
         // /products/id/roles
         [HttpPut("{id}/categories")]
-        public async Task<IActionResult> RoleAssign(int id, [FromBody] CategoryAssignRequest request)
+        public async Task<IActionResult> CategoryAssign(int id, [FromBody] CategoryAssignRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -165,6 +165,14 @@
     <value>Language</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Latest Products" xml:space="preserve">
+    <value>Latest Products</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="List of product" xml:space="preserve">
+    <value>List of product</value>
+    <comment>Product/Category</comment>
+  </data>
   <data name="My Account" xml:space="preserve">
     <value>My Account</value>
     <comment>_Layout.cshtml</comment>

@@ -13,11 +13,13 @@ namespace eShopSolution.Data.Entities
         public decimal OriginalPrice { get; set; }
         public int Stock { get; set; }
         public int ViewCount { get; set; }
+        public int Rating { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsFeatured { get; set; }
         public List<ProductInCategory> ProductInCategories { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
         public List<Cart> Carts { get; set; }
+        public List<ProductReview> ProductReviews { get; set; }
         public List<ProductTranslation> ProductTranslations { get; set; }
         public List<ProductImage> ProductImages { get; set; }
     }

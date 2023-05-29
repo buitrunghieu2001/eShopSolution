@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.EF;
 
@@ -11,13 +12,15 @@ using eShopSolution.Data.EF;
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524171216_create_productReview")]
+    partial class create_productReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -265,7 +268,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44f43d4a-7650-4dbc-a597-71a501143f28",
+                            ConcurrencyStamp = "806ca3df-64f6-41fd-abc0-0a5d1212486d",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -274,7 +277,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE8sAZ0udEglD/VZkT4z7XSErjVHq00nGeL+Azl/O4oEZrMaf+UELjYGmJPpkoMnIQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFJ2x8ImoqZA2Jrg9HQ0ar7TAgNN2huJR2qUBI4HcMdXo7eu7vf5VXqk5CsFeLUoSA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -600,11 +603,6 @@ namespace eShopSolution.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Rating")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(5);
-
                     b.Property<int>("Stock")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -623,11 +621,10 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 5, 26, 16, 39, 43, 499, DateTimeKind.Local).AddTicks(6188),
+                            DateCreated = new DateTime(2023, 5, 25, 0, 12, 15, 896, DateTimeKind.Local).AddTicks(8766),
                             IsFeatured = true,
                             OriginalPrice = 100000m,
                             Price = 200000m,
-                            Rating = 0,
                             Stock = 0,
                             ViewCount = 0
                         });

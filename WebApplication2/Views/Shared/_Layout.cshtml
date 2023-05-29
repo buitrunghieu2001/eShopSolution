@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="~/css/style.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/css/responsive.css">
+    @await RenderSectionAsync("Styles", required: false)
     <!-- Modernizr js -->
     <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -86,8 +87,8 @@
                                     <div class="ht-currency-trigger"><span>USD $</span></div>
                                     <div class="currency ht-currency">
                                         <ul class="ht-setting-list">
-                                            <li><a href="#">VND đ</a></li>
-                                            <li class="active"><a href="#">USD $</a></li>
+                                            <li class="active"><a href="#">VND đ</a></li>
+                                            <li><a href="#">USD $</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -95,26 +96,24 @@
                                 <!-- Begin Language Area -->
                                 <li>
                                     <span class="language-selector-wrapper"><localize>Language</localize> :</span>
-                                    @*<div class="ht-language-trigger"><span>Vietnamese</span></div>
+                                    <div class="ht-language-trigger"><span localize-content>Vietnamese</span></div>
                                     <div class="language ht-language">
                                         <ul class="ht-setting-list">
                                             <li>
-                                                <a href="/vi/Home/SetCultureCookie?cltr=vi&returnUrl=/vi">
+                                                <a href="/vi-VN/Home/SetCultureCookie?cltr=vi&returnUrl=/vi-VN">
                                                     <img src="/images/menu/flag-icon/1.jpg" alt="">
                                                     <localize>Vietnamese</localize>
                                                 </a>
                                             </li>
-                                            <li class="active">
-                                                <a href="/en/Home/SetCultureCookie?cltr=en&returnUrl=/en">
+                                            <li>
+                                                <a href="/en-US/Home/SetCultureCookie?cltr=en&returnUrl=/en-US">
+                                                <a href="/en-US/Home/SetCultureCookie?cltr=en&returnUrl=/en-US">
                                                     <img src="/images/menu/flag-icon/2.jpg" alt="" >
                                                     <localize>English</localize>
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>*@
-                                    <language-nav language-label="NativeName"
-                                        cookie-handler-url="@(Url.Action("SetCultureCookie", "Home", new { area= "", cltr="{0}", returnUrl="{1}" }))">
-                                    </language-nav> 
+                                    </div>
                                 </li>
                                 <!-- Language Area End Here -->
                             </ul>
@@ -297,7 +296,7 @@
                             <nav>
                                 <ul>
                                     <li><a asp-controller="Home" asp-action="Index"><localize>Home</localize></a></li>
-                                    <li><a asp-controller="Home" asp-action="SanPham"><localize>Shop</localize></a></li>
+                                    <li><a asp-controller="product" asp-action="category"><localize>Shop</localize></a></li>
                                     <li><a asp-controller="Home" asp-action="Blog"><localize>Blog</localize></a></li>
                                     <li><a asp-controller="Home" asp-action="VeChungToi"><localize>About Us</localize></a></li>
                                     <li><a asp-controller="Home" asp-action="LienHe"><localize>Contact</localize></a></li>
@@ -595,6 +594,7 @@
     <script src="~/js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="~/js/main.js"></script>
+    <script src="~/js/pages/app.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

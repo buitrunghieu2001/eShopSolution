@@ -165,6 +165,14 @@
     <value>Ngôn ngữ</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Latest Products" xml:space="preserve">
+    <value>Sản phẩm mới</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="List of product" xml:space="preserve">
+    <value>Danh sách sản phẩm</value>
+    <comment>Product/Category</comment>
+  </data>
   <data name="My Account" xml:space="preserve">
     <value>Tài khoản</value>
     <comment>_Layout.cshtml</comment>

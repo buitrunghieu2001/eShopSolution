@@ -45,11 +45,6 @@ namespace eShopSolution.WebApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult SanPham()
-        {
-            return View();
-        }
-
         public IActionResult VeChungToi()
         {
             return View();

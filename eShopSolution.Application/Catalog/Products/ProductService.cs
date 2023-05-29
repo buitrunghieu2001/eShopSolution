@@ -151,10 +151,14 @@ namespace eShopSolution.Application.Catalog.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
                         from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
+                        from pi in ppi.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId
-                        select new { p, pt, pic };
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
+                        from ct in piccct.DefaultIfEmpty()
+                        where pt.LanguageId == request.LanguageId && ct.LanguageId == request.LanguageId && (pi == null || pi.IsDefault == true)
+                        select new { p, pt, pic, pi, ct };
             // step 2: filter
             if (!string.IsNullOrEmpty(request.KeyWord))
                 query = query.Where(x => x.pt.Name.Contains(request.KeyWord));
@@ -179,11 +183,14 @@ namespace eShopSolution.Application.Catalog.Products
                     LanguageId = x.pt.LanguageId,
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
+                    Rating = x.p.Rating,
                     SeoAlias = x.pt.SeoAlias,
                     SeoDescription = x.pt.SeoDescription,
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
-                    ViewCount = x.p.ViewCount
+                    ViewCount = x.p.ViewCount,
+                    ThumbnailImage = x.pi.ImagePath,
+                    Categories = new List<string>() { x.ct.Name }
                 }).ToListAsync();
             //ToListAsync(): chuyển thành một List<Product>
 
@@ -473,8 +480,10 @@ namespace eShopSolution.Application.Catalog.Products
                         from pi in ppi.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
-                        where pt.LanguageId == languageId && (pi == null || pi.IsDefault == true)
-                        select new { p, pt, pic, pi };
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
+                        from ct in piccct.DefaultIfEmpty()
+                        where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true)
+                        select new { p, pt, pic, pi, ct };
 
             var data = await query.OrderByDescending(x => x.p.DateCreated).Take(take)
                 .Select(x => new ProductVM()
@@ -492,7 +501,8 @@ namespace eShopSolution.Application.Catalog.Products
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
-                    ThumbnailImage = x.pi.ImagePath
+                    ThumbnailImage = x.pi.ImagePath,
+                    Categories = new List<string>() { x.ct.Name }
                 }).ToListAsync();
 
             return data;
