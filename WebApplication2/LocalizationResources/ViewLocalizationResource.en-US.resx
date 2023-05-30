@@ -149,6 +149,10 @@
     <value>Currency</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+    <comment>Product/Detail</comment>
+  </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
     <comment>_Layout.cshtml</comment>
@@ -181,9 +185,17 @@
     <value>New</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Product Details" xml:space="preserve">
+    <value>Product details</value>
+    <comment>Product/Detail</comment>
+  </data>
   <data name="productUrl" xml:space="preserve">
     <value>product</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Reviews</value>
+    <comment>Product/Detail</comment>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.Data.Configurations
 {
-    public class ProductReviewConfiguration : IEntityTypeConfiguration
+    public class ProductReviewConfiguration : IEntityTypeConfiguration<ProductReview>
     {
         public void Configure(EntityTypeBuilder<ProductReview> builder)
         {
@@ -18,17 +18,9 @@ namespace eShopSolution.Data.Configurations
             // khóa chính
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-
             builder.Property(x => x.Content).HasMaxLength(400);
-
-            // khóa ngoại
-            builder.HasOne(x => x.Product)
-                .WithMany(x => x.ProductReviews)
-                .HasForeignKey(x => x.ProductId);
-
-            builder.HasOne(x => x.AppUser)
-                .WithMany(x => x.ProductReviews)
-                .HasForeignKey(x => x.UserId);
+            builder.Property(x => x.Email).HasMaxLength(100);
+            builder.Property(x => x.PhoneNumber).HasMaxLength(10);
         }
     }
 }

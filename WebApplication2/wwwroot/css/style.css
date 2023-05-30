@@ -73,7 +73,6 @@
 /*----------------------------------------*/
 body {
 	color: #242424;
-	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: normal;
@@ -2289,11 +2288,13 @@ textarea:focus {
 	float: right;
 	color: #e80f0f;
 }
- .product_desc .product_desc_info .old-price {
-  color: #666;
-  font-size: 14px;
-  font-weight: 400;
-  text-decoration: line-through;
+
+.old-price, 
+.product_desc .product_desc_info .old-price {
+	color: #666;
+	font-size: 14px;
+	font-weight: 400;
+	text-decoration: line-through;
 }
 .product_desc .product_desc_info .price-box {
   line-height: 1;

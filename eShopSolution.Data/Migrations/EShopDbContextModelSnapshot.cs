@@ -265,7 +265,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44f43d4a-7650-4dbc-a597-71a501143f28",
+                            ConcurrencyStamp = "347a6dc0-8918-4a42-bf2d-d34be1db36da",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -274,7 +274,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE8sAZ0udEglD/VZkT4z7XSErjVHq00nGeL+Azl/O4oEZrMaf+UELjYGmJPpkoMnIQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEPpC0yk+y75QYI+Xh100zwTsWlC8RGDJtJJ8sWWb8qyOUQSW6Lyas6tGUts2ub9Xw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -623,7 +623,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 5, 26, 16, 39, 43, 499, DateTimeKind.Local).AddTicks(6188),
+                            DateCreated = new DateTime(2023, 5, 29, 19, 40, 22, 985, DateTimeKind.Local).AddTicks(8316),
                             IsFeatured = true,
                             OriginalPrice = 100000m,
                             Price = 200000m,
@@ -703,11 +703,9 @@ namespace eShopSolution.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("AppUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -715,8 +713,21 @@ namespace eShopSolution.Data.Migrations
                     b.Property<DateTime>("DateUpdate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -724,16 +735,12 @@ namespace eShopSolution.Data.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductReview");
+                    b.ToTable("ProductReviews", (string)null);
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.ProductTranslation", b =>
@@ -855,6 +862,46 @@ namespace eShopSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Promotions", (string)null);
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.ReviewImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewImages", (string)null);
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Slide", b =>
@@ -1078,25 +1125,6 @@ namespace eShopSolution.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("eShopSolution.Data.Entities.ProductReview", b =>
-                {
-                    b.HasOne("eShopSolution.Data.Entities.AppUser", "AppUser")
-                        .WithMany("ProductReviews")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eShopSolution.Data.Entities.Product", "Product")
-                        .WithMany("ProductReviews")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("eShopSolution.Data.Entities.ProductTranslation", b =>
                 {
                     b.HasOne("eShopSolution.Data.Entities.Language", "Language")
@@ -1116,6 +1144,17 @@ namespace eShopSolution.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("eShopSolution.Data.Entities.ReviewImage", b =>
+                {
+                    b.HasOne("eShopSolution.Data.Entities.ProductReview", "ProductReview")
+                        .WithMany("ReviewImage")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductReview");
+                });
+
             modelBuilder.Entity("eShopSolution.Data.Entities.Transaction", b =>
                 {
                     b.HasOne("eShopSolution.Data.Entities.AppUser", "AppUser")
@@ -1132,8 +1171,6 @@ namespace eShopSolution.Data.Migrations
                     b.Navigation("Carts");
 
                     b.Navigation("Orders");
-
-                    b.Navigation("ProductReviews");
 
                     b.Navigation("Transactions");
                 });
@@ -1167,9 +1204,12 @@ namespace eShopSolution.Data.Migrations
 
                     b.Navigation("ProductInCategories");
 
-                    b.Navigation("ProductReviews");
-
                     b.Navigation("ProductTranslations");
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.ProductReview", b =>
+                {
+                    b.Navigation("ReviewImage");
                 });
 #pragma warning restore 612, 618
         }

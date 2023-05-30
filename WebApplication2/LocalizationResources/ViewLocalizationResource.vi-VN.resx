@@ -149,6 +149,10 @@
     <value>Tiền tệ</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+    <comment>Product/Detail</comment>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Tiếng Anh</value>
     <comment>_Layout.cshtml</comment>
@@ -181,9 +185,17 @@
     <value>Mới</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Product Details" xml:space="preserve">
+    <value>Chi tiết sản phẩm</value>
+    <comment>Product/Detail</comment>
+  </data>
   <data name="productUrl" xml:space="preserve">
     <value>san-pham</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Nhận xét</value>
+    <comment>Product/Detail</comment>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>Cài đặt</value>

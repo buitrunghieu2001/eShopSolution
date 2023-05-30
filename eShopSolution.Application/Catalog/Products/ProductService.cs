@@ -153,12 +153,9 @@ namespace eShopSolution.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
-                        join c in _context.Categories on pic.CategoryId equals c.Id into picc
-                        from c in picc.DefaultIfEmpty()
-                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
-                        from ct in piccct.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId && ct.LanguageId == request.LanguageId && (pi == null || pi.IsDefault == true)
-                        select new { p, pt, pic, pi, ct };
+                        where pt.LanguageId == request.LanguageId && (pi == null || pi.IsDefault == true)
+                        select new { p, pt, pic, pi };
+
             // step 2: filter
             if (!string.IsNullOrEmpty(request.KeyWord))
                 query = query.Where(x => x.pt.Name.Contains(request.KeyWord));
@@ -190,7 +187,6 @@ namespace eShopSolution.Application.Catalog.Products
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
-                    Categories = new List<string>() { x.ct.Name }
                 }).ToListAsync();
             //ToListAsync(): chuyển thành một List<Product>
 
@@ -214,7 +210,7 @@ namespace eShopSolution.Application.Catalog.Products
                               join pic in _context.ProductInCategories on c.Id equals pic.CategoryId
                               where pic.ProductId == productId && ct.LanguageId == languageId
                               select ct.Name).ToList();
-
+            var thumbnailImage = await _context.ProductImages.FirstOrDefaultAsync(x => x.ProductId == productId && x.IsDefault == true);
             var productViewModel = new ProductVM()
             {
                 Id = product.Id,
@@ -229,8 +225,10 @@ namespace eShopSolution.Application.Catalog.Products
                 SeoDescription = productTranslation != null ? productTranslation.SeoDescription : null,
                 SeoTitle = productTranslation != null ? productTranslation.SeoTitle : null,
                 Stock = product.Stock,
+                Rating = product.Rating,
                 ViewCount = product.ViewCount,
-                Categories = categories
+                Categories = categories,
+                ThumbnailImage = thumbnailImage != null ? thumbnailImage.ImagePath : null
             };
             return productViewModel;
         }

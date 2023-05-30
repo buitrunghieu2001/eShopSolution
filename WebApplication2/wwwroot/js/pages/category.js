@@ -79,7 +79,7 @@ var category = (function () {
                                         <h4><a class="product_name" href="single-product.html">${i.name}</a></h4>
                                         <div class="price-box">
                                             <span class="old-price">${app.fmnumber(i.price)} VND</span>
-                                            <span class="new-price">${app.fmnumber(i.originalPrice)} VND</span>
+                                            <span class="new-price new-price-2">${app.fmnumber(i.originalPrice)} VND</span>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@ var category = (function () {
                                                     <h4><a class="product_name" href="${mol.o}/vi-VN/san-pham/${i.id}">${i.name}</a></h4>
                                                     <div class="price-box">
                                                         <span class="old-price">${app.fmnumber(i.price)} VND</span>
-                                                        <span class="new-price">${app.fmnumber(i.originalPrice)} VND</span>
+                                                        <span class="new-price new-price-2">${app.fmnumber(i.originalPrice)} VND</span>
                                                     </div>
                                                     <p>${i.description}</p>
                                                 </div>

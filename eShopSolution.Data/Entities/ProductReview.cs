@@ -10,15 +10,15 @@ namespace eShopSolution.Data.Entities
     {
         public int Id { set; get; }
         public int ProductId { set; get; }
+        public Guid? UserId { get; set; }
         public string? Content { set; get; }
         public int Rating { set; get; }
         public bool IsApproved { set; get; }
-        public Guid UserId { get; set; }
-
-        public Product? Product { get; set; }
-
+        public string Name { get; set; }
+        public string? Email { get; set; }
+        public string PhoneNumber { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdate { get; set; }
-        public AppUser AppUser { get; set; }
+        public List<ReviewImage> ReviewImage { get; set; }
     }
 }
