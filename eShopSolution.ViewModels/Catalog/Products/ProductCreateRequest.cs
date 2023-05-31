@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using eShopSolution.ViewModels.Catalog.Categories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,7 +26,7 @@ namespace eShopSolution.ViewModels.Catalog.Products
         public string? SeoAlias { get; set; }
         public string? LanguageId { set; get; }
         public bool? IsFeatured { get; set; }
-
+        public int CategoryId { get; set; }
         public IFormFile? ThumbnailImage { get; set; }
     }
 }
