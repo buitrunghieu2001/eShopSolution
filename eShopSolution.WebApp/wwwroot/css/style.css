@@ -1,4 +1,4 @@
-/*-----------------------------------------------------------------------------------
+﻿/*-----------------------------------------------------------------------------------
 		Template Name: limupa - Digital Products Store ECommerce Bootstrap 4 Template
 		Template URI: http://bootexperts.com
 		Description: This is digital products store html5 template for eCommerce websites, nice and clean design;
@@ -73,7 +73,6 @@
 /*----------------------------------------*/
 body {
 	color: #242424;
-	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: normal;
@@ -160,7 +159,7 @@ p {
 	font-size: 14px;
 	font-weight: normal;
 	line-height: 24px;
-	color: #898989;
+	color: #868686;
 	margin-bottom: 15px;
 }
 hr {
@@ -331,8 +330,18 @@ button.li-btn:hover {
 	background: #333333;
 	color: #ffffff;
 }
-a.links, 
-a.links-2, 
+
+button.btn.btn-custom {
+	width: 100%;
+	background-color: #fedf33;
+	color: #3c3b32;
+	font-weight: 500;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+a.links,
+a.links-2,
 a.review-links {
 	background: #fed700 none repeat scroll 0 0;
 	color: #242424;
@@ -397,7 +406,7 @@ a.review-links:hover {
 /*----------------------------------------*/
 input {
 	background: #eceff8;
-	border: 2px solid #eceff8;
+	border: 1px solid #eceff8;
 	height: 45px;
 	box-shadow: none;
 	padding-left: 10px;
@@ -405,10 +414,21 @@ input {
 	color: #626262;
 	width: 100%;
 }
+
+.price-range input {
+	height: 34px;
+	border-radius: .2rem;
+}
+
+.price-range .input-group-text {
+	border: unset;
+	background-color: unset;
+}
+
 select {
 	width: 100%;
 	background: #eceff8;
-	border: 2px solid #eceff8;
+	border: 1px solid #eceff8;
 	height: 45px;
 	padding-left: 10px;
 	box-shadow: none;
@@ -423,7 +443,6 @@ option {
 }
 input:focus {
 	background: transparent;
-	border: none;
 	outline: none;
 }
 textarea {
@@ -540,7 +559,7 @@ textarea:focus {
 .slider-active .owl-item.active .slider-progress {
 	-webkit-animation: 5000ms ease-in-out 0s normal none 1 running timebar;
 	animation: 10000ms ease-in-out 0s normal none 1 running timebar;
-	background: rgba(0, 0, 0, .3);
+	background: rgb(255 255 255 / 75%) ;
 	height: 5px;
 	left: 0;
 	opacity: 0.8;
@@ -655,8 +674,8 @@ textarea:focus {
 /*----------------------------------------*/
 /*  1.10 All Navigation & Pagination
 /*----------------------------------------*/
-.slider-active .owl-nav div, 
-.product-active .owl-nav div, 
+.slider-active .owl-nav div,
+.product-active .owl-nav div,
 .special-product-active .owl-nav div {
 	color: rgba(36,36,36,.15);
 	display: block;
@@ -670,6 +689,8 @@ textarea:focus {
 	-webkit-transition: all 0.5s ease-in-out 0s;
 	transition: all 0.5s ease-in-out 0s;
 	z-index: 8;
+	color: #fff;
+	padding: 12px;
 }
 .slider-active .owl-nav div:hover, 
 .product-active .owl-nav div:hover {
@@ -689,7 +710,7 @@ textarea:focus {
 	left: auto;
 }
 .slider-active .owl-nav > .owl-prev > i,
-.product-active .owl-nav > .owl-prev > i, 
+.product-active .owl-nav > .owl-prev > i,
 .slider-active .owl-nav > .owl-next > i,
 .product-active .owl-nav > .owl-next > i {
 	font-size: 55px;
@@ -1462,7 +1483,7 @@ textarea:focus {
 	position: relative;
 }
 .select-search-category ul.list {
-	height: 440px;
+	max-height: 440px;
 	overflow-y: auto;
 	overscroll-behavior-x: none;
 }
@@ -1530,7 +1551,7 @@ textarea:focus {
 		cursor: pointer;
 		display: block;
 		position: relative;
-		padding: 0 15px 0 55px;
+		padding: 0 15px 0 28px;
 }
 .item-icon::before {
 		content: "\f291";
@@ -1546,19 +1567,10 @@ textarea:focus {
 		line-height: 45px;
 		font-weight: 500;
 }
-.item-text::before {
-		content: "";
-		position: absolute;
-		left: -10px;
-		height: 22px;
-		width: 1px;
-		background: rgba(255,255,255,.3);
-		top: -3px;
-}
 .cart-item-count {
 		position: absolute;
-		top: -25px;
-		left: -60px;
+		top: -12px;
+		left: -38px;
 		display: block;
 		overflow: hidden;
 		min-width: 26px;
@@ -1582,7 +1594,7 @@ textarea:focus {
 	display: none;
 	border: 1px solid #e5e5e5;
 	padding: 20px;
-	width: 290px;
+	width: 400px;
 	background: #ffffff;
 	text-align: left;
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -1767,8 +1779,7 @@ textarea:focus {
 		color: #ffffff;
 }
 .ht-menu > li .ht-currency-trigger span::after,
-.ht-menu > li .ht-language-trigger span::after,
-.hm-minicart-trigger .item-text::after {
+.ht-menu > li .ht-language-trigger span::after {
 	content: "\f106";
 	float: right;
 	font-weight: 400;
@@ -1785,17 +1796,14 @@ textarea:focus {
 }
 .ht-menu > li .ht-setting-trigger span::after, 
 .ht-menu > li .ht-currency-trigger span::after, 
-.ht-menu > li .ht-language-trigger span::after, 
-.hm-minicart-trigger .item-text::after {
+.ht-menu > li .ht-language-trigger span::after {
 	content: "\f107";
 	font-size: 14px;
 	color: #a4a4a4;
 	margin-left: 5px;
 	font-family: fontawesome;
 }
-.hm-minicart-trigger .item-text::after {
-	color: #fff;
-} 
+
 .ht-menu > li .ht-setting-trigger.is-active span::after, 
 .ht-menu > li .ht-currency-trigger.is-active span::after, 
 .ht-menu > li .ht-language-trigger.is-active span::after,
@@ -1810,7 +1818,7 @@ textarea:focus {
 	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
 	justify-content: space-between;
-	padding: 30px 15px;
+	padding: 5px 15px;
 	-webkit-transition: all .3s ease-in-out 0s;
 	-o-transition: all .3s ease-in-out 0s;
 	transition: all .3s ease-in-out 0s;
@@ -2011,6 +2019,8 @@ textarea:focus {
 .slider-content {
 	position: absolute;
 	padding-left: 58px;
+	color: #fff;
+	text-shadow: 1px 1px 3px #333;
 }
 .slider-content > h5 {
 	font-weight: 400;
@@ -2106,7 +2116,6 @@ textarea:focus {
 	color: #c8c8c8;
 	cursor: pointer;
 	display: inline-block;
-	font-family: 'Rubik', sans-serif;
 	font-size: 20px;
 	font-weight: 500;
 	line-height: 18px;
@@ -2131,11 +2140,6 @@ textarea:focus {
   position: relative;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 300ms ease-in 0s;
-}
-.single-product-wrap:hover {
-  margin: 0 0 -75px;
-  padding: 0 0 75px;
-  z-index: 9;
 }
 .single-product-wrap.mt-40:hover {
   margin: 40px 0 -85px;
@@ -2177,7 +2181,6 @@ textarea:focus {
 	right: 15px;
 	position: absolute;
 	top: 20px;
-	z-index: 99;
 	height: 40px;
 	width: 40px;
 	line-height: 40px;
@@ -2232,7 +2235,7 @@ textarea:focus {
   background: #fff;
   display: block;
   line-height: 1;
-  padding-bottom: 15px;
+  margin-top: 2px;
   float: right;
   -webkit-transition: all 300ms ease-in 0s;
   transition: all 300ms ease-in 0s;
@@ -2246,16 +2249,24 @@ textarea:focus {
   padding-top: 15px;
   margin: 0px;
 }
+
 .product_desc_info {
   position: relative;
 }
+
+
 .product_desc .product_desc_info .product_name {
 	color: #0363cd;
-	display: block;
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 18px;
 	text-transform: capitalize;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-height: 36px;
 }
 .product_desc .product_desc_info .product_name:hover {
   text-decoration: underline;
@@ -2287,11 +2298,13 @@ textarea:focus {
 	float: right;
 	color: #e80f0f;
 }
- .product_desc .product_desc_info .old-price {
-  color: #666;
-  font-size: 14px;
-  font-weight: 400;
-  text-decoration: line-through;
+
+.old-price, 
+.product_desc .product_desc_info .old-price {
+	color: #666;
+	font-size: 14px;
+	font-weight: 400;
+	text-decoration: line-through;
 }
 .product_desc .product_desc_info .price-box {
   line-height: 1;
@@ -2341,7 +2354,7 @@ textarea:focus {
 	background: #eef0f1;
 	border: 1px solid #e1e1e1;
 	transition: all 0.3s ease-in-out;
-	width: 120px;
+	width: 100%;
 }
 .add-actions-link li:hover {
 	background: #fed700;
@@ -2571,6 +2584,7 @@ textarea:focus {
 }
 .li-banner > a > img, .single-banner > a > img {
 	width: 100%;
+	height: inherit;
 }
 /*----------------------------------------*/
 /*  2.6 Li's Laptop Features
@@ -3392,14 +3406,15 @@ li.right-menu .cat-mega-menu-2 > li {
 	top: 0;
 	background: #f7f7f7;
 	border: 1px solid #e1e1e1;
-	padding: 30px 0 30px 30px;
+	padding: 30px;
 }
 .shop-add-action .add-actions-link {
 	margin: 0;
 	padding: 0;
 }
 .shop-add-action .add-actions-link li.add-cart {
-	margin: 0 0 25px;;
+	margin: 0 0 25px;
+	cursor: pointer;
 }
 .shop-add-action .add-actions-link li.wishlist, 
 .shop-add-action .add-actions-link li:last-child {
@@ -3486,6 +3501,11 @@ li.right-menu .cat-mega-menu-2 > li {
 	border-bottom: 1px solid #ebebeb;
 	border-right: 1px solid #ebebeb;
 }
+
+.table-content table td.li-product-thumbnail img {
+	max-width: 80px;
+}
+
 .table-content table th {
 	border-top: medium none;
 	font-size: 15px;
@@ -3504,6 +3524,9 @@ li.right-menu .cat-mega-menu-2 > li {
 }
 .table-content table td.li-product-remove {
 	font-size: 20px;
+}
+.li-product-remove > a {
+	cursor: pointer;
 }
 .li-product-remove > a > i {
 	font-size: 14px;
@@ -4920,8 +4943,17 @@ span.required {
   font-size: 14px;
   margin: 5px 10px 0 0;
 }
+
+.li-static-banner .single-banner {
+	height: 230px;
+}
+
+.single-banner span {
+	font-size: 16px;
+}
+
 .single-banner img {
-  width: 100%;
+	width: 100%;
 }
 .product-short .nice-select {
 	border-radius: 0;
@@ -4930,7 +4962,6 @@ span.required {
 	height: 30px;
 	line-height: 30px;
 	width: 320px;
-	z-index: 999;
 }
 @media only screen and (max-width: 767px) {
 	.product-short .nice-select {
@@ -4958,6 +4989,8 @@ span.required {
 }
 .product-image > a img {
   width: 100%;
+  height: 200px;
+  object-fit: contain;
 }
 .shop-products-wrapper .tab-content .tab-pane.active {
     display: block;
@@ -5001,6 +5034,7 @@ span.required {
 }
 .pagination-box > li {
   display: inline-block;
+  cursor: pointer;
 }
 .pagination-box > li.active a {
   color: #fed700;
@@ -5413,6 +5447,97 @@ span.required {
 .small-version {
   display: none;
 }
-/*----------------------------------------------------------------------------------------------------*/
-/*------------------------------------------> The End <-----------------------------------------------*/
-/*----------------------------------------------------------------------------------------------------*/
+
+/*additional*/
+body .product-layout-list {
+	margin-top: 20px;
+	min-height: 300px;
+}
+
+body .categori-checkbox ul li {
+	color: #fed700;
+	cursor: pointer;
+	border-radius: 12px;
+	padding: 2px 10px;
+	width: fit-content;
+}
+
+body .categori-checkbox ul li.active {
+	background-color: #ebebeb;
+}
+
+body .categori-checkbox ul li i.no-star {
+	color: #e3e3e3;
+}
+
+body .categori-checkbox ul li span {
+	color: #626467;
+	font-size: 16px;
+	margin-left: 15px;
+	margin-top: 0;
+}
+
+body .product_desc .product_desc_info p {
+	display: -webkit-box;
+	-webkit-line-clamp: 6; /* Số dòng hiển thị tối đa */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+
+body .product_desc .product_desc_info .price-box {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+body .product_desc .product_desc_info .new-price {
+	font-size: 16px;
+}
+
+body .paginatoin-area {
+	border: unset;
+}
+
+.search-empty-result {
+	align-items: center;
+	font-size: 16px;
+	display: flex;
+	flex-direction: column;
+}
+
+.search-empty-result .search-empty-result__title {
+	
+}
+
+.search-empty-result .search-empty-result__hint {
+	opacity: .8;
+}
+
+.search-empty-result-section {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	font-size: 18px;
+}
+
+.search-empty-result-section .search-empty-result-section__icon {
+	width: 20%;
+}
+
+.search-empty-result-section__title {
+	color: rgb(0 0 0 / 77%);
+}
+
+.search-empty-result-section__hint {
+	color: rgb(0 0 0 / 40%);
+}
+
+.shopee-search-empty-result-section__or {
+	color: rgb(0 0 0 / 40%);
+}
+	/*message*/
+	/*----------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------> The End <-----------------------------------------------*/
+	/*----------------------------------------------------------------------------------------------------*/
