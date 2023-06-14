@@ -13,7 +13,7 @@ namespace eShopSolution.Data.Entities
         public Guid? UserId { get; set; }
         public string? Content { set; get; }
         public int Rating { set; get; }
-        public bool IsApproved { set; get; }
+        public int IsApproved { set; get; }
         public string Name { get; set; }
         public string? Email { get; set; }
         public string PhoneNumber { get; set; }

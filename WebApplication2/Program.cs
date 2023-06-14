@@ -6,7 +6,10 @@ using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using eShopSolution.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +56,12 @@ builder.Services.AddControllersWithViews()
             o.DefaultRequestCulture = new RequestCulture("vi-VN");
         };
     });
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/User/Forbidden";
+    });
 
 // set time expire session
 builder.Services.AddSession(options =>
@@ -88,25 +96,18 @@ app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
 app.MapControllerRoute(
-    name: "Product Category en-US",
-    pattern: "{culture}/categories/{id}", new
+    name: "Product Shop vi-VN",
+    pattern: "{culture}/san-pham/", new
     {
         controller = "Product",
-        action = "Category"
+        action = "Shop"
     });
 app.MapControllerRoute(
     name: "Product Category vi-VN",
-    pattern: "{culture}/danh-muc/{id}", new
+    pattern: "{culture}/danh-muc/{category}", new
     {
         controller = "Product",
         action = "Category"
-    });
-app.MapControllerRoute(
-    name: "Product Detail en-US",
-    pattern: "{culture}/products/{id}", new
-    {
-        controller = "Product",
-        action = "Detail"
     });
 app.MapControllerRoute(
     name: "Product Detail vi-VN",

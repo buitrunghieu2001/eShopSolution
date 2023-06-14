@@ -10,5 +10,8 @@ namespace eShopSolution.Application.Catalog.Categories
     public interface ICategoryService
     {
         Task<List<CategoryVM>> GetAll(string languageId);
+        Task<int> Create(CategoryCreateRequest request);
+        Task<CategoryVM> GetById(int categoryTranslationId);
+        Task<int> Update(int categoryTranslationId, CategoryUpdateRequest request);
     }
 }

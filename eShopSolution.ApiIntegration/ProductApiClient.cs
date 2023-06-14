@@ -1,4 +1,5 @@
 ﻿using eShopSolution.Utilities.Constants;
+using eShopSolution.ViewModels.Catalog.Categories;
 using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
@@ -105,6 +106,8 @@ namespace eShopSolution.ApiIntegration
             //requestContent.Add(new StringContent(request.Id.ToString()), "id");
 
             requestContent.Add(new StringContent(request.Name.ToString()), "name");
+            requestContent.Add(new StringContent(request.Price.ToString()), "price");
+            requestContent.Add(new StringContent(request.OriginalPrice.ToString()), "originalPrice");
             requestContent.Add(new StringContent(request.Description.ToString()), "description");
 
             requestContent.Add(new StringContent(request.Details.ToString()), "details");
@@ -119,7 +122,7 @@ namespace eShopSolution.ApiIntegration
 
         public async Task<ProductVM> GetById(int id, string languageId)
         {
-            var data = await GetAsync<ProductVM>($"api/products/{id}/{languageId}");
+            var data = await GetAsync<ProductVM>($"api/products/{languageId}/{id}");
             return data;
         }
 
@@ -135,9 +138,18 @@ namespace eShopSolution.ApiIntegration
             return data;
         }
 
+        public async Task<List<ProductVM>> GetLimitedProductByCategory(string languageId, int categoryId, int take)
+        {
+            var data = await GetListAsync<ProductVM>($"/api/products/category/{languageId}/{categoryId}/{take}");
+            return data;
+        }
+
         public async Task<PagedResult<ProductVM>> GetPagings(GetManageProductPagingRequest request)
         {
-            var data = await GetAsync<PagedResult<ProductVM>>($"api/products/paging?pageIndex={request.PageIndex}&pageSize={request.PageSize}&keyword={request.KeyWord}&languageId={request.LanguageId}&categoryId={request.CategoryId}");
+            var data = await GetAsync<PagedResult<ProductVM>>($"api/products/paging?" +
+                $"pageIndex={request.PageIndex}&pageSize={request.PageSize}&keyword={request.KeyWord}" +
+                $"&languageId={request.LanguageId}&categoryId={request.CategoryId}&orderBy={request.OrderBy}" +
+                $"&rating={request.Rating}");
             return data;
         }
 

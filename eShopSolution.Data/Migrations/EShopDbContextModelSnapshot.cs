@@ -270,7 +270,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d81693d8-af89-4ce4-8abe-70244aeaf9d7",
+                            ConcurrencyStamp = "c0a02b52-2d8a-40d4-b0ba-35abd0b3047b",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -279,7 +279,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFksFTa1etekCNzQI/PKZePUe7sJJ45l7luAA61A8PYyJMl3L9inrdW0T0FvtYqOuQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGqAdyqRnQoYcIAqLNa1HbiXaqQFlgozAqU3gEDmAHV9JgAIDsIKxtdRoFUphyBTZQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 0,
@@ -629,7 +629,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 5, 31, 13, 47, 15, 755, DateTimeKind.Local).AddTicks(9069),
+                            DateCreated = new DateTime(2023, 6, 11, 1, 44, 2, 738, DateTimeKind.Local).AddTicks(3481),
                             IsFeatured = true,
                             OriginalPrice = 100000m,
                             Price = 200000m,
@@ -723,8 +723,8 @@ namespace eShopSolution.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
+                    b.Property<int>("IsApproved")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -1,0 +1,58 @@
+﻿@model eShopSolution.ViewModels.System.Users.LoginRequest
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html" localize-content>Home</a></li>
+                <li class="active" localize-content>Login</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Login Content Area -->
+<div class="page-section mb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 mb-30">
+                <!-- Login Form s-->
+                <form action="/@culture/Account/Login" method="post">
+                    <div class="login-form">
+                        <h4 class="login-title" localize-content>Login</h4>
+                        <div class="row">
+                            <div class="col-md-12 col-12 mb-20">
+                                <label localize-content>User Name*</label>
+                                <input asp-for="UserName" class="mb-0" type="text" placeholder="User Name">
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label localize-content>Password</label>
+                                <input asp-for="Password" class="mb-0" type="password" placeholder="Password">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
+                                    <input asp-for="RememberMe" type="checkbox" id="remember_me" checked>
+                                    <label for="remember_me" localize-content>Remember me</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
+                                <a href="#" localize-content> Forgotten pasward?</a>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="register-button mt-0" localize-content>Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- Login Content Area End Here -->

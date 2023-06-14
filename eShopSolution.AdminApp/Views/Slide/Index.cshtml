@@ -1,0 +1,149 @@
+﻿@using eShopSolution.ViewModels.Common;
+@model List<eShopSolution.ViewModels.Utilities.Slides.SlideVM>;
+
+@{
+    ViewData["Title"] = "Danh sách slide";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000);
+
+        const url = "https://localhost:5001/";
+        $('.detail').click(function () {
+            const id = $(this).data("id");
+            const status = ['InActive', 'Active'];
+            $.ajax({
+                method: "GET",
+                url: `${url}api/Slides/${id}`,
+                headers: {
+                    accept: '*/*',
+                },
+                success: function (slide) {
+                    $('#detailModal .modal-body').html(`
+                        <div class="row">
+                            <label for="staticName" class="col-sm-3 col-form-label fw-bold">Tên</label>
+                            <div class="col-sm-9 col-form-label">
+                                <span>${slide.name}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="staticDescription" class="col-sm-3 col-form-label fw-bold">Mô tả</label>
+                            <div class="col-sm-9 col-form-label">
+                                <span>${slide.description}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="staticPrice" class="col-sm-3 col-form-label fw-bold">Giá bán</label>
+                            <div class="col-sm-9 col-form-label">
+                                <span>${slide.price}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="staticUrl" class="col-sm-3 col-form-label fw-bold">URL</label>
+                            <div class="col-sm-9 col-form-label">
+                                <span>${slide.url}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="staticUrl" class="col-sm-3 col-form-label fw-bold">Thứ tự</label>
+                            <div class="col-sm-9 col-form-label">
+                                <span>${slide.sortOrder}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="staticStatus" class="col-sm-3 col-form-label fw-bold">Trạng thái</label>
+                            <div class="col-sm-9 col-form-label">
+                                <span>${status[slide.status]}</span>
+                            </div>
+                        </div>
+                    `);
+                },
+                error: function (error) {
+                    console.log('Lỗi truy cập vào API: ', error);
+                }
+            })
+        });
+    </script>
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Danh sách slide</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh sách slide</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <a class="btn btn-success" asp-action="Create" asp-controller="Slide">Tạo mới</a>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Mô tả</th>
+                            <th>Giá bán</th>
+                            <th>Hình ảnh</th>
+                            <th>URL</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Image)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Url)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                <td>
+                                    <a href="#" class="detail" data-id="@item.Id" data-bs-toggle="modal" data-bs-target="#detailModal">Chi tiết</a> |
+                                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
+                                </td>
+                            </tr>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="detailModalLabel">Chi tiết slide</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div id="msgAlert" class="alert alert-success position-absolute" style="top: 30px; right: 30px;" role="alert">
+            @ViewBag.SuccessMsg
+        </div>
+    }
+
+</div>
+

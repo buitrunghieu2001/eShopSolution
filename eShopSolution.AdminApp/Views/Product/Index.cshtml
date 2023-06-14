@@ -37,7 +37,7 @@
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" onclick="window.location.href='/product/index'" class="btn btn-warning">Xóa tìm kiếm</button>
+                        <button type="button" onclick="window.location.href='/product/index'" class="btn btn-warning">Xóa tìm kiếm</button>
                     </div>
                 </form>
             </div>
@@ -67,8 +67,8 @@
                                 <td>@Html.DisplayFor(modelItem => item.Price)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                                 <td>
-                                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
                                         @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
+                                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
                                         @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
                                         @Html.ActionLink("Gán danh mục", "CategoryAssign", new { id = item.Id })
                                 </td>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eShopSolution.Data.Enums;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +17,6 @@ namespace eShopSolution.ViewModels.Utilities.Slides
         public string Image { get; set; }
         public string Url { get; set; }
         public int SortOrder { get; set; }
+        public Status Status { get; set; }
     }
 }

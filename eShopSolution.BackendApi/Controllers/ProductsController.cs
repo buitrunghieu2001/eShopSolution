@@ -1,10 +1,16 @@
-﻿using eShopSolution.Application.Catalog.Products;
+﻿using Azure.Core;
+using eShopSolution.Application.Catalog.Products;
 using eShopSolution.ViewModels.Catalog.ProductImages;
 using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System.Linq.Expressions;
+using System.Text;
 
 namespace eShopSolution.BackendApi.Controllers
 {
@@ -14,29 +20,31 @@ namespace eShopSolution.BackendApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         // khi ProductController được khởi tạo thì nó sẽ gọi Constructor
         // Constructor nó yêu cầu một đối tượng IPublicProductService, DI trong Program.cs đã được hưỡng dẫn
         // Sau đó nó sẽ gán đối tượng IPublicProductService vào publicProductService
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IHttpContextAccessor httpContextAccessor)
         {
             _productService = productService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("paging")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAllPaging([FromQuery]GetManageProductPagingRequest request)
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetManageProductPagingRequest request)
         {
             var products = await _productService.GetAllPaging(request);
             return Ok(products);
         }
 
         // /product/1
-        [HttpGet("{productId}/{languageId}")]
+        [HttpGet("{languageId}/{productId}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(int productId, string languageId)
         {
             var product = await _productService.GetById(productId, languageId);
-            if (product == null) 
+            if (product == null)
                 return BadRequest("Cannot find product");
             return Ok(product);
         }
@@ -57,8 +65,25 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(products);
         }
 
+        [HttpGet("category/{languageId}/{categoryId}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllProductsByCategory(int categoryId, string languageId)
+        {
+            var products = await _productService.GetAllProductByCategory(languageId, categoryId);
+            return Ok(products);
+        }
+
+        [HttpGet("category/{languageId}/{categoryId}/{take}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetLimitedProductsByCategory(int categoryId, string languageId, int take)
+        {
+            var products = await _productService.GetLimitedProductByCategory(languageId, categoryId, take);
+            return Ok(products);
+        }
+
         [HttpPost]
         [Consumes("multipart/form-data")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateProduct([FromForm] ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -74,6 +99,7 @@ namespace eShopSolution.BackendApi.Controllers
 
         [HttpPut("{productId}")]
         [Consumes("multipart/form-data")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateProduct([FromRoute] int productId, [FromForm] ProductUpdateRequest request)
         {
             if (!ModelState.IsValid)
@@ -88,16 +114,18 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpDelete("{productId}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             var affectedResult = await _productService.Delete(productId);
-            if (affectedResult == 0) 
+            if (affectedResult == 0)
                 return BadRequest();
 
             return Ok();
         }
 
         [HttpPatch("{productId}/{newPrice}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdatePrice(int productId, decimal newPrice)
         {
             var isSuccessful = await _productService.UpdatePrice(productId, newPrice);
@@ -108,7 +136,8 @@ namespace eShopSolution.BackendApi.Controllers
 
         //Images
         [HttpPost("{productId}/images")]
-        public async Task<IActionResult> CreateImage(int productId, [FromForm]ProductImageCreateRequest request)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreateImage(int productId, [FromForm] ProductImageCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -124,6 +153,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut("{productId}/images/{imageId}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateImage(int imageId, [FromForm] ProductImageUpdateRequest request)
         {
             if (!ModelState.IsValid)
@@ -159,6 +189,49 @@ namespace eShopSolution.BackendApi.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
+        }
+
+
+        [HttpPatch]
+        [Route("{id}/viewCount")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateViewCount(int id)
+        {
+            string sessionKey = $"LastViewIncreaseTime_{id}";
+
+            // kiểm tra lastViewIncreaseTime có tồn tại trong session ko
+            if (_httpContextAccessor.HttpContext.Session.TryGetValue(sessionKey, out byte[] value) &&
+                DateTime.TryParse(Encoding.UTF8.GetString(value), out DateTime lastViewIncreaseTime))
+            {
+                // Kiểm tra và cập nhật giá trị lastViewIncreaseTime
+                TimeSpan timeSinceLastIncrease = DateTime.Now - lastViewIncreaseTime;
+                if (timeSinceLastIncrease.TotalMinutes >= 15)
+                {
+                    // Thực hiện tăng viewcount và cập nhật lastViewIncreaseTime
+                    var result = await _productService.UpdateViewCount(id);
+                    if (result.IsSuccessed)
+                    {
+                        lastViewIncreaseTime = DateTime.Now;
+                        _httpContextAccessor.HttpContext.Session.Set(sessionKey, Encoding.UTF8.GetBytes(lastViewIncreaseTime.ToString()));
+                        return Ok(result);
+                    }
+                }
+
+                TimeSpan timeLeft = lastViewIncreaseTime.AddMinutes(15).Subtract(DateTime.Now);
+                return BadRequest("Phát hiện hành vi bất thường!");
+            }
+            else
+            {
+                // Thực hiện tăng viewcount và lưu lastViewIncreaseTime lần đầu
+                var result = await _productService.UpdateViewCount(id);
+                if (result.IsSuccessed)
+                {
+                    lastViewIncreaseTime = DateTime.Now;
+                    _httpContextAccessor.HttpContext.Session.Set(sessionKey, Encoding.UTF8.GetBytes(lastViewIncreaseTime.ToString()));
+                    return Ok(result);
+                }
+                return BadRequest(result);
+            }
         }
     }
 }

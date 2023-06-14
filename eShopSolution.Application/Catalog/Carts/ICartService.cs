@@ -1,6 +1,7 @@
 ﻿using eShopSolution.Data.Entities;
 using eShopSolution.ViewModels.Catalog.Carts;
 using eShopSolution.ViewModels.Catalog.Categories;
+using eShopSolution.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace eShopSolution.Application.Catalog.Cart
 {
     public interface ICartService
     {
-        Task<List<CartVM>> GetAll(Guid UserId, string languageId);
-        Task<List<CartVM>> addToCart(int id, string languageId);
+        Task<GetCartByUserRequest> getCartByUser(Guid UserId, string language);
+        Task<int> addToCart(int productId, Guid userId);
+        Task<int> removeFromCart(int cartId, Guid userId);
+        Task<int> updateQuantity(int cartId, int quantity);
     }
 }

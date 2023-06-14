@@ -137,9 +137,25 @@
     <value>Blog</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Camera Accessories" xml:space="preserve">
+    <value>Camera Accessories</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Cart totals" xml:space="preserve">
+    <value>Cart totals</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+    <comment>Product/Category</comment>
+  </data>
   <data name="Checkout" xml:space="preserve">
     <value>Checkout</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Clear all" xml:space="preserve">
+    <value>Clear all</value>
+    <comment>Product/Category</comment>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
@@ -153,6 +169,14 @@
     <value>Description</value>
     <comment>Product/Detail</comment>
   </data>
+  <data name="Digital Camera" xml:space="preserve">
+    <value>Digital Camera</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Do you want to remove this item" xml:space="preserve">
+    <value>Do you want to remove this item</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
     <comment>_Layout.cshtml</comment>
@@ -161,21 +185,52 @@
     <value>Featured Products</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Film camera" xml:space="preserve">
+    <value>Film camera</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Filter By" xml:space="preserve">
+    <value>Filter By</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Firm Camera" xml:space="preserve">
+    <value>Firm Camera</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="images" xml:space="preserve">
+    <value>images</value>
+    <comment>Cart/Cart.cshtml</comment>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Latest</value>
+    <comment>Product/Search</comment>
+  </data>
   <data name="Latest Products" xml:space="preserve">
     <value>Latest Products</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Lenses" xml:space="preserve">
+    <value>Lenses</value>
     <comment>Home/Index</comment>
   </data>
   <data name="List of product" xml:space="preserve">
     <value>List of product</value>
     <comment>Product/Category</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="My Account" xml:space="preserve">
     <value>My Account</value>
@@ -185,6 +240,30 @@
     <value>New</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Price (High &gt; Low)" xml:space="preserve">
+    <value>Price (High &gt; Low)</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Price (Low &gt; High)" xml:space="preserve">
+    <value>Price (Low &gt; High)</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Price range" xml:space="preserve">
+    <value>Price range</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Proceed to checkout" xml:space="preserve">
+    <value>Proceed to checkout</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Product Details" xml:space="preserve">
     <value>Product details</value>
     <comment>Product/Detail</comment>
@@ -193,9 +272,29 @@
     <value>product</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Relevance" xml:space="preserve">
+    <value>Relevance</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>remove</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Reviews" xml:space="preserve">
     <value>Reviews</value>
     <comment>Product/Detail</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>Product/Search</comment>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>
@@ -209,12 +308,48 @@
     <value>Sign In</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Sort By:" xml:space="preserve">
+    <value>Sort By:</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Telephone Enquiry" xml:space="preserve">
     <value>Telephone Enquiry</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Top Sales" xml:space="preserve">
+    <value>Top Sales</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Total Payment" xml:space="preserve">
+    <value>Total Payment</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Unit Price" xml:space="preserve">
+    <value>Unit Price</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Vietnamese" xml:space="preserve">
     <value>Vietnamese</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="View Full Cart" xml:space="preserve">
+    <value>View Full Cart</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Wellcome" xml:space="preserve">
+    <value>Wellcome</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Cart/Cart.cshtml</comment>
   </data>
 </root>

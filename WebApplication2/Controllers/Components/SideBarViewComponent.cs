@@ -19,4 +19,20 @@ namespace eShopSolution.WebApp.Controllers.Components
             return View(items);
         }
     }
+
+    public class SideBarDropDownViewComponent : ViewComponent
+    {
+        private readonly ICategoryApiClient _categoryApiClient;
+
+        public SideBarDropDownViewComponent(ICategoryApiClient categoryApiClient)
+        {
+            _categoryApiClient = categoryApiClient;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var items = await _categoryApiClient.GetAll(CultureInfo.CurrentCulture.Name);
+            return View(items);
+        }
+    }
 }

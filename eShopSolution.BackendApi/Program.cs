@@ -1,10 +1,13 @@
-﻿using eShopSolution.Application.Catalog.Categories;
+﻿using eShopSolution.Application.Catalog.Cart;
+using eShopSolution.Application.Catalog.Carts;
+using eShopSolution.Application.Catalog.Categories;
 using eShopSolution.Application.Catalog.Products;
 using eShopSolution.Application.Common;
 using eShopSolution.Application.System.Languages;
 using eShopSolution.Application.System.Roles;
 using eShopSolution.Application.System.Users;
 using eShopSolution.Application.Utilities.Slides;
+using eShopSolution.BackendApi.Controllers;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 using eShopSolution.Utilities.Constants;
@@ -27,6 +30,22 @@ builder.Services.AddDbContext<EShopDbContext>(options =>
 builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<EShopDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings
+    options.Password.RequireDigit = true; // yêu cầu số
+    options.Password.RequiredLength = 6; // độ dài 6
+    options.Password.RequireUppercase = true; // chữ thường
+    options.Password.RequireLowercase = true; // chữ hoa
+
+    // Lockout settings
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30); //bị khóa sau khi đăng nhập ko thành công số lần quy định
+    options.Lockout.MaxFailedAccessAttempts = 10; // tối đa 10 lần đăng nhập sai
+    options.Lockout.AllowedForNewUsers = true; // người dùng mới có bị khóa không
+
+    // User settings
+    options.User.RequireUniqueEmail = true; // email là duy nhất
+});
 // Declare DI
 // If requesting an object IPublicProductService it will create instance PublicProductService
 builder.Services.AddTransient<IProductService, ProductService>();
@@ -39,6 +58,7 @@ builder.Services.AddTransient<ILanguageService, LanguageService>();
 builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ISlideService, SlideService>();
+builder.Services.AddTransient<ICartService, CartService>();
 
 //builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
 //builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
@@ -82,6 +102,9 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+builder.Services.AddSession();
+
 
 //cho phép tất cả web đều có thể đọc được API
 builder.Services.AddCors(option =>
@@ -131,7 +154,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();

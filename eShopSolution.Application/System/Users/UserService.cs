@@ -66,7 +66,7 @@ namespace eShopSolution.Application.System.Users
             var token = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds);
 
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
@@ -144,7 +144,7 @@ namespace eShopSolution.Application.System.Users
             if (user != null)
             {
                 return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
-            }    
+            } 
             if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
                 return new ApiErrorResult<bool>("Email đã tồn tại");

@@ -8,9 +8,58 @@
         var B = $('body');
         let language = 'vi-VN';
         getProduct(language, mol.productId);
+        var token = app.getcookie("Token");
+
+        // tăng lượt xem sản phẩm
+        setTimeout(() => {
+            $.ajax({
+                method: "PATCH",
+                url: mol.origin + `/api/Products/${mol.productId}/viewCount`,
+                headers: {
+                    accept: '*/*',
+                },
+                success: function (response) {
+                    if (response.isSuccessed) {
+                        console.log(response);
+                    } else {
+                        console.error('Có lỗi khi cập nhật lượt xem.');
+                    }
+                },
+                error: function (error) {
+                    console.log('Lỗi truy cập vào API: ', error);
+                }
+            })
+        }, 900000);
+
 
         B.delegate('.add-to-cart', 'click', function () {
-            
+            if (token == null) {
+                window.location.assign(`${mol.o}/${language}/account/login`);
+            } else {
+                let productId = $(this).attr('data-id');
+                $.ajax({
+                    method: "POST",
+                    url: mol.origin + `/api/Carts/${productId}`,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        accept: '*/*',
+                    },
+                    data: '',
+                    success: function (response) {
+                        if (response) {
+                            $('#msgAlert').html('Thêm vào giỏ hàng thành công');
+                            $('#msgAlert').show()
+                            setTimeout(function () {
+                                $('#msgAlert').fadeOut('slow');
+                            }, 2000);
+                            $('.hm-minicart-trigger .cart-item-count').html(response);
+                        }
+                    },
+                    error: function (error) {
+                        console.log('Lỗi truy cập vào API: ', error);
+                    }
+                })
+            }
         });
     }
 
@@ -18,7 +67,7 @@
     return mol;
 
     function getProduct(language, productId) {
-        var url = mol.origin + `/api/Products/${productId}/${language}`;
+        var url = mol.origin + `/api/Products/${language}/${productId}`;
         $.ajax({
             method: "GET",
             url: url
@@ -49,8 +98,8 @@
                             </ul>
                         </div>
                         <div class="price-box pt-20">
-                            <span class="old-price">${app.fmnumber(data.price)} VND</span>
-                            <span class="new-price new-price-2">${app.fmnumber(data.originalPrice)} VND</span>
+                            <span class="old-price">đ${app.fmnumber(data.originalPrice)}</span>
+                            <span class="new-price new-price-2">đ${app.fmnumber(data.price)}</span>
                         </div>
                         <div class="product-desc">
                             <p>
@@ -61,7 +110,7 @@
                         </div>
                         <div class="single-add-to-cart">
                             <div class="cart-quantity">
-                                <button class="add-to-cart" type="button">Thêm vào giỏ hàng</button>
+                                <button class="add-to-cart" type="button" data-id="${data.id}">Thêm vào giỏ hàng</button>
                             </div>
                         </div>`;
 

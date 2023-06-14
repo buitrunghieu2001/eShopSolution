@@ -168,7 +168,7 @@ namespace eShopSolution.Application.Catalog.Products
                         from c in picc.DefaultIfEmpty()
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
                         from ct in piccct.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId && ct.LanguageId == request.LanguageId && (pi == null || pi.IsDefault == true)
+                        where pt.LanguageId == request.LanguageId && ct.LanguageId == request.LanguageId && pi.IsDefault == true
                         select new { p, pt, pic, pi, ct };
 
             // step 2: filter
@@ -179,6 +179,41 @@ namespace eShopSolution.Application.Catalog.Products
             {
                 query = query.Where(p => p.pic.CategoryId == request.CategoryId);
             }
+
+            if (request.Rating != null)
+            {
+                query = query.Where(p => p.p.Rating >= request.Rating);
+            }
+
+            if (request.PriceFrom != null && request.PriceFrom > 0)
+            {
+                query = query.Where(p => p.p.Price >= request.PriceFrom);
+            }
+
+            if (request.PriceTo != null && request.PriceTo > 0)
+            {
+                query = query.Where(p => p.p.Price <= request.PriceTo);
+            }
+
+            switch (request.OrderBy)
+            {
+                case "latest":
+                    query = query.OrderByDescending(x => x.p.DateCreated);
+                    break;
+                case "topsales":
+                    query = query.OrderByDescending(x => x.p.ViewCount);
+                    break;
+                case "price-lh":
+                    query = query.OrderBy(x => x.p.Price);
+                    break;
+                case "price-hl":
+                    query = query.OrderByDescending(x => x.p.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.p.Rating);
+                    break;
+            }
+
             // step 3: paging
             // number of records
             int totalRow = await query.CountAsync();
@@ -300,6 +335,9 @@ namespace eShopSolution.Application.Catalog.Products
             var productTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id && x.LanguageId == request.LanguageId);
             if (product == null) throw new EShopException($"Cannot find a product with id: {request.Id}");
 
+            product.Price = request.Price;
+            product.OriginalPrice = request.OriginalPrice;
+            productTranslations.Name = request.Name;
             productTranslations.Name = request.Name;
             productTranslations.SeoAlias = request.SeoAlias;
             productTranslations.SeoDescription = request.SeoDescription;
@@ -317,8 +355,9 @@ namespace eShopSolution.Application.Catalog.Products
                     thumbnailImage.FileSize = request.ThumbnailImage.Length;
                     thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
                     _context.ProductImages.Update(thumbnailImage);
-                }
+                } 
             }
+            _context.Products.Update(product);
             return await _context.SaveChangesAsync();
 
         }
@@ -520,6 +559,102 @@ namespace eShopSolution.Application.Catalog.Products
                 }).ToListAsync();
 
             return data;
+        }
+
+        public async Task<List<ProductVM>> GetAllProductByCategory(string languageId, int categoryId)
+        {
+            //1. Select join
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
+                        from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        join c in _context.Categories on pic.CategoryId equals c.Id into picc
+                        from c in picc.DefaultIfEmpty()
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
+                        from ct in piccct.DefaultIfEmpty()
+                        where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true) && c.Id == categoryId
+                        select new { p, pt, pic, pi, ct };
+
+            var data = await query.OrderByDescending(x => x.p.ViewCount)
+                .Select(x => new ProductVM()
+                {
+                    Id = x.p.Id,
+                    Name = x.pt.Name,
+                    DateCreated = x.p.DateCreated,
+                    Description = x.pt.Description,
+                    Details = x.pt.Details,
+                    LanguageId = x.pt.LanguageId,
+                    OriginalPrice = x.p.OriginalPrice,
+                    Price = x.p.Price,
+                    SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount,
+                    ThumbnailImage = x.pi.ImagePath,
+                    Categories = new List<string>() { x.ct.Name }
+                }).ToListAsync();
+
+            return data;
+        }
+
+        public async Task<List<ProductVM>> GetLimitedProductByCategory(string languageId, int categoryId, int take)
+        {
+            //1. Select join
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
+                        from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        join c in _context.Categories on pic.CategoryId equals c.Id into picc
+                        from c in picc.DefaultIfEmpty()
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
+                        from ct in piccct.DefaultIfEmpty()
+                        where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true) && c.Id == categoryId
+                        select new { p, pt, pic, pi, ct };
+
+            var data = await query.OrderByDescending(x => x.p.ViewCount).Take(take)
+                .Select(x => new ProductVM()
+                {
+                    Id = x.p.Id,
+                    Name = x.pt.Name,
+                    DateCreated = x.p.DateCreated,
+                    Description = x.pt.Description,
+                    Details = x.pt.Details,
+                    LanguageId = x.pt.LanguageId,
+                    OriginalPrice = x.p.OriginalPrice,
+                    Price = x.p.Price,
+                    SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount,
+                    ThumbnailImage = x.pi.ImagePath,
+                    Categories = new List<string>() { x.ct.Name }
+                }).ToListAsync();
+
+            return data;
+        }
+
+        public async Task<ApiResult<int>> UpdateViewCount(int id)
+        {
+            // Tìm sản phẩm theo id
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return new ApiErrorResult<int>($"Sản phẩm với id {id} không tồn tại");
+            }
+
+            // Tăng view count lên 1
+            product.ViewCount++;
+            // Cập nhật sản phẩm trong cơ sở dữ liệu
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+            return new ApiSuccessResult<int>(product.ViewCount);
         }
     }
 }

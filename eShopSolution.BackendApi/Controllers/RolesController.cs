@@ -1,5 +1,4 @@
-﻿using eShopSolution.Application.System.Languages;
-using eShopSolution.Application.System.Roles;
+﻿using eShopSolution.Application.System.Roles;
 using eShopSolution.ViewModels.System.Roles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +24,6 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody]RoleCreateRequest request)
         {
             if (!ModelState.IsValid)

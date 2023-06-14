@@ -14,8 +14,8 @@
                     {
                                 @foreach (var item in children)
                                 {
-                                    <li>
-                                        <input type="checkbox" name="product-categori" id="@item.Id">
+                                    <li class="form-check">
+                                        <input type="checkbox" name="product-categori" data-name="@item.SeoAlias" data-category="@item.Id">
                                         <span>@item.Name</span>
                                     </li>
                                 }
@@ -23,7 +23,7 @@
                     else
                     {
                         <li>
-                            <input type="checkbox" name="product-categori" id="@parent.Id">
+                        <input type="checkbox" name="product-categori" data-name="@parent.SeoAlias" data-category="@parent.Id">
                             <span>@parent.Name</span>
                         </li>
                     }

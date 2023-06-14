@@ -16,17 +16,22 @@
 @section Scripts {
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#txt_details'), {
-                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
-            })
-            .then(editor => {
-                window.editor = editor;
-                editor.ui.view.editable.element.style.height = '300px';
-            })
-            .catch(err => {
-                console.error(err.stack);
-            });
+        function createClassicEditor(elementId) {
+            ClassicEditor
+                .create(document.querySelector(`#${elementId}`), {
+                    // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                })
+                .then(editor => {
+                    window.editor = editor;
+                    editor.ui.view.editable.element.style.height = '300px';
+                })
+                .catch(err => {
+                    console.error(err.stack);
+                });
+        }
+
+        createClassicEditor('txt_details');
+        createClassicEditor('txt_description');
     </script>
 }
 
@@ -42,42 +47,52 @@
                 <form asp-action="Edit" enctype="multipart/form-data" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
-                    <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
+                    <div class="form-group mt-3">
+                        <label asp-for="Name" class="control-label mb-2">Tên sản phẩm</label>
                         <input asp-for="Name" class="form-control" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <textarea asp-for="Description" rows="8" class="form-control"></textarea>
+                    <div class="form-group mt-3">
+                        <label asp-for="Price" class="control-label mb-2">Giá bán</label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label asp-for="OriginalPrice" class="control-label mb-2">Giá gốc</label>
+                        <input asp-for="OriginalPrice" class="form-control" />
+                        <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label asp-for="Description" class="control-label mb-2">Mô tả</label>
+                        <textarea id="txt_description" asp-for="Description" rows="8" class="form-control"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Details" class="control-label"></label>
+                    <div class="form-group mt-3">
+                        <label asp-for="Details" class="control-label mb-2">Chi tiết</label>
                         <textarea id="txt_details" asp-for="Details" rows="4" class="form-control"></textarea>
                         <span asp-validation-for="Details" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="SeoDescription" class="control-label"></label>
+                    <div class="form-group mt-3">
+                        <label asp-for="SeoDescription" class="control-label mb-2">Mô tả SEO</label>
                         <input asp-for="SeoDescription" class="form-control" />
                         <span asp-validation-for="SeoDescription" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="SeoTitle" class="control-label"></label>
+                    <div class="form-group mt-3">
+                        <label asp-for="SeoTitle" class="control-label mb-2">Tiêu đề SEO</label>
                         <input asp-for="SeoTitle" class="form-control" />
                         <span asp-validation-for="SeoTitle" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="SeoAlias" class="control-label"></label>
+                    <div class="form-group mt-3">
+                        <label asp-for="SeoAlias" class="control-label mb-2">Đường dẫn SEO</label>
                         <input asp-for="SeoAlias" class="form-control" />
                         <span asp-validation-for="SeoAlias" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="ThumbnailImage" class="control-label"></label>
-                        <input asp-for="ThumbnailImage" type="file" class="form-control" />
+                    <div class="form-group mt-3">
+                        <label asp-for="ThumbnailImage" class="control-label mb-2">Hình ảnh</label>
+                        <input asp-for="ThumbnailImage" type="file" class="form-control" accept=".jpg, .png" />
                         <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-3">
                         <input type="submit" value="Cập nhật" class="btn btn-primary" />
                     </div>
                 </form>

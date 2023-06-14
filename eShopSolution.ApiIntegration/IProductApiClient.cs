@@ -13,6 +13,7 @@ namespace eShopSolution.ApiIntegration
         Task<ProductVM> GetById(int id, string languageId);
         Task<List<ProductVM>> GetFeaturedProducts(string languageId, int take);
         Task<List<ProductVM>> GetLatestProducts(string languageId, int take);
+        Task<List<ProductVM>> GetLimitedProductByCategory(string languageId, int categoryId, int take);
         Task<bool> DeleteProduct(int id);
     }
 }

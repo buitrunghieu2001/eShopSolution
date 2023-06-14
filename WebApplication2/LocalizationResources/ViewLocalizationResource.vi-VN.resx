@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$" xml:space="preserve">
-    <value>VND</value>
+    <value>&amp;#8363;</value>
     <comment>Home/Index</comment>
   </data>
   <data name="About Us" xml:space="preserve">
@@ -137,9 +137,25 @@
     <value>Blog</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Camera Accessories" xml:space="preserve">
+    <value>Phụ kiện máy ảnh</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Cart totals" xml:space="preserve">
+    <value>Tổng tiền</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Danh mục</value>
+    <comment>Product/Category</comment>
+  </data>
   <data name="Checkout" xml:space="preserve">
-    <value>Thanh toán</value>
+    <value>Đặt hàng</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Clear all" xml:space="preserve">
+    <value>Xóa lọc</value>
+    <comment>Product/Category</comment>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Liên hệ</value>
@@ -153,6 +169,14 @@
     <value>Mô tả</value>
     <comment>Product/Detail</comment>
   </data>
+  <data name="Digital Camera" xml:space="preserve">
+    <value>Máy ảnh</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Do you want to remove this item" xml:space="preserve">
+    <value>Bạn chắc chắn muốn bỏ sản phẩm này</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Tiếng Anh</value>
     <comment>_Layout.cshtml</comment>
@@ -161,21 +185,53 @@
     <value>Sản Phẩm Nổi Bật</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Film camera" xml:space="preserve">
+    <value>Máy quay phim</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Filter By" xml:space="preserve">
+    <value>Bộ lọc</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Firm Camera" xml:space="preserve">
+    <value>Máy quay phim</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Trang chủ</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="images" xml:space="preserve">
+    <value>Hình ảnh</value>
+    <comment>Cart/Cart.cshtml</comment>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Ngôn ngữ</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Mới nhất</value>
+    <comment>Product/Search</comment>
+  </data>
   <data name="Latest Products" xml:space="preserve">
     <value>Sản phẩm mới</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Lenses" xml:space="preserve">
+    <value>Ống kính</value>
     <comment>Home/Index</comment>
   </data>
   <data name="List of product" xml:space="preserve">
     <value>Danh sách sản phẩm</value>
     <comment>Product/Category</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+    <comment>_Layout.cshtml</comment>
   </data>
   <data name="My Account" xml:space="preserve">
     <value>Tài khoản</value>
@@ -185,6 +241,30 @@
     <value>Mới</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Price (High &gt; Low)" xml:space="preserve">
+    <value>Giá (Cao &gt; Thấp)</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Price (Low &gt; High)" xml:space="preserve">
+    <value>Giá (Thấp &gt; Cao)</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Price range" xml:space="preserve">
+    <value>Khoảng giá</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Proceed to checkout" xml:space="preserve">
+    <value>Thanh toán</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Sản phẩm</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Product Details" xml:space="preserve">
     <value>Chi tiết sản phẩm</value>
     <comment>Product/Detail</comment>
@@ -193,9 +273,29 @@
     <value>san-pham</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Đăng ký</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Relevance" xml:space="preserve">
+    <value>Liên quan</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Xóa</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Reviews" xml:space="preserve">
     <value>Nhận xét</value>
     <comment>Product/Detail</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+    <comment>Product/Search</comment>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>Cài đặt</value>
@@ -209,12 +309,48 @@
     <value>Đăng nhập</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Sort By:" xml:space="preserve">
+    <value>Sắp xếp theo:</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Giảm giá</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Telephone Enquiry" xml:space="preserve">
     <value>Điện thoại</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="Top Sales" xml:space="preserve">
+    <value>Bán chạy</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Total Payment" xml:space="preserve">
+    <value>Thành tiền</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Unit Price" xml:space="preserve">
+    <value>Giá</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
   <data name="Vietnamese" xml:space="preserve">
     <value>Tiếng Việt</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="View Full Cart" xml:space="preserve">
+    <value>Xem giỏ hàng</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Wellcome" xml:space="preserve">
+    <value>Xin chào</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Có</value>
+    <comment>Cart/Cart.cshtml</comment>
   </data>
 </root>

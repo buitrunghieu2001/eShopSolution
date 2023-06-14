@@ -1,0 +1,28 @@
+﻿@model List<eShopSolution.ViewModels.Catalog.Categories.CategoryVM>
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    var parents = Model.Where(x => x.ParentId == null);
+
+
+    <select class="nice-select select-search-category" name="CategoryId">
+        <option value="" localize-content>All</option>
+        @for (int index = 0; index < parents.Count(); index++)
+        {
+            var parent = parents.ElementAt(index);
+            var children = Model.Where(x => x.ParentId == parent.Id);
+            if (children.Any())
+            {
+                @foreach (var item in children)
+                {
+                    <option value="@parent.Id" localize-content>@parent.Name</option>
+                }
+            }
+            else
+            {
+            <option value="@parent.Id" localize-content>@parent.Name</option>
+            }
+
+        }
+    </select>
+}

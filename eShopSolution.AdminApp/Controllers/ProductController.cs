@@ -52,8 +52,15 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+            var categories = await _categoryApiClient.GetAll(languageId);
+            ViewBag.Categories = categories;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
             return View();
         }
 
@@ -112,6 +119,8 @@ namespace eShopSolution.AdminApp.Controllers
             var editVm = new ProductUpdateRequest()
             {
                 Id = product.Id,
+                Price = product.Price,
+                OriginalPrice = product.OriginalPrice,
                 Description = product.Description,
                 Details = product.Details,
                 Name = product.Name,
