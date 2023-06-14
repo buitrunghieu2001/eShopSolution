@@ -1,0 +1,68 @@
+﻿@model eShopSolution.ViewModels.Utilities.Slides.SlideCreateRequest
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Tạo mới slide</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Tạo mới slide</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Tên</label>
+                        <input required asp-for="Name" class="form-control mb-2" type="text" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Mô tả</label>
+                        <input required asp-for="Description" class="form-control mb-2" type="text" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label">Giá</label>
+                        <input required asp-for="Price" class="form-control mb-2" type="text" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label">Hình ảnh</label>
+                        <input required asp-for="Image" type="file" class="form-control mb-2" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Url" class="control-label">URL</label>
+                        <input required asp-for="Url" class="form-control mb-2" type="text" />
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SortOrder" class="control-label">Thứ tự</label>
+                        <input required asp-for="SortOrder" class="form-control mb-2" type="number" />
+                        <span asp-validation-for="SortOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label">Trạng thái</label>
+                        <select id="Status" class="form-control mb-2" name="Status">
+                            @foreach (var status in ViewBag.Status)
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

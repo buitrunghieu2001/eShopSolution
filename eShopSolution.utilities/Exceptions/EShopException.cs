@@ -10,7 +10,7 @@ namespace eShopSolution.utilities.Exceptions
     {
         public EShopException() 
         { 
-        
+            
         }
         public EShopException(string message):base(message)
         {

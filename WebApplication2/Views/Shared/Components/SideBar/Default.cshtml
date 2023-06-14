@@ -1,0 +1,35 @@
+﻿@model List<eShopSolution.ViewModels.Catalog.Categories.CategoryVM>
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    var parents = Model.Where(x => x.ParentId == null);
+
+    <form action="#">
+        <ul>
+            @for (int index = 0; index < parents.Count(); index++)
+                {
+                    var parent = parents.ElementAt(index);
+                    var children = Model.Where(x => x.ParentId == parent.Id);
+                    if (children.Any())
+                    {
+                                @foreach (var item in children)
+                                {
+                                    <li class="form-check">
+                                        <input type="checkbox" name="product-categori" data-name="@item.SeoAlias" data-category="@item.Id">
+                                        <span>@item.Name</span>
+                                    </li>
+                                }
+                    }
+                    else
+                    {
+                        <li>
+                        <input type="checkbox" name="product-categori" data-name="@parent.SeoAlias" data-category="@parent.Id">
+                            <span>@parent.Name</span>
+                        </li>
+                    }
+
+                }
+
+        </ul>
+    </form>
+}

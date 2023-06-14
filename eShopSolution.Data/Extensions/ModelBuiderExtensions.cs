@@ -60,6 +60,7 @@ namespace eShopSolution.Data.Extensions
                    Price = 200000,
                    Stock = 0,
                    ViewCount = 0,
+                   IsFeatured = true,
                });
             modelBuilder.Entity<ProductTranslation>().HasData(
                 new ProductTranslation()
@@ -110,7 +111,7 @@ namespace eShopSolution.Data.Extensions
                 Email = "admin@gmail.com",
                 NormalizedEmail = "admin@gmail.com",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "admin"),
+                PasswordHash = hasher.HashPassword(null, "Admin123@"),
                 SecurityStamp = string.Empty,
                 FirstName = "Trung",
                 LastName = "Hieu",
@@ -121,6 +122,38 @@ namespace eShopSolution.Data.Extensions
             {
                 RoleId = roleId,
                 UserId = adminId
+            });
+            modelBuilder.Entity<Slide>().HasData(
+            new Slide {
+                Id = 1,
+                Name = "Black Friday",
+                Description = "Work Desk Surface Studio 2023",
+                Price = 824,
+                Url = "shop-left-sidebar.html",
+                Image = "images/slider/2.jpg",
+                SortOrder = 1,
+                Status = Status.Active
+            }, 
+            new Slide {
+                Id = 2,
+                Name = "Black Friday",
+                Description = "Work Desk Surface Studio 2023",
+                Price = 824,
+                Url = "shop-left-sidebar.html",
+                Image = "images/slider/1.jpg",
+                SortOrder = 1,
+                Status = Status.Active
+            },
+            new Slide
+            {
+                Id = 3,
+                Name = "-10% Off",
+                Description = "Phantom 4 Pro+ Obsidian",
+                Price = 1849,
+                Url = "shop-left-sidebar.html",
+                Image = "images/slider/3.jpg",
+                SortOrder = 1,
+                Status = Status.Active
             });
         }
     }

@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$" xml:space="preserve">
+    <value>&amp;#8363;</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="About Us" xml:space="preserve">
+    <value>Về chúng tôi</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Add to cart" xml:space="preserve">
+    <value>Thêm vào giỏ hàng</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>Blog</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Camera Accessories" xml:space="preserve">
+    <value>Phụ kiện máy ảnh</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Cart totals" xml:space="preserve">
+    <value>Tổng tiền</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Danh mục</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Đặt hàng</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Clear all" xml:space="preserve">
+    <value>Xóa lọc</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Liên hệ</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Tiền tệ</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+    <comment>Product/Detail</comment>
+  </data>
+  <data name="Digital Camera" xml:space="preserve">
+    <value>Máy ảnh</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Do you want to remove this item" xml:space="preserve">
+    <value>Bạn chắc chắn muốn bỏ sản phẩm này</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Tiếng Anh</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Featured Products" xml:space="preserve">
+    <value>Sản Phẩm Nổi Bật</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Film camera" xml:space="preserve">
+    <value>Máy quay phim</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Filter By" xml:space="preserve">
+    <value>Bộ lọc</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Firm Camera" xml:space="preserve">
+    <value>Máy quay phim</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Trang chủ</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="images" xml:space="preserve">
+    <value>Hình ảnh</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Mới nhất</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Latest Products" xml:space="preserve">
+    <value>Sản phẩm mới</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Lenses" xml:space="preserve">
+    <value>Ống kính</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="List of product" xml:space="preserve">
+    <value>Danh sách sản phẩm</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="My Account" xml:space="preserve">
+    <value>Tài khoản</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Mới</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Price (High &gt; Low)" xml:space="preserve">
+    <value>Giá (Cao &gt; Thấp)</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Price (Low &gt; High)" xml:space="preserve">
+    <value>Giá (Thấp &gt; Cao)</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Price range" xml:space="preserve">
+    <value>Khoảng giá</value>
+    <comment>Product/Category</comment>
+  </data>
+  <data name="Proceed to checkout" xml:space="preserve">
+    <value>Thanh toán</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Sản phẩm</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Product Details" xml:space="preserve">
+    <value>Chi tiết sản phẩm</value>
+    <comment>Product/Detail</comment>
+  </data>
+  <data name="productUrl" xml:space="preserve">
+    <value>san-pham</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Đăng ký</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Relevance" xml:space="preserve">
+    <value>Liên quan</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Xóa</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Nhận xét</value>
+    <comment>Product/Detail</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Cài đặt</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Shop" xml:space="preserve">
+    <value>Sản phẩm</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Sign In" xml:space="preserve">
+    <value>Đăng nhập</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Sort By:" xml:space="preserve">
+    <value>Sắp xếp theo:</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Giảm giá</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Telephone Enquiry" xml:space="preserve">
+    <value>Điện thoại</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Top Sales" xml:space="preserve">
+    <value>Bán chạy</value>
+    <comment>Product/Search</comment>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Total Payment" xml:space="preserve">
+    <value>Thành tiền</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Unit Price" xml:space="preserve">
+    <value>Giá</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Vietnamese" xml:space="preserve">
+    <value>Tiếng Việt</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="View Full Cart" xml:space="preserve">
+    <value>Xem giỏ hàng</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Wellcome" xml:space="preserve">
+    <value>Xin chào</value>
+    <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Có</value>
+    <comment>Cart/Cart.cshtml</comment>
+  </data>
+</root>

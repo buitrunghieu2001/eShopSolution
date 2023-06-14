@@ -1,0 +1,71 @@
+﻿@model eShopSolution.ViewModels.System.Users.RegisterRequest
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html" localize-content>Home</a></li>
+                <li class="active" localize-content>Register</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Login Content Area -->
+<div class="page-section mb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                <form action="/@culture/Account/Register" method="post">
+                    <div class="login-form">
+                        <h4 class="login-title" localize-content>Register</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>First Name</label>
+                                <input asp-for="FirstName" class="mb-0" type="text" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>Last Name</label>
+                                <input asp-for="LastName" class="mb-0" type="text" placeholder="Last Name">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>Email Address*</label>
+                                <input asp-for="Email" class="mb-0" type="email" placeholder="Email Address">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>Phone Number*</label>
+                                <input asp-for="PhoneNumber" class="mb-0" type="text" placeholder="Email Address">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>Date Of Bỉthday*</label>
+                                <input asp-for="Dob" class="mb-0" type="date" placeholder="Date Of Bỉthday">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>User Name*</label>
+                                <input asp-for="UserName" class="mb-0" type="text" placeholder="User Name">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>Password</label>
+                                <input asp-for="Password" class="mb-0" type="password" placeholder="Password">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label localize-content>Confirm Password</label>
+                                <input asp-for="ConfirmPassword" class="mb-0" type="password" placeholder="Confirm Password">
+                            </div>
+                            <div class="col-12">
+                                <button class="register-button mt-0" localize-content>Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Content Area End Here -->
