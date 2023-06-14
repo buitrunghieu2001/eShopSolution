@@ -408,80 +408,8 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
         }
     }
  })
- /*----------------------------------------*/
- /* 21. Modal Menu Active
- /*----------------------------------------*/ 
- $('.product-details-images').each(function(){
-     var $this = $(this);
-     var $thumb = $this.siblings('.product-details-thumbs, .tab-style-left');
-     $this.slick({
-        arrows: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 5000,
-        dots: false,
-        infinite: true,
-        centerMode: false,
-        centerPadding: 0,
-        asNavFor: $thumb,
-    });
- });
- $('.product-details-thumbs').each(function(){
-     var $this = $(this);
-     var $details = $this.siblings('.product-details-images');
-     $this.slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 5000,
-        dots: false,
-        infinite: true,
-        focusOnSelect: true,
-        centerMode: true,
-        centerPadding: 0,
-        prevArrow: '<span class="slick-prev"><i class="fa fa-angle-left"></i></span>',
-        nextArrow: '<span class="slick-next"><i class="fa fa-angle-right"></i></span>',
-        asNavFor: $details,
-    });
- });
- $('.tab-style-left, .tab-style-right').each(function(){
-     var $this = $(this);
-     var $details = $this.siblings('.product-details-images');
-     $this.slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 5000,
-        dots: false,
-        infinite: true,
-        focusOnSelect: true,
-        vertical: true,
-        centerPadding: 0,
-        prevArrow: '<span class="slick-prev"><i class="fa fa-angle-down"></i></span>',
-        nextArrow: '<span class="slick-next"><i class="fa fa-angle-up"></i></span>',
-        asNavFor: $details,
-    });
- });
-/*----------------------------------------*/
-/* 22. Cart Plus Minus Button
-/*----------------------------------------*/
- $(".cart-plus-minus").append('<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>');
- $(".qtybutton").on("click", function() {
-    var $button = $(this);
-    var oldValue = $button.parent().find("input").val();
-    if ($button.hasClass('inc')) {
-       var newVal = parseFloat(oldValue) + 1;
-    } else {
-        // Don't allow decrementing below zero
-       if (oldValue > 0) {
-         var newVal = parseFloat(oldValue) - 1;
-         } else {
-         newVal = 0;
-       }
-       }
-    $button.parent().find("input").val(newVal);
-   });
+
+
 /*----------------------------------------*/
 /* 23. Single Prduct Carousel Activision
 /*----------------------------------------*/

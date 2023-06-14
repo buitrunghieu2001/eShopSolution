@@ -3,38 +3,26 @@
 using eShopSolution.ApiIntegration;
 using eShopSolution.WebApp.LocalizationResources;
 using LazZiya.ExpressLocalization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
 using System.Globalization;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using eShopSolution.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
 
-// set time expire session
-builder.Services.AddSession(options =>
-{
-    // Thiết lập thời gian hủy của phiên làm việc khi không có hoạt động
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.IsEssential = true;
-});
-
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddTransient<ISlideApiClient, SlideApiClient>();
-builder.Services.AddTransient<IProductApiClient, ProductApiClient>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var cultures = new[]
     {
-        new CultureInfo("en"),
-        new CultureInfo("vi"),
+        new CultureInfo("en-US"),
+        new CultureInfo("vi-VN"),
     };
 
 
@@ -65,12 +53,30 @@ builder.Services.AddControllersWithViews()
         {
             o.SupportedCultures = cultures;
             o.SupportedUICultures = cultures;
-            o.DefaultRequestCulture = new RequestCulture("vi");
+            o.DefaultRequestCulture = new RequestCulture("vi-VN");
         };
     });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/User/Forbidden";
+    });
 
+// set time expire session
+builder.Services.AddSession(options =>
+{
+    // Thiết lập thời gian hủy của phiên làm việc khi không có hoạt động
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    //options.Cookie.IsEssential = true;
+});
 
-
+// inject 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddTransient<ISlideApiClient, SlideApiClient>();
+builder.Services.AddTransient<IProductApiClient, ProductApiClient>();
+builder.Services.AddTransient<ICategoryApiClient, CategoryApiClient>();
+builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -90,7 +96,29 @@ app.UseAuthorization();
 app.UseSession();
 app.UseRequestLocalization();
 app.MapControllerRoute(
+    name: "Product Shop vi-VN",
+    pattern: "{culture}/san-pham/", new
+    {
+        controller = "Product",
+        action = "Shop"
+    });
+app.MapControllerRoute(
+    name: "Product Category vi-VN",
+    pattern: "{culture}/danh-muc/{category}", new
+    {
+        controller = "Product",
+        action = "Category"
+    });
+app.MapControllerRoute(
+    name: "Product Detail vi-VN",
+    pattern: "{culture}/san-pham/{id}", new
+    {
+        controller = "Product",
+        action = "Detail"
+    });
+app.MapControllerRoute(
     name: "default",
-    pattern: "{culture=vi}/{controller=Pages}/{action=Index}/{id?}");
+    pattern: "{culture=vi-VN}/{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();
