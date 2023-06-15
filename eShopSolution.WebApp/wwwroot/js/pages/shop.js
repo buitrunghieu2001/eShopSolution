@@ -11,21 +11,21 @@ var category = (function () {
         getProducts();
 
         B.delegate(".pagination1", "click", function () {
-            if (page != $(this).attr("id")) {
+            if (mol.page != $(this).attr("id")) {
                 mol.page = $(this).attr("id");
                 getProducts();
             }
         })
 
         B.delegate(".pnext", "click", function () {
-            if (typeof (page) == "string")
+            if (typeof (mol.page) == "string")
                 mol.page = parseInt(page)
             mol.page += 1;
             getProducts();
         })
 
         B.delegate(".pprev", "click", function () {
-            if (typeof (page) == "string")
+            if (typeof (mol.page) == "string")
                 mol.page = parseInt(page)
             mol.page -= 1;
             getProducts();
@@ -51,15 +51,28 @@ var category = (function () {
                     data: '',
                     success: function (response) {
                         if (response) {
-                            $('#msgAlert').html('Thêm vào giỏ hàng thành công');
-                            $('#msgAlert').show()
-                            setTimeout(function () {
-                                $('#msgAlert').fadeOut('slow');
-                            }, 2000);
-                            $('.hm-minicart-trigger .cart-item-count').html(response);
+                            index.toast({
+                                title: "Thành công",
+                                message: "Đã thêm sản phẩm vào giỏ hàng.",
+                                type: "success",
+                                duration: 3000
+                            })
+                        } else {
+                            index.toast({
+                                title: "Thất bại",
+                                message: "Thêm sản phẩm thất bại.",
+                                type: "error",
+                                duration: 3000
+                            })
                         }
                     },
                     error: function (error) {
+                        index.toast({
+                            title: "Thất bại",
+                            message: "Thêm sản phẩm thất bại.",
+                            type: "error",
+                            duration: 3000
+                        })
                         console.log('Lỗi truy cập vào API: ', error);
                     }
                 })
@@ -73,6 +86,7 @@ var category = (function () {
             } else {
                 delete mol.category;
             }
+            mol.page = 1;
             getProducts();
         })
 
@@ -87,7 +101,7 @@ var category = (function () {
 
             f ? mol.pricefrom = f : delete mol.pricefrom;
             t ? mol.priceto = t : delete mol.priceto;
-
+            mol.page = 1;
             getProducts();
         });
 
@@ -96,6 +110,7 @@ var category = (function () {
             $(this).addClass('active');
 
             mol.rating = parseInt($(this).data('rating'));
+            mol.page = 1;
             getProducts();
         })
 
@@ -107,6 +122,7 @@ var category = (function () {
             delete mol.pricefrom;
             delete mol.priceto;
             delete mol.rating;
+            mol.page = 1;
             getProducts();
         })
 

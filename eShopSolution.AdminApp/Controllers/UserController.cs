@@ -118,10 +118,13 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            var result = await _userApiClient.GetById(id);
+            var user = result.ResultObj;
             return View(new UserDeleteRequest()
             {
+                UserName = user.UserName,
                 Id = id
             });
         }

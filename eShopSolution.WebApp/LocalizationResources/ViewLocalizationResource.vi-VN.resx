@@ -129,6 +129,10 @@
     <value>Thêm vào giỏ hàng</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Add to wishlist" xml:space="preserve">
+    <value>Yêu thích</value>
+    <comment>Product/Search</comment>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Tất cả</value>
     <comment>_Layout.cshtml</comment>
@@ -157,6 +161,10 @@
     <value>Xóa lọc</value>
     <comment>Product/Category</comment>
   </data>
+  <data name="Confirm Password*" xml:space="preserve">
+    <value>Xác nhận mật khẩu*</value>
+    <comment>Account/Register</comment>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Liên hệ</value>
     <comment>_Layout.cshtml</comment>
@@ -164,6 +172,10 @@
   <data name="Currency" xml:space="preserve">
     <value>Tiền tệ</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Date Of Bỉthday*" xml:space="preserve">
+    <value>Ngày sinh*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Mô tả</value>
@@ -176,6 +188,10 @@
   <data name="Do you want to remove this item" xml:space="preserve">
     <value>Bạn chắc chắn muốn bỏ sản phẩm này</value>
     <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Email Address*" xml:space="preserve">
+    <value>Địa chỉ email*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="English" xml:space="preserve">
     <value>Tiếng Anh</value>
@@ -197,6 +213,14 @@
     <value>Máy quay phim</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="First Name*" xml:space="preserve">
+    <value>Tên*</value>
+    <comment>Account/Register</comment>
+  </data>
+  <data name="Forgotten password?" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
+    <comment>Account/Login</comment>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Trang chủ</value>
     <comment>_Layout.cshtml</comment>
@@ -208,6 +232,10 @@
   <data name="Language" xml:space="preserve">
     <value>Ngôn ngữ</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Last Name*" xml:space="preserve">
+    <value>Họ*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="Latest" xml:space="preserve">
     <value>Mới nhất</value>
@@ -245,6 +273,14 @@
     <value>Không</value>
     <comment>Cart/Cart.cshtml</comment>
   </data>
+  <data name="Password*" xml:space="preserve">
+    <value>Mật khẩu*</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Phone Number*" xml:space="preserve">
+    <value>Số điện thoại*</value>
+    <comment>Account/Register</comment>
+  </data>
   <data name="Price (High &gt; Low)" xml:space="preserve">
     <value>Giá (Cao &gt; Thấp)</value>
     <comment>Product/Search</comment>
@@ -277,6 +313,10 @@
     <value>Số lượng</value>
     <comment>Cart/Cart.cshtml</comment>
   </data>
+  <data name="Quick view" xml:space="preserve">
+    <value>Xem nhanh</value>
+    <comment>Product/Search</comment>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Đăng ký</value>
     <comment>Account/Login</comment>
@@ -284,6 +324,10 @@
   <data name="Relevance" xml:space="preserve">
     <value>Liên quan</value>
     <comment>Product/Search</comment>
+  </data>
+  <data name="Remember me" xml:space="preserve">
+    <value>Ghi nhớ</value>
+    <comment>Account/Login</comment>
   </data>
   <data name="remove" xml:space="preserve">
     <value>Xóa</value>
@@ -336,6 +380,14 @@
   <data name="Unit Price" xml:space="preserve">
     <value>Giá</value>
     <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="User Name or Phone Number*" xml:space="preserve">
+    <value>Tên đăng nhập hoặc số điện thoại*</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="User Name*" xml:space="preserve">
+    <value>Tên đăng nhập*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="Vietnamese" xml:space="preserve">
     <value>Tiếng Việt</value>

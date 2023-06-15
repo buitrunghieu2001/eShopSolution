@@ -93,10 +93,12 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
+            var result = await _slideApiClient.GetById(Id);
             return View(new SlideDeleteRequest()
             {
+                Name = result.Name,
                 Id = Id
             });
         }

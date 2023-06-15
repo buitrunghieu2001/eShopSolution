@@ -23,7 +23,7 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string? keyWord, int? categoryId, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string? keyWord, int? categoryId, int pageIndex = 1, int pageSize = 7)
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
             var request = new GetManageProductPagingRequest()
@@ -49,6 +49,14 @@ namespace eShopSolution.AdminApp.Controllers
                 ViewBag.SuccessMsg = TempData["result"];
             }
             return View(data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+            var result = await _productApiClient.GetById(id, languageId);
+            return View(result);
         }
 
         [HttpGet]
@@ -168,10 +176,13 @@ namespace eShopSolution.AdminApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+            var productObj = await _productApiClient.GetById(id, languageId);
             return View(new ProductDeleteRequest()
             {
+                Name = productObj.Name,
                 Id = id
             });
         }

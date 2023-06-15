@@ -27,7 +27,7 @@
                                     </td>
                                     <td class="li-product-thumbnail"><a href="${mol.o}/vi-VN/san-pham/${i.productId}"><img src="${mol.origin}/user-content/${i.imagePath}" alt="${i.name}"></a></td>
                                     <td class="li-product-name"><a href="${mol.o}/vi-VN/san-pham/${i.productId}">${i.name}</a></td>
-                                    <td class="li-product-price"><span class="amount">${i.price}</span></td>
+                                    <td class="li-product-price"><span class="amount">${app.fmnumber(i.price)}</span></td>
                                     <td class="quantity">
                                         <div class="cart-plus-minus">
                                             <input class="cart-plus-minus-box" aria-valuenow="0" value="${app.fmnumber(i.quantity)}" type="text">
@@ -39,6 +39,8 @@
                                 </tr>`)
                     })
                     $('.table tbody').html(tr.join(''))
+
+                    updateTotal();
                 },
                 error: function (error) {
                     console.log('Lỗi truy cập vào API: ', error);
@@ -50,7 +52,7 @@
             let cart = $(this).closest('tr');
             let cartId = cart.attr('id');
             let quantity = $(this).val();
-            let price = cart.find('.li-product-price .amount').html();
+            let price = parseFloat(cart.find('.li-product-price .amount').html().replace(/\./g, "").replace(",", ".")); 
             cart.find('.product-subtotal .amount').html(app.fmnumber(quantity * price))
             if (quantity > 0) {
                 $.ajax({
@@ -79,6 +81,15 @@
             updateTotal();
         });
 
+
+        B.delegate('.coupon input.button', 'click', function () {
+            index.toast({
+                title: "Thông tin",
+                message: "Chức năng đang được phát triển.",
+                type: "info",
+                duration: 3000
+            });
+        })
       
         /*----------------------------------------*/
         /* 22. Cart Plus Minus Button
@@ -99,11 +110,10 @@
                 }
             }
             $button.parent().find("input").val(newVal);
-            updateTotal();
             let cart = $(this).closest('tr');
             let cartId = cart.attr('id');
             let quantity = cart.find('.cart-plus-minus-box').val();
-            let price = cart.find('.li-product-price .amount').html();
+            let price = parseFloat(cart.find('.li-product-price .amount').html().replace(/\./g, "").replace(",", ".")); 
             cart.find('.product-subtotal .amount').html(app.fmnumber(quantity * price))
             $.ajax({
                 method: "PUT",
@@ -113,7 +123,7 @@
                     accept: '*/*',
                 },
                 success: function (response) {
-
+                    updateTotal();
                 },
                 error: function (error) {
                     alert('Vui lòng thử lại sau');

@@ -9,5 +9,6 @@ namespace eShopSolution.ViewModels.Utilities.Slides
     public class SlideDeleteRequest
     {
         public int Id { get; set; }
+        public string? Name { get; set; }
     }
 }

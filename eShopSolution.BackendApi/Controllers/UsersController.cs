@@ -30,12 +30,11 @@ namespace eShopSolution.BackendApi.Controllers
         public async Task<IActionResult> Authenticate([FromBody]LoginRequest request)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);      
-            
+                return BadRequest(ModelState);
+
             var result = await _userService.Authenticate(request);
             if (string.IsNullOrEmpty(result.ResultObj))
                 return BadRequest(result);
-
             return Ok(result);
         }
 

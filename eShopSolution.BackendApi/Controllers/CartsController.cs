@@ -34,7 +34,7 @@ namespace eShopSolution.BackendApi.Controllers
             var userIdentity = User.Identity;
             if (userIdentity.IsAuthenticated)
             {
-                var user = await _userManager.FindByNameAsync(userIdentity.Name);
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
                 var result = await _cartService.addToCart(productId, user.Id);
                 return Ok(result);
             }
@@ -47,7 +47,7 @@ namespace eShopSolution.BackendApi.Controllers
             var userIdentity = User.Identity;
             if (userIdentity.IsAuthenticated)
             {
-                var user = await _userManager.FindByNameAsync(userIdentity.Name);
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
                 var result = await _cartService.getCartByUser(user.Id, languageId);
                 return Ok(result);
             }
@@ -60,7 +60,7 @@ namespace eShopSolution.BackendApi.Controllers
             var userIdentity = User.Identity;
             if (userIdentity.IsAuthenticated)
             {
-                var user = await _userManager.FindByNameAsync(userIdentity.Name);
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
                 var result = await _cartService.removeFromCart(cartId, user.Id);
                 return Ok(result);
             }
@@ -73,7 +73,7 @@ namespace eShopSolution.BackendApi.Controllers
             var userIdentity = User.Identity;
             if (userIdentity.IsAuthenticated)
             {
-                var user = await _userManager.FindByNameAsync(userIdentity.Name);
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
                 var result = await _cartService.updateQuantity(cartId, quantity);
                 return Ok(result);
             }
