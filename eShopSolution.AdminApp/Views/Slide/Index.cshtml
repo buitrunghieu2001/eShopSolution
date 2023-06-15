@@ -109,9 +109,9 @@
                                 <td>@Html.DisplayFor(modelItem => item.Url)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Status)</td>
                                 <td>
-                                    <a href="#" class="detail" data-id="@item.Id" data-bs-toggle="modal" data-bs-target="#detailModal">Chi tiết</a> |
-                                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
+                                    <a href="#" class="detail" data-id="@item.Id" data-bs-toggle="modal" data-bs-target="#detailModal"><i class='fa fa-info-circle' aria-hidden='true'></i></a> |
+                                    <a href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil-square" aria-hidden="true"></i></a> |
+                                    <a href="@Url.Action("Delete", new { id = item.Id })"><i class='fa fa-trash' aria-hidden='true'></i></a> |
                                 </td>
                             </tr>
                             }

@@ -40,9 +40,18 @@ namespace eShopSolution.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Search(GetManageProductPagingRequest request)
+        public async Task<ActionResult> Search(GetManageProductPagingRequest request)
         {
-            return View();
+            var culture = CultureInfo.CurrentCulture.Name;
+            if (request.KeyWord != null)
+            {
+                ViewBag.KeyWord = request.KeyWord;
+            }
+            request.LanguageId = culture;
+            request.PageIndex = (request.PageIndex == null) ? request.PageIndex : 1;
+            request.PageSize = (request.PageSize == null) ? request.PageSize : 9;
+            var result = await _productApiClient.GetPagings(request);
+            return View(result);
         }
     }
 }

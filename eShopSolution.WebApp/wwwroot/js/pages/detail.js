@@ -47,12 +47,12 @@
                     data: '',
                     success: function (response) {
                         if (response) {
-                            $('#msgAlert').html('Thêm vào giỏ hàng thành công');
-                            $('#msgAlert').show()
-                            setTimeout(function () {
-                                $('#msgAlert').fadeOut('slow');
-                            }, 2000);
-                            $('.hm-minicart-trigger .cart-item-count').html(response);
+                            index.toast({
+                                title: "Thành công",
+                                message: "Đã thêm sản phẩm vào giỏ hàng.",
+                                type: "success",
+                                duration: 3000
+                            })
                         }
                     },
                     error: function (error) {

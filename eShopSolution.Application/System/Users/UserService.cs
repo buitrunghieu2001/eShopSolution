@@ -44,7 +44,7 @@ namespace eShopSolution.Application.System.Users
         }
         public async Task<ApiResult<string>> Authenticate(LoginRequest request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.UserName || u.UserName == request.UserName);
             if (user == null)
                 return new ApiErrorResult<string>("Tài khoản không tồn tại");
 
@@ -140,31 +140,45 @@ namespace eShopSolution.Application.System.Users
 
         public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber || u.UserName == request.UserName || u.Email == request.Email);
+
             if (user != null)
             {
-                return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
-            } 
-            if (await _userManager.FindByEmailAsync(request.Email) != null)
-            {
-                return new ApiErrorResult<bool>("Email đã tồn tại");
+                if (user.PhoneNumber == request.PhoneNumber)
+                {
+                    return new ApiErrorResult<bool>("Số điện thoại đã được đăng ký.");
+                }
+                else if (user.UserName == request.UserName)
+                {
+                    return new ApiErrorResult<bool>("Username đã được đăng ký.");
+                }
+                else if (user.Email == request.Email)
+                {
+                    return new ApiErrorResult<bool>("Email đã được đăng ký.");
+                }
+                else
+                {
+                    return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
+                }
             }
-
-            user = new AppUser()
+            else
             {
-                Dob = request.Dob,
-                Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber
-            };
-            var result = await _userManager.CreateAsync(user, request.Password);
-            if (result.Succeeded)
-            {
-                return new ApiSuccessResult<bool>();
-            }
-            return new ApiErrorResult<bool>("Đăng ký không thành công");
+                user = new AppUser()
+                {
+                    Dob = request.Dob != null ? request.Dob : DateTime.MinValue,
+                    Email = request.Email,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    UserName = request.UserName,
+                    PhoneNumber = request.PhoneNumber
+                };
+                var result = await _userManager.CreateAsync(user, request.Password);
+                if (result.Succeeded)
+                {
+                    return new ApiSuccessResult<bool>();
+                }
+                return new ApiErrorResult<bool>("Đăng ký không thành công");
+            }            
         }
 
         public async Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request)

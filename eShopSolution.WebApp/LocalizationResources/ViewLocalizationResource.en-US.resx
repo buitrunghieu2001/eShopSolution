@@ -129,6 +129,10 @@
     <value>Add to cart</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Add to wishlist" xml:space="preserve">
+    <value>Add to wishlist</value>
+    <comment>Product/Search</comment>
+  </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
     <comment>_Layout.cshtml</comment>
@@ -157,6 +161,10 @@
     <value>Clear all</value>
     <comment>Product/Category</comment>
   </data>
+  <data name="Confirm Password*" xml:space="preserve">
+    <value>Confirm Password*</value>
+    <comment>Account/Register</comment>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
     <comment>_Layout.cshtml</comment>
@@ -164,6 +172,10 @@
   <data name="Currency" xml:space="preserve">
     <value>Currency</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Date Of Bỉthday*" xml:space="preserve">
+    <value>Date Of Bỉthday*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -176,6 +188,10 @@
   <data name="Do you want to remove this item" xml:space="preserve">
     <value>Do you want to remove this item</value>
     <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="Email Address*" xml:space="preserve">
+    <value>Email Address*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
@@ -197,6 +213,14 @@
     <value>Firm Camera</value>
     <comment>_Layout.cshtml</comment>
   </data>
+  <data name="First Name*" xml:space="preserve">
+    <value>First Name*</value>
+    <comment>Account/Register</comment>
+  </data>
+  <data name="Forgotten password?" xml:space="preserve">
+    <value>Forgotten password?</value>
+    <comment>Account/Login</comment>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
     <comment>_Layout.cshtml</comment>
@@ -208,6 +232,10 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
     <comment>_Layout.cshtml</comment>
+  </data>
+  <data name="Last Name*" xml:space="preserve">
+    <value>Last Name*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="Latest" xml:space="preserve">
     <value>Latest</value>
@@ -244,6 +272,14 @@
     <value>No</value>
     <comment>Cart/Cart.cshtml</comment>
   </data>
+  <data name="Password*" xml:space="preserve">
+    <value>Password*</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="Phone Number*" xml:space="preserve">
+    <value>Phone Number*</value>
+    <comment>Account/Register</comment>
+  </data>
   <data name="Price (High &gt; Low)" xml:space="preserve">
     <value>Price (High &gt; Low)</value>
     <comment>Product/Search</comment>
@@ -276,6 +312,10 @@
     <value>Quantity</value>
     <comment>Cart/Cart.cshtml</comment>
   </data>
+  <data name="Quick view" xml:space="preserve">
+    <value>Quick view</value>
+    <comment>Product/Search</comment>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
     <comment>Account/Login</comment>
@@ -283,6 +323,10 @@
   <data name="Relevance" xml:space="preserve">
     <value>Relevance</value>
     <comment>Product/Search</comment>
+  </data>
+  <data name="Remember me" xml:space="preserve">
+    <value>Remember me</value>
+    <comment>Account/Login</comment>
   </data>
   <data name="remove" xml:space="preserve">
     <value>remove</value>
@@ -335,6 +379,14 @@
   <data name="Unit Price" xml:space="preserve">
     <value>Unit Price</value>
     <comment>Cart/Cart.cshtml</comment>
+  </data>
+  <data name="User Name or Phone Number*" xml:space="preserve">
+    <value>User Name or Phone Number*</value>
+    <comment>Account/Login</comment>
+  </data>
+  <data name="User Name*" xml:space="preserve">
+    <value>User Name*</value>
+    <comment>Account/Register</comment>
   </data>
   <data name="Vietnamese" xml:space="preserve">
     <value>Vietnamese</value>

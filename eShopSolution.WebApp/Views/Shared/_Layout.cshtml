@@ -163,6 +163,8 @@
                         <!-- Begin Header Middle Searchbox Area -->
                         <form class="hm-searchbox" method="GET" asp-controller="Product" asp-action="Search">
                             @await Component.InvokeAsync("SideBarDropDown")
+                            <input name="PageIndex" type="hidden" value="1">
+                            <input name="PageSize" type="hidden" value="9">
                             <input name="KeyWord" type="text" placeholder="Nhập từ khóa ..." required>
                             <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
@@ -451,7 +453,7 @@
                                 <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="footer-subscribe-form validate" target="_blank" novalidate>
                                     <div id="mc_embed_signup_scroll">
                                         <div id="mc-form" class="mc-form subscribe-form form-group">
-                                            <input id="mc-email" type="email" autocomplete="off" placeholder="Enter your email" />
+                                            <input id="mc-email" type="email" autocomplete="off" placeholder="Nhập email của bạn" />
                                             <button class="btn" id="mc-submit">Đăng ký</button>
                                         </div>
                                     </div>
@@ -504,10 +506,10 @@
                 </div>
             </div>
         </div>
-        <!-- Footer Static Bottom Area End Here -->
     </div>
+    <div id="toast"></div>
     <div id="msgAlert" class="alert alert-success position-fixed" style="top: 60px; right: 174px; display: none;" role="alert">
-    </div>
+</div>
     <!-- jQuery-V1.12.4 -->
     <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- Popper js -->

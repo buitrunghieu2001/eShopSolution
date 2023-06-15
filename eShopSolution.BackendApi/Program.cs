@@ -34,9 +34,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings
     options.Password.RequireDigit = true; // yêu cầu số
-    options.Password.RequiredLength = 6; // độ dài 6
+    options.Password.RequiredLength = 8; // độ dài 6
     options.Password.RequireUppercase = true; // chữ thường
     options.Password.RequireLowercase = true; // chữ hoa
+    options.Password.RequireNonAlphanumeric = true; // Yêu cầu ít nhất một ký tự đặc biệt
 
     // Lockout settings
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30); //bị khóa sau khi đăng nhập ko thành công số lần quy định

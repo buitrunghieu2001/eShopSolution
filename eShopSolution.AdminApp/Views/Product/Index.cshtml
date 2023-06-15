@@ -67,10 +67,10 @@
                                 <td>@Html.DisplayFor(modelItem => item.Price)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                                 <td>
-                                        @Html.ActionLink("Xem", "Details", new { id = item.Id }) |
-                                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Xóa", "Delete", new { id = item.Id }) |
-                                        @Html.ActionLink("Gán danh mục", "CategoryAssign", new { id = item.Id })
+                                    <a href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil-square" aria-hidden="true"></i></a> |
+                                    <a href="@Url.Action("Details", new { id = item.Id })"><i class='fa fa-info-circle' aria-hidden='true'></i></a> |
+                                    <a href="@Url.Action("Delete", new { id = item.Id })"><i class='fa fa-trash' aria-hidden='true'></i></a> |
+                                    <a href="@Url.Action("CategoryAssign", new { id = item.Id })"><i class='fa fa-cog' aria-hidden='true'></i></a>
                                 </td>
                             </tr>
                             }
