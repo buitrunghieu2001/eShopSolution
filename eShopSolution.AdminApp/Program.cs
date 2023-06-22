@@ -62,7 +62,17 @@ app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
+
 app.UseSession();
+
+app.MapControllerRoute(
+    name: "Duyet danh gia",
+    pattern: "duyet-danh-gia", new
+    {
+        controller = "Review",
+        action = "Approve"
+    });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

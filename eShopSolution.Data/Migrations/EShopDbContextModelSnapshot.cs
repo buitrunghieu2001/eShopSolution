@@ -270,7 +270,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0a02b52-2d8a-40d4-b0ba-35abd0b3047b",
+                            ConcurrencyStamp = "ec3fb30d-1577-4bf5-ac4f-7615f3e641e6",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -279,12 +279,42 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGqAdyqRnQoYcIAqLNa1HbiXaqQFlgozAqU3gEDmAHV9JgAIDsIKxtdRoFUphyBTZQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIp29RfKM9eLNTsu0HNbspBQsYacxldoD3n+9ypuX0zrKUqOgGLg5I7c0FuX4ersAQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Canon"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sony"
                         });
                 });
 
@@ -594,11 +624,18 @@ namespace eShopSolution.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsFeatured")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Origin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -621,7 +658,13 @@ namespace eShopSolution.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<string>("Warranty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
 
                     b.ToTable("Products", (string)null);
 
@@ -629,13 +672,16 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 6, 11, 1, 44, 2, 738, DateTimeKind.Local).AddTicks(3481),
+                            BrandId = 1,
+                            DateCreated = new DateTime(2023, 6, 21, 12, 0, 18, 882, DateTimeKind.Local).AddTicks(7259),
                             IsFeatured = true,
+                            Origin = "Thái Lan",
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Rating = 0,
                             Stock = 0,
-                            ViewCount = 0
+                            ViewCount = 0,
+                            Warranty = "12 tháng"
                         });
                 });
 
@@ -1101,6 +1147,15 @@ namespace eShopSolution.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("eShopSolution.Data.Entities.Product", b =>
+                {
+                    b.HasOne("eShopSolution.Data.Entities.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId");
+
+                    b.Navigation("Brand");
+                });
+
             modelBuilder.Entity("eShopSolution.Data.Entities.ProductImage", b =>
                 {
                     b.HasOne("eShopSolution.Data.Entities.Product", "Product")
@@ -1179,6 +1234,11 @@ namespace eShopSolution.Data.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Category", b =>

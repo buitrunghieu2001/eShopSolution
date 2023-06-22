@@ -51,6 +51,19 @@ namespace eShopSolution.Data.Extensions
                 new CategoryTranslation() { Id = 4, CategoryId = 2, Name = "Women Shirt", LanguageId = "en-US", SeoAlias = "women-shirt", SeoDescription = "The shirt products for women", SeoTitle = "The shirt products for women" }
                 );
 
+            modelBuilder.Entity<Brand>().HasData(
+                new Brand
+                {
+                    Id = 1,
+                    Name = "Canon",
+                },
+                new Brand
+                {
+                    Id = 2,
+                    Name = "Sony",
+                }
+            );
+
             modelBuilder.Entity<Product>().HasData(
                new Product()
                {
@@ -61,6 +74,10 @@ namespace eShopSolution.Data.Extensions
                    Stock = 0,
                    ViewCount = 0,
                    IsFeatured = true,
+                   Warranty = "12 tháng",
+                   Origin = "Thái Lan",
+                   BrandId = 1,
+
                });
             modelBuilder.Entity<ProductTranslation>().HasData(
                 new ProductTranslation()

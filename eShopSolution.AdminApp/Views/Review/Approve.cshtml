@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Danh sách duyệt đánh giá";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/pages/approve.js"></script>
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Danh sách duyệt đánh giá</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh sách duyệt đánh giá</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <div class="d-flex">
+                <form class="row g-3" asp-action="Index" method="get">
+                    <div class="col-auto">
+                        <input type="text" class="form-control" value="1" name="keyword" placeholder="Từ khóa ...">
+                    </div>
+                    <div class="col-auto">
+                        <select name="categoryId" class="form-control">
+                            <option>--Chọn danh mục--</option>
+                            <option>Máy ảnh</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" onclick="window.location.href='/product/index'" class="btn btn-warning">Xóa tìm kiếm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="table-danh-gia">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Số sao</th>
+                            <th>Nội dung</th>
+                            <th>Khác hàng</th>
+                            <th>Thời gian</th>
+                            <th>Hình ảnh</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>
+                                <a href=""><i class="fa fa-pencil-square" aria-hidden="true"></i></a> |
+                                <a href=""><i class='fa fa-info-circle' aria-hidden='true'></i></a> |
+                                <a href=""><i class='fa fa-trash' aria-hidden='true'></i></a> |
+                                <a href=""><i class='fa fa-cog' aria-hidden='true'></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="phan-trang">
+
+            </div>
+        </div>
+    </div>
+
+</div>

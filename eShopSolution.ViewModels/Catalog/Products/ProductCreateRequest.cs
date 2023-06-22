@@ -29,6 +29,9 @@ namespace eShopSolution.ViewModels.Catalog.Products
         
         [Required(ErrorMessage = "Bạn phải nhập danh mục")]
         public int CategoryId { get; set; }
+        public int BrandId { get; set; }
+        public string Origin { get; set; }
+        public string Warranty { get; set; }
         public IFormFile ThumbnailImage { get; set; }
     }
 }

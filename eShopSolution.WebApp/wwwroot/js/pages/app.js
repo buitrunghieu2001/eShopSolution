@@ -84,6 +84,12 @@ var app = (function () {
         document.cookie = encodeURIComponent(name) + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
 
+    mol.fmdate = function (d) {
+        if (d == null || d == "" || d == 'null') return "";
+        var a = d.split('T')[0].split('-');
+        return a[2] + '/' + a[1] + '/' + a[0];
+    }
+
     return mol;
 })();
 $(document).ready(function () {

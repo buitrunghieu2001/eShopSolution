@@ -1,27 +1,15 @@
-﻿using Azure.Core;
-using eShopSolution.Application.Common;
+﻿using eShopSolution.Application.Common;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 using eShopSolution.utilities.Exceptions;
 using eShopSolution.Utilities.Constants;
-using eShopSolution.ViewModels.Catalog.Categories;
 using eShopSolution.ViewModels.Catalog.ProductImages;
 using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.Common;
+using eShopSolution.ViewModels.System.Brands;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IISIntegration;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace eShopSolution.Application.Catalog.Products
 {
@@ -116,6 +104,9 @@ namespace eShopSolution.Application.Catalog.Products
                 Stock = request.Stock,
                 ViewCount = 0,
                 DateCreated = DateTime.Now,
+                BrandId = request.BrandId,
+                Origin = request.Origin,
+                Warranty = request.Warranty,
                 ProductTranslations = translations,
                 ProductInCategories = productInCategory
             };
@@ -164,16 +155,20 @@ namespace eShopSolution.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
+                        join b in _context.Brands on p.BrandId equals b.Id into bp
+                        from b in bp.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
                         from ct in piccct.DefaultIfEmpty()
                         where pt.LanguageId == request.LanguageId && ct.LanguageId == request.LanguageId && pi.IsDefault == true
-                        select new { p, pt, pic, pi, ct };
+                        select new { p, pt, pic, pi, ct, b };
 
             // step 2: filter
             if (!string.IsNullOrEmpty(request.KeyWord))
-                query = query.Where(x => x.pt.Name.Contains(request.KeyWord));
+            {
+                query = query.Where(x => x.pt.Name.Contains(request.KeyWord) || x.b.Name.Contains(request.KeyWord));
+            }
 
             if (request.CategoryId != null && request.CategoryId != 0)
             {
@@ -231,13 +226,20 @@ namespace eShopSolution.Application.Catalog.Products
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     Rating = x.p.Rating,
+                    Origin = x.p.Origin,
+                    Warranty = x.p.Warranty,
                     SeoAlias = x.pt.SeoAlias,
                     SeoDescription = x.pt.SeoDescription,
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
-                    Categories = new List<string>() { x.ct.Name }
+                    Categories = new List<string>() { x.ct.Name },
+                    Brand = x.b != null ? new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    } : null
                 }).ToListAsync();
             //ToListAsync(): chuyển thành một List<Product>
 
@@ -255,6 +257,7 @@ namespace eShopSolution.Application.Catalog.Products
         public async Task<ProductVM> GetById(int productId, string languageId)
         {
             var product = await _context.Products.FindAsync(productId);
+            var brand = await _context.Brands.FindAsync(product.BrandId);
             var productTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == productId && x.LanguageId == languageId);
             var categories = (from c in _context.Categories
                               join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
@@ -272,6 +275,13 @@ namespace eShopSolution.Application.Catalog.Products
                 Name = productTranslation != null ? productTranslation.Name : null,
                 OriginalPrice = product.OriginalPrice,
                 Price = product.Price,
+                Brand = new BrandVM()
+                {
+                    Id = brand.Id,
+                    Name = brand.Name,
+                },
+                Origin = product.Origin,
+                Warranty = product.Warranty,
                 SeoAlias = productTranslation != null ? productTranslation.SeoAlias : null,
                 SeoDescription = productTranslation != null ? productTranslation.SeoDescription : null,
                 SeoTitle = productTranslation != null ? productTranslation.SeoTitle : null,
@@ -337,6 +347,9 @@ namespace eShopSolution.Application.Catalog.Products
 
             product.Price = request.Price;
             product.OriginalPrice = request.OriginalPrice;
+            product.BrandId = request.BrandId;
+            product.Origin = request.Origin;
+            product.Warranty = request.Warranty;
             productTranslations.Name = request.Name;
             productTranslations.Name = request.Name;
             productTranslations.SeoAlias = request.SeoAlias;
@@ -344,7 +357,6 @@ namespace eShopSolution.Application.Catalog.Products
             productTranslations.SeoTitle = request.SeoTitle;
             productTranslations.Description = request.Description;
             productTranslations.Details = request.Details;
-
 
             // update image
             if (request.ThumbnailImage != null)
@@ -406,15 +418,16 @@ namespace eShopSolution.Application.Catalog.Products
             return fileName;
         }
 
-        public async Task<PagedResult<ProductVM>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request)
+        public async Task<PagedResult<ProductVM>> GetAllByCategoryId(GetPublicProductPagingRequest request)
         {
             // step 1: select join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.Id
-                        where pt.LanguageId == languageId
-                        select new { p, pt, pic };
+                        join b in _context.Brands on p.BrandId equals b.Id
+                        where pt.LanguageId == request.LanguageId
+                        select new { p, pt, pic, b };
             // step 2: filter
 
             if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
@@ -433,12 +446,19 @@ namespace eShopSolution.Application.Catalog.Products
                     Description = x.pt.Description,
                     Details = x.pt.Details,
                     Rating = x.p.Rating,
+                    Origin = x.p.Origin,
+                    Warranty = x.p.Warranty,
                     LanguageId = x.pt.LanguageId,
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     SeoAlias = x.pt.SeoAlias,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
+                    Brand = new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    }
                 }).ToListAsync();
 
             // step 4: select and projection
@@ -491,13 +511,15 @@ namespace eShopSolution.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
+                        join b in _context.Brands on p.BrandId equals b.Id into pb
+                        from b in pb.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
                         from ct in piccct.DefaultIfEmpty()
                         where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true)
                         && p.IsFeatured == true
-                        select new { p, pt, pic, pi, ct };
+                        select new { p, pt, pic, pi, ct, b };
 
             var data = await query.OrderByDescending(x => x.p.DateCreated).Take(take)
                 .Select(x => new ProductVM()
@@ -508,6 +530,8 @@ namespace eShopSolution.Application.Catalog.Products
                     Description = x.pt.Description,
                     Details = x.pt.Details,
                     LanguageId = x.pt.LanguageId,
+                    Warranty = x.p.Warranty,
+                    Origin = x.p.Origin,
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     Rating = x.p.Rating,
@@ -518,7 +542,12 @@ namespace eShopSolution.Application.Catalog.Products
                     ViewCount = x.p.ViewCount,
                     IsFeatured = x.p.IsFeatured,
                     ThumbnailImage = x.pi.ImagePath,
-                    Categories = new List<string>() { x.ct.Name }
+                    Categories = new List<string>() { x.ct.Name },
+                    Brand = new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    }
                 }).ToListAsync();
 
             return data;
@@ -533,12 +562,14 @@ namespace eShopSolution.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
+                        join b in _context.Brands on p.BrandId equals b.Id into pb
+                        from b in pb.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
                         from ct in piccct.DefaultIfEmpty()
                         where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true)
-                        select new { p, pt, pic, pi, ct };
+                        select new { p, pt, pic, pi, ct, b };
 
             var data = await query.OrderByDescending(x => x.p.DateCreated).Take(take)
                 .Select(x => new ProductVM()
@@ -552,13 +583,20 @@ namespace eShopSolution.Application.Catalog.Products
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     Rating = x.p.Rating,
+                    Warranty = x.p.Warranty,
+                    Origin = x.p.Origin,
                     SeoAlias = x.pt.SeoAlias,
                     SeoDescription = x.pt.SeoDescription,
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
-                    Categories = new List<string>() { x.ct.Name }
+                    Categories = new List<string>() { x.ct.Name },
+                    Brand = new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    }
                 }).ToListAsync();
 
             return data;
@@ -573,12 +611,14 @@ namespace eShopSolution.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
+                        join b in _context.Brands on p.BrandId equals b.Id into pb
+                        from b in pb.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
                         from ct in piccct.DefaultIfEmpty()
                         where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true) && c.Id == categoryId
-                        select new { p, pt, pic, pi, ct };
+                        select new { p, pt, pic, pi, ct, b };
 
             var data = await query.OrderByDescending(x => x.p.ViewCount)
                 .Select(x => new ProductVM()
@@ -592,13 +632,20 @@ namespace eShopSolution.Application.Catalog.Products
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     Rating = x.p.Rating,
+                    Origin = x.p.Origin,
+                    Warranty = x.p.Warranty,
                     SeoAlias = x.pt.SeoAlias,
                     SeoDescription = x.pt.SeoDescription,
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
-                    Categories = new List<string>() { x.ct.Name }
+                    Categories = new List<string>() { x.ct.Name },
+                    Brand = new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    }
                 }).ToListAsync();
 
             return data;
@@ -613,12 +660,14 @@ namespace eShopSolution.Application.Catalog.Products
                         from pic in ppic.DefaultIfEmpty()
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
+                        join b in _context.Brands on p.BrandId equals b.Id into pb
+                        from b in pb.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
                         join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
                         from ct in piccct.DefaultIfEmpty()
                         where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true) && c.Id == categoryId
-                        select new { p, pt, pic, pi, ct };
+                        select new { p, pt, pic, pi, ct, b };
 
             var data = await query.OrderByDescending(x => x.p.ViewCount).Take(take)
                 .Select(x => new ProductVM()
@@ -632,13 +681,20 @@ namespace eShopSolution.Application.Catalog.Products
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     Rating = x.p.Rating,
+                    Origin = x.p.Origin,
+                    Warranty = x.p.Warranty,
                     SeoAlias = x.pt.SeoAlias,
                     SeoDescription = x.pt.SeoDescription,
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
-                    Categories = new List<string>() { x.ct.Name }
+                    Categories = new List<string>() { x.ct.Name },
+                    Brand = new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    }
                 }).ToListAsync();
 
             return data;

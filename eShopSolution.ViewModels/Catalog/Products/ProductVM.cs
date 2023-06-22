@@ -1,4 +1,6 @@
-﻿using eShopSolution.ViewModels.Catalog.Categories;
+﻿using eShopSolution.Data.Entities;
+using eShopSolution.ViewModels.Catalog.Categories;
+using eShopSolution.ViewModels.System.Brands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,8 @@ namespace eShopSolution.ViewModels.Catalog.Products
         public int Rating { get; set; }
         public int ViewCount { get; set; }
         public DateTime DateCreated { get; set; }
-        public int ProductId { set; get; }
+        public string Origin { get; set; }
+        public string Warranty { get; set; }
         public string Name { set; get; }
         public string Description { set; get; }
         public string Details { set; get; }
@@ -26,6 +29,7 @@ namespace eShopSolution.ViewModels.Catalog.Products
         public string SeoTitle { set; get; }
         public bool? IsFeatured { get; set; }
         public string ThumbnailImage { get; set; }
-        public List<string> Categories { get; set; } = new List<string>();
+        public BrandVM Brand { get; set; }
+        public List<string> Categories { get; set; }
     }
 }

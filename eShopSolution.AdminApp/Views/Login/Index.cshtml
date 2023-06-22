@@ -28,24 +28,24 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Đăng nhập</h3></div>
                                 <div class="card-body">
-                                    <form asp-action="Index" asp-controller="Login" method="POST">
+                                    <form id="login" asp-action="Index" asp-controller="Login" method="POST">
                                         <div asp-validation-summary="All" class="text-danger"></div>
 
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="UserName" type="text" placeholder="Nhập tài khoản" />
+                                            <input class="form-control" id="username" asp-for="UserName" type="text" placeholder="Nhập tài khoản" />
                                             <label>Tên đăng nhập</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="Password" type="password" placeholder="Nhập mật khẩu" />
+                                            <input class="form-control" id="password" asp-for="Password" type="password" placeholder="Nhập mật khẩu" />
                                             <label>Mật khẩu</label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" asp-for="RememberMe" type="checkbox" checked/>
+                                            <input class="form-check-input" id="rememberme" asp-for="RememberMe" type="checkbox" checked/>
                                             <label class="form-check-label">Nhớ mật khẩu</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="/User/ForgotPassword">Quên mật khẩu?</a>
-                                            <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                                            <button class="btn btn-primary" id="btn-dangnhap" type="submit">Đăng nhập</button>
                                         </div>
                                     </form>
                                 </div>
@@ -59,7 +59,9 @@
             </main>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="/js/scripts.js"></script>
+    <script src="~/js/pages/login.js"></script>
 </body>
 </html>

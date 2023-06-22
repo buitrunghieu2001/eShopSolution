@@ -2,6 +2,7 @@
 using eShopSolution.Application.Catalog.Carts;
 using eShopSolution.Application.Catalog.Categories;
 using eShopSolution.Application.Catalog.Products;
+using eShopSolution.Application.Catalog.Reviews;
 using eShopSolution.Application.Common;
 using eShopSolution.Application.System.Languages;
 using eShopSolution.Application.System.Roles;
@@ -60,6 +61,7 @@ builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ISlideService, SlideService>();
 builder.Services.AddTransient<ICartService, CartService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 //builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
 //builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

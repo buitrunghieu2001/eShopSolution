@@ -46,11 +46,11 @@ namespace eShopSolution.Application.System.Users
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.UserName || u.UserName == request.UserName);
             if (user == null)
-                return new ApiErrorResult<string>("Tài khoản không tồn tại");
+                return new ApiErrorResult<string>("Tài khoản không tồn tại.");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
-                return new ApiErrorResult<string>("Đăng nhập không đúng");
+                return new ApiErrorResult<string>("Tài khoản hoặc mật khẩu không đúng.");
 
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]

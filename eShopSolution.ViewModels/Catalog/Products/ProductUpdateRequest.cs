@@ -13,6 +13,9 @@ namespace eShopSolution.ViewModels.Catalog.Products
         public string Name { set; get; }
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
+        public int BrandId { get; set; }
+        public string Origin { get; set; }
+        public string Warranty { get; set; }
         public string Description { set; get; }
         public string Details { set; get; }
         public string SeoDescription { set; get; }

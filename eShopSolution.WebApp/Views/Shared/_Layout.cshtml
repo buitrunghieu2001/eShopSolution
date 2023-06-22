@@ -64,7 +64,7 @@
                                 }
                                 else
                                 {
-                                    <li><span><localize>Wellcome</localize>: </span><b>Guest!</b></li>
+                                    <li><span><localize>Wellcome</localize>: </span><b>Khách hàng!</b></li>
                                 }
                             </ul>
                         </div>
@@ -165,7 +165,7 @@
                             @await Component.InvokeAsync("SideBarDropDown")
                             <input name="PageIndex" type="hidden" value="1">
                             <input name="PageSize" type="hidden" value="9">
-                            <input name="KeyWord" type="text" placeholder="Nhập từ khóa ..." required>
+                            <input id="keyword" name="KeyWord" type="text" placeholder="Nhập từ khóa ..." required>
                             <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                         <!-- Header Middle Searchbox Area End Here -->

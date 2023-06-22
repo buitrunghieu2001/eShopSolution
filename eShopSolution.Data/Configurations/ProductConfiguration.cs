@@ -30,6 +30,11 @@ namespace eShopSolution.Data.Configurations
 
             builder.Property(x => x.Rating).IsRequired().HasDefaultValue(5);
 
+            builder.HasOne(x => x.Brand)
+                .WithMany(x => x.Products)
+                .HasForeignKey(x => x.BrandId)
+                .IsRequired(false);
+
         }
 
     }

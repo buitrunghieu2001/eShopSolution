@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/css/pages/category.css",
     "inputFile": "wwwroot/css/pages/category.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/pages/detail.css",
+    "inputFile": "wwwroot/css/pages/detail.scss"
   }
 ]

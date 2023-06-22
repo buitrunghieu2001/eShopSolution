@@ -65,9 +65,17 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(products);
         }
 
-        [HttpGet("category/{languageId}/{categoryId}")]
+        [HttpGet("category")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAllProductsByCategory(int categoryId, string languageId)
+        public async Task<IActionResult> GetAllByCategoryId([FromQuery] GetPublicProductPagingRequest request)
+        {
+            var products = await _productService.GetAllByCategoryId(request);
+            return Ok(products);
+        }
+
+        [HttpGet("getallbycategory")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllProductByCategory(string languageId, int categoryId)
         {
             var products = await _productService.GetAllProductByCategory(languageId, categoryId);
             return Ok(products);
