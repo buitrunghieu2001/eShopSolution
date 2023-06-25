@@ -12,9 +12,9 @@ namespace eShopSolution.Data.Entities
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
         public int Stock { get; set; }
-        public string Warranty { get; set; }
-        public string Origin { get; set; }
-        public int BrandId { get; set; }
+        public string? Warranty { get; set; }
+        public string? Origin { get; set; }
+        public int? BrandId { get; set; }
         public int ViewCount { get; set; }
         public int Rating { get; set; }
         public DateTime DateCreated { get; set; }

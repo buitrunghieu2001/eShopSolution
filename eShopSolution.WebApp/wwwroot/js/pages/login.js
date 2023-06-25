@@ -26,15 +26,7 @@
                     }),
                     success: function (response) {
                         if (response.isSuccessed) {
-                            index.toast({
-                                title: "Thành công",
-                                message: "Đăng nhập thành công.",
-                                type: "success",
-                                duration: 3000
-                            })
-                            setTimeout(function () {
-                                $('#form-login').submit();
-                            }, 1500);
+                            $('#form-login').submit();
                         } else {
                             index.toast({
                                 title: "Thất bại",

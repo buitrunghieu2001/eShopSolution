@@ -1,4 +1,5 @@
-﻿using eShopSolution.Application.Common;
+﻿using Azure.Core;
+using eShopSolution.Application.Common;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 using eShopSolution.utilities.Exceptions;
@@ -257,6 +258,10 @@ namespace eShopSolution.Application.Catalog.Products
         public async Task<ProductVM> GetById(int productId, string languageId)
         {
             var product = await _context.Products.FindAsync(productId);
+            if (product == null)
+            {
+                return null;
+            }
             var brand = await _context.Brands.FindAsync(product.BrandId);
             var productTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == productId && x.LanguageId == languageId);
             var categories = (from c in _context.Categories
@@ -423,11 +428,16 @@ namespace eShopSolution.Application.Catalog.Products
             // step 1: select join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
+                        from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
+                        from pi in ppi.DefaultIfEmpty()
                         join c in _context.Categories on pic.CategoryId equals c.Id
-                        join b in _context.Brands on p.BrandId equals b.Id
-                        where pt.LanguageId == request.LanguageId
-                        select new { p, pt, pic, b };
+                        join b in _context.Brands on p.BrandId equals b.Id 
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
+                        from ct in piccct.DefaultIfEmpty()
+                        where pt.LanguageId == request.LanguageId && pic.CategoryId == request.CategoryId
+                        select new { p, pt, ct, pi, pic, b };
             // step 2: filter
 
             if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
@@ -452,8 +462,13 @@ namespace eShopSolution.Application.Catalog.Products
                     OriginalPrice = x.p.OriginalPrice,
                     Price = x.p.Price,
                     SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
+                    IsFeatured = x.p.IsFeatured,
+                    ThumbnailImage = x.pi.ImagePath,
+                    Categories = new List<string>() { x.ct.Name },
                     Brand = new BrandVM()
                     {
                         Id = x.b.Id,
@@ -716,6 +731,56 @@ namespace eShopSolution.Application.Catalog.Products
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
             return new ApiSuccessResult<int>(product.ViewCount);
+        }
+
+        public async Task<List<ProductVM>> GetBrandProducts(int brandId, string languageId, int take)
+        {
+            //1. Select join
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
+                        from pic in ppic.DefaultIfEmpty()
+                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
+                        from pi in ppi.DefaultIfEmpty()
+                        join b in _context.Brands on p.BrandId equals b.Id into pb
+                        from b in pb.DefaultIfEmpty()
+                        join c in _context.Categories on pic.CategoryId equals c.Id into picc
+                        from c in picc.DefaultIfEmpty()
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId into piccct
+                        from ct in piccct.DefaultIfEmpty()
+                        where pt.LanguageId == languageId && ct.LanguageId == languageId && (pi == null || pi.IsDefault == true) && b.Id == brandId
+                        select new { p, pt, pic, pi, ct, b };
+
+            var data = await query.OrderByDescending(x => x.p.DateCreated).Take(take)
+                .Select(x => new ProductVM()
+                {
+                    Id = x.p.Id,
+                    Name = x.pt.Name,
+                    DateCreated = x.p.DateCreated,
+                    Description = x.pt.Description,
+                    Details = x.pt.Details,
+                    LanguageId = x.pt.LanguageId,
+                    Warranty = x.p.Warranty,
+                    Origin = x.p.Origin,
+                    OriginalPrice = x.p.OriginalPrice,
+                    Price = x.p.Price,
+                    Rating = x.p.Rating,
+                    SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount,
+                    IsFeatured = x.p.IsFeatured,
+                    ThumbnailImage = x.pi.ImagePath,
+                    Categories = new List<string>() { x.ct.Name },
+                    Brand = new BrandVM()
+                    {
+                        Id = x.b.Id,
+                        Name = x.b.Name,
+                    }
+                }).ToListAsync();
+
+            return data;
         }
     }
 }

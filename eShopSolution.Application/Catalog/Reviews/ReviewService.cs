@@ -233,7 +233,7 @@ namespace eShopSolution.Application.Catalog.Reviews
             throw new NotImplementedException();
         }
 
-        public async Task<ApiResult<string>> ReviewIsAppvored(int reviewId)
+        public async Task<ApiResult<string>> ReviewIsApproved(int reviewId)
         {
             var review = await _context.ProductReviews.FindAsync(reviewId);
             if (review == null)
@@ -248,7 +248,7 @@ namespace eShopSolution.Application.Catalog.Reviews
             return new ApiSuccessResult<string>($"Duyệt đánh đánh giá thành công.");
         }
 
-        public async Task<ApiResult<string>> ReviewDisappvored(int reviewId)
+        public async Task<ApiResult<string>> ReviewDisapproved(int reviewId)
         {
             var review = await _context.ProductReviews.FindAsync(reviewId);
             if (review == null)
@@ -273,5 +273,47 @@ namespace eShopSolution.Application.Catalog.Reviews
             return fileName;
         }
 
+        public async Task<ReviewVM> GetReviewById(int reviewId)
+        {
+            var query = from r in _context.ProductReviews
+                        join pt in _context.ProductTranslations on r.ProductId equals pt.ProductId
+                        join ri in _context.ReviewImages on r.Id equals ri.ReviewId into pri
+                        from ri in pri.DefaultIfEmpty()
+                        where r.Id == reviewId && pt.LanguageId == "vi-VN"
+                        select new { r, ri, pt };
+
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Select(x => new ReviewVM()
+                {
+                    Id = x.r.Id,
+                    Product = x.pt.Name,
+                    UserId = (Guid)(x.r.UserId ?? Guid.Empty),
+                    Content = x.r.Content,
+                    Rating = x.r.Rating,
+                    IsApproved = x.r.IsApproved,
+                    Name = x.r.Name,
+                    Email = x.r.Email,
+                    PhoneNumber = x.r.PhoneNumber,
+                    DateCreated = x.r.DateCreated,
+                    DateUpdated = x.r.DateUpdate,
+                    ReviewImages = x.ri != null ? new List<ReviewImagesRequest>()
+                    {
+                        new ReviewImagesRequest()
+                        {
+                            Id = x.ri.Id,
+                            ReviewId = x.ri.ReviewId,
+                            ImagePath = x.ri.ImagePath,
+                            Caption = x.ri.Caption,
+                            IsDefault = x.ri.IsDefault,
+                            DateCreated = x.ri.DateCreated,
+                            SortOrder = x.ri.SortOrder,
+                            FileSize = x.ri.FileSize
+                        }
+                    } : null
+                }).FirstOrDefaultAsync();
+
+            return data;
+        }
     }
 }

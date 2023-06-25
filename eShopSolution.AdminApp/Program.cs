@@ -33,6 +33,8 @@ builder.Services.AddTransient<ILanguageApiClient, LanguageApiClient>();
 builder.Services.AddTransient<IProductApiClient, ProductApiClient>();
 builder.Services.AddTransient<ICategoryApiClient, CategoryApiClient>();
 builder.Services.AddTransient<ISlideApiClient, SlideApiClient>();
+builder.Services.AddScoped<IBrandApiClient, BrandApiClient>();
+
 
 
 // package runtime automatically compile without rerun

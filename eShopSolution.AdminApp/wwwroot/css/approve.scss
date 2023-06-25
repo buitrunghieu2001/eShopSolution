@@ -1,0 +1,43 @@
+﻿#phan-trang {
+    float: right;
+
+    li {
+        display: inline-block;
+        cursor: pointer;
+        list-style: none;
+        padding: 8px 14px;
+        font-size: 13px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        margin: 0 2px;
+        border-radius: 4px;
+        font-weight: 500;
+        opacity: .9;
+        user-select: none;
+
+        &.active {
+            background-color: #4f76dd;
+            border-color: #4f76dd;
+
+            a {
+                color: #fff !important;
+            }
+        }
+    }
+}
+
+#table-danh-gia {
+    td.clamp-lines {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    thead {
+        tr {
+            white-space: nowrap;
+        }
+    }
+}

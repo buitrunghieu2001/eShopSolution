@@ -72,6 +72,11 @@ namespace eShopSolution.ApiIntegration
             return await GetListAsync<SlideVM>("/api/slides");
         }
 
+        public async Task<List<SlideVM>> GetSlideActive()
+        {
+            return await GetListAsync<SlideVM>("/api/slides/active");
+        }
+
         public async Task<SlideVM> GetById(int slideId)
         {
             var data = await GetAsync<SlideVM>($"api/slides/{slideId}");

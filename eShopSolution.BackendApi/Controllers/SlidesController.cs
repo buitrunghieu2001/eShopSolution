@@ -27,6 +27,14 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(slides);
         }
 
+        [HttpGet("active")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetSlideActive()
+        {
+            var slides = await _slideService.GetSlideActive();
+            return Ok(slides);
+        }
+
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateSlide([FromForm] SlideCreateRequest request)

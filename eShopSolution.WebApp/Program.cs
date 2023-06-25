@@ -104,7 +104,7 @@ app.MapControllerRoute(
     });
 app.MapControllerRoute(
     name: "Product Category vi-VN",
-    pattern: "{culture}/danh-muc/{category}", new
+    pattern: "{culture}/{category}", new
     {
         controller = "Product",
         action = "Category"

@@ -18,7 +18,8 @@ namespace eShopSolution.Application.Catalog.Reviews
         Task<List<ReviewVM>> GetReviewUser(int userId, int productId);
         Task<ApiResult<string>> Create(ReviewCreateRequest request);
         Task<ApiResult<string>> Delete(int reviewId);
-        Task<ApiResult<string>> ReviewIsAppvored(int reviewId);
-        Task<ApiResult<string>> ReviewDisappvored(int reviewId);
+        Task<ApiResult<string>> ReviewIsApproved(int reviewId);
+        Task<ApiResult<string>> ReviewDisapproved(int reviewId);
+        Task<ReviewVM> GetReviewById(int reviewId);
     }
 }

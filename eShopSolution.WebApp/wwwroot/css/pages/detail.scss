@@ -141,3 +141,8 @@
     border-bottom: 1px solid #e9e9e9;
     padding: 15px 0;
 }
+
+.list-group-flush .list-group-item > span:first-child {
+    min-width: 130px;
+    display: inline-block;
+}

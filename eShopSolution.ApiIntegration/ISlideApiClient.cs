@@ -12,6 +12,7 @@ namespace eShopSolution.ApiIntegration
     public interface ISlideApiClient
     {
         Task<List<SlideVM>> GetAll();
+        Task<List<SlideVM>> GetSlideActive();
         Task<bool> CreateSlide(SlideCreateRequest request);
         Task<bool> UpdateSlide(int slideId, SlideUpdateRequest request);
         Task<bool> DeleteSlide(int slideId);

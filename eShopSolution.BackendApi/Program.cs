@@ -1,9 +1,11 @@
 ﻿using eShopSolution.Application.Catalog.Cart;
 using eShopSolution.Application.Catalog.Carts;
 using eShopSolution.Application.Catalog.Categories;
+using eShopSolution.Application.Catalog.Orders;
 using eShopSolution.Application.Catalog.Products;
 using eShopSolution.Application.Catalog.Reviews;
 using eShopSolution.Application.Common;
+using eShopSolution.Application.System.Brands;
 using eShopSolution.Application.System.Languages;
 using eShopSolution.Application.System.Roles;
 using eShopSolution.Application.System.Users;
@@ -62,6 +64,8 @@ builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ISlideService, SlideService>();
 builder.Services.AddTransient<ICartService, CartService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
+builder.Services.AddTransient<IBrandService, BrandService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 
 //builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
 //builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

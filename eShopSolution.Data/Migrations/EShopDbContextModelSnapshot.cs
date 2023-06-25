@@ -270,7 +270,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("8f811782-a1c7-4cb2-9df9-03066eaf1cd0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ec3fb30d-1577-4bf5-ac4f-7615f3e641e6",
+                            ConcurrencyStamp = "32c198b5-e57d-4c47-8d05-087ee2acf80b",
                             Dob = new DateTime(2023, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -279,7 +279,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIp29RfKM9eLNTsu0HNbspBQsYacxldoD3n+9ypuX0zrKUqOgGLg5I7c0FuX4ersAQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC3EtPluufQgneq1VHW3x8dbOHetarF/STyANFgNsohFwCHBKThxaIS6oulVA/Aa3w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 0,
@@ -558,6 +558,10 @@ namespace eShopSolution.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -565,6 +569,14 @@ namespace eShopSolution.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ShipCommune")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShipDistrict")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShipEmail")
                         .IsRequired()
@@ -581,6 +593,10 @@ namespace eShopSolution.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ShipProvince")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -634,7 +650,6 @@ namespace eShopSolution.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Origin")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("OriginalPrice")
@@ -659,7 +674,6 @@ namespace eShopSolution.Data.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("Warranty")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -673,7 +687,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = 1,
                             BrandId = 1,
-                            DateCreated = new DateTime(2023, 6, 21, 12, 0, 18, 882, DateTimeKind.Local).AddTicks(7259),
+                            DateCreated = new DateTime(2023, 6, 24, 17, 25, 35, 703, DateTimeKind.Local).AddTicks(3511),
                             IsFeatured = true,
                             Origin = "Thái Lan",
                             OriginalPrice = 100000m,

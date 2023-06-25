@@ -68,6 +68,9 @@ namespace eShopSolution.ApiIntegration
             requestContent.Add(new StringContent(request.OriginalPrice.ToString()), "originalPrice");
             requestContent.Add(new StringContent(request.Stock.ToString()), "stock");
             requestContent.Add(new StringContent(request.Name.ToString()), "name");
+            requestContent.Add(new StringContent(request.BrandId.ToString()), "brandId");
+            requestContent.Add(new StringContent(request.Origin?.ToString()), "origin");
+            requestContent.Add(new StringContent(request.Warranty.ToString()), "warranty");
             requestContent.Add(new StringContent(request.Description.ToString()), "description");
             requestContent.Add(new StringContent(request.Details.ToString()), "details");
             requestContent.Add(new StringContent(request.SeoDescription.ToString()), "seoDescription");
@@ -108,8 +111,10 @@ namespace eShopSolution.ApiIntegration
             requestContent.Add(new StringContent(request.Name.ToString()), "name");
             requestContent.Add(new StringContent(request.Price.ToString()), "price");
             requestContent.Add(new StringContent(request.OriginalPrice.ToString()), "originalPrice");
+            requestContent.Add(new StringContent(request.BrandId.ToString()), "brandId");
+            requestContent.Add(new StringContent(request.Origin?.ToString()), "origin");
+            requestContent.Add(new StringContent(request.Warranty.ToString()), "warranty");
             requestContent.Add(new StringContent(request.Description.ToString()), "description");
-
             requestContent.Add(new StringContent(request.Details.ToString()), "details");
             requestContent.Add(new StringContent(request.SeoDescription.ToString()), "seoDescription");
             requestContent.Add(new StringContent(request.SeoTitle.ToString()), "seoTitle");

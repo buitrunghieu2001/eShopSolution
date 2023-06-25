@@ -23,7 +23,7 @@ namespace eShopSolution.BackendApi.Controllers
             _reviewService = reviewService;
             _httpContextAccessor = httpContextAccessor;
         }
-        [HttpGet("appvored")]
+        [HttpGet("approved")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetReviewsIsApproved([FromQuery] PagingRequestBase request)
         {
@@ -73,22 +73,30 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("appvored")]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ReviewIsAppvored(int reviewId)
+        [HttpGet("{reviewId}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetReviewById(int reviewId)
         {
-            var result = await _reviewService.ReviewIsAppvored(reviewId);
+            var products = await _reviewService.GetReviewById(reviewId);
+            return Ok(products);
+        }
+
+        [HttpPatch("approved")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> ReviewIsApproved(int reviewId)
+        {
+            var result = await _reviewService.ReviewIsApproved(reviewId);
             if (result.IsSuccessed == false)
                 return BadRequest(result);
 
             return Ok(result);
         }
 
-        [HttpPatch("disappvored")]
+        [HttpPatch("disapproved")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ReviewDisappvored(int reviewId)
+        public async Task<IActionResult> ReviewDisapproved(int reviewId)
         {
-            var result = await _reviewService.ReviewDisappvored(reviewId);
+            var result = await _reviewService.ReviewDisapproved(reviewId);
             if (result.IsSuccessed == false)
                 return BadRequest(result);
 

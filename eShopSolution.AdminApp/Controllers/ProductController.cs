@@ -15,11 +15,13 @@ namespace eShopSolution.AdminApp.Controllers
         private readonly IProductApiClient _productApiClient;
         private readonly IConfiguration _configuration;
         private readonly ICategoryApiClient _categoryApiClient;
-        public ProductController(IProductApiClient productApiClient, IConfiguration configuration, ICategoryApiClient categoryApiClient)
+        private readonly IBrandApiClient _brandApiClient;
+        public ProductController(IProductApiClient productApiClient, IConfiguration configuration, ICategoryApiClient categoryApiClient, IBrandApiClient brandApiClient)
         {
             _productApiClient = productApiClient;
             _configuration = configuration;
             _categoryApiClient = categoryApiClient;
+            _brandApiClient = brandApiClient;
         }
 
         [HttpGet]
@@ -64,6 +66,8 @@ namespace eShopSolution.AdminApp.Controllers
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
             var categories = await _categoryApiClient.GetAll(languageId);
+            var brands = await _brandApiClient.GetAll();
+            ViewBag.Brands = brands;
             ViewBag.Categories = categories;
             if (TempData["result"] != null)
             {
@@ -76,9 +80,16 @@ namespace eShopSolution.AdminApp.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromForm]ProductCreateRequest request)
         {
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
             // kiểm tra validate
             if (!ModelState.IsValid)
+            {
+                var categories = await _categoryApiClient.GetAll(languageId);
+                var brands = await _brandApiClient.GetAll();
+                ViewBag.Brands = brands;
+                ViewBag.Categories = categories;
                 return View();
+            }
 
             var result = await _productApiClient.CreateProduct(request);
             if (result)
@@ -122,7 +133,10 @@ namespace eShopSolution.AdminApp.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
-
+            var categories = await _categoryApiClient.GetAll(languageId);
+            var brands = await _brandApiClient.GetAll();
+            ViewBag.Brands = brands;
+            ViewBag.Categories = categories;
             var product = await _productApiClient.GetById(id, languageId);
             var editVm = new ProductUpdateRequest()
             {
@@ -132,10 +146,14 @@ namespace eShopSolution.AdminApp.Controllers
                 Description = product.Description,
                 Details = product.Details,
                 Name = product.Name,
+                BrandId = product.Brand.Id,
+                Origin = product.Origin,
+                Warranty = product.Warranty,
                 SeoAlias = product.SeoAlias,
                 SeoDescription = product.SeoDescription,
                 SeoTitle = product.SeoTitle
             };
+
             return View(editVm);
         }
 
@@ -143,8 +161,16 @@ namespace eShopSolution.AdminApp.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Edit([FromForm] ProductUpdateRequest request)
         {
+            var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
+            // kiểm tra validate
             if (!ModelState.IsValid)
+            {
+                var categories = await _categoryApiClient.GetAll(languageId);
+                var brands = await _brandApiClient.GetAll();
+                ViewBag.Brands = brands;
+                ViewBag.Categories = categories;
                 return View(request);
+            }
 
             var result = await _productApiClient.UpdateProduct(request);
             if (result)

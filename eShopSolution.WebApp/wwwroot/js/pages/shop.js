@@ -8,6 +8,7 @@ var shop = (function () {
         var B = $('body');
         mol.page = 1, mol.size = 9, mol.language = 'vi-VN';
         let token = app.getcookie('Token');
+        
         getProducts();
 
         B.delegate(".pagination1", "click", function () {
@@ -248,6 +249,8 @@ var shop = (function () {
 
                         $('.product-area.shop-product-area').html('<div class="row">' + p1.join('') + '</div > ');
                         $('#list-view').html('<div class="row"><div class="col">' + p2.join('') + '</div></div>');
+
+                        
                     })
                 } else {
                     $('.product-area.shop-product-area').html('');

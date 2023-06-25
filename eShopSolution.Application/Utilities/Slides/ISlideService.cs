@@ -10,6 +10,7 @@ namespace eShopSolution.Application.Utilities.Slides
     public interface ISlideService
     {
         Task<List<SlideVM>> GetAll();
+        Task<List<SlideVM>> GetSlideActive();
         Task<int> CreateSlide(SlideCreateRequest request);
         Task<int> UpdateSlide(int slideId, SlideUpdateRequest request);
         Task<int> DeleteSlide(int slideId);
