@@ -11,10 +11,10 @@ namespace eShopSolution.ViewModels.System.Users
     {
         public Guid Id { get; set; }
 
-        [Display(Name = "Họ")]
+        [Display(Name = "Tên")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Tên")]
+        [Display(Name = "Họ")]
         public string LastName { get; set; }
 
         [Display(Name = "Số điện thoại")]

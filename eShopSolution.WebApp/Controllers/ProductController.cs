@@ -30,6 +30,7 @@ namespace eShopSolution.WebApp.Controllers
             return View();
         }
 
+
         public IActionResult Shop()
         {
             return View();
@@ -48,8 +49,8 @@ namespace eShopSolution.WebApp.Controllers
                 ViewBag.KeyWord = request.KeyWord;
             }
             request.LanguageId = culture;
-            request.PageIndex = (request.PageIndex == null) ? request.PageIndex : 1;
-            request.PageSize = (request.PageSize == null) ? request.PageSize : 9;
+            request.PageIndex = (request.PageIndex != null) ? request.PageIndex : 1;
+            request.PageSize = (request.PageSize != null) ? request.PageSize : 9;
             var result = await _productApiClient.GetPagings(request);
             return View(result);
         }

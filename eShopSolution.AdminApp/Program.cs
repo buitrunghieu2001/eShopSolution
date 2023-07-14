@@ -33,6 +33,8 @@ builder.Services.AddTransient<ILanguageApiClient, LanguageApiClient>();
 builder.Services.AddTransient<IProductApiClient, ProductApiClient>();
 builder.Services.AddTransient<ICategoryApiClient, CategoryApiClient>();
 builder.Services.AddTransient<ISlideApiClient, SlideApiClient>();
+builder.Services.AddScoped<IBrandApiClient, BrandApiClient>();
+
 
 
 // package runtime automatically compile without rerun
@@ -62,7 +64,17 @@ app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
+
 app.UseSession();
+
+app.MapControllerRoute(
+    name: "Duyet danh gia",
+    pattern: "duyet-danh-gia", new
+    {
+        controller = "Review",
+        action = "Approve"
+    });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,0 +1,45 @@
+﻿using eShopSolution.Application.Catalog.Cart;
+using eShopSolution.Application.Catalog.Orders;
+using eShopSolution.Data.Entities;
+using eShopSolution.ViewModels.Catalog.Orders;
+using eShopSolution.ViewModels.Catalog.Products;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace eShopSolution.BackendApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class OrdersController : Controller
+    {
+
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IOrderService _orderService;
+        public OrdersController(UserManager<AppUser> userManager, IOrderService orderService)
+        {
+            _userManager = userManager;
+            _orderService = orderService;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "user")]
+        public async Task<IActionResult> Create(OrderCreateRequest request)
+        {
+            var userIdentity = User.Identity;
+            if (userIdentity.IsAuthenticated)
+            {
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
+                if (user != null)
+                {
+                    request.UserId = user.Id;
+                }
+                var result = await _orderService.Create(request);
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+    }
+}

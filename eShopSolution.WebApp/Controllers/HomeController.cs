@@ -46,7 +46,7 @@ namespace eShopSolution.WebApp.Controllers
             var culture = CultureInfo.CurrentCulture.Name;
             var viewModel = new HomeViewModel
             {
-                Slides = await _slideApiClient.GetAll(),
+                Slides = await _slideApiClient.GetSlideActive(),
                 FeaturedProducts = await _productApiClient.GetFeaturedProducts(culture, SystemConstants.ProductSettings.NumberOfFeaturedProducts),
                 LatestProducts = await _productApiClient.GetLatestProducts(culture, SystemConstants.ProductSettings.NumberOfLatestProducts),
                 DigitalCameraProducts = await _productApiClient.GetLimitedProductByCategory(culture, 1, 6),

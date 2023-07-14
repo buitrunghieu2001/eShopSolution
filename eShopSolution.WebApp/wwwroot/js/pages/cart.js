@@ -40,7 +40,7 @@
                     })
                     $('.table tbody').html(tr.join(''))
 
-                    updateTotal();
+                    updateTotal(response.items);
                 },
                 error: function (error) {
                     console.log('Lỗi truy cập vào API: ', error);
@@ -113,7 +113,8 @@
             let cart = $(this).closest('tr');
             let cartId = cart.attr('id');
             let quantity = cart.find('.cart-plus-minus-box').val();
-            let price = parseFloat(cart.find('.li-product-price .amount').html().replace(/\./g, "").replace(",", ".")); 
+            let price = parseFloat(cart.find('.li-product-price .amount').html().replace(/\./g, "").replace(",", "."));
+            console.log(price)
             cart.find('.product-subtotal .amount').html(app.fmnumber(quantity * price))
             $.ajax({
                 method: "PUT",
@@ -179,13 +180,13 @@
         }
     }
 
-    function updateTotal() {
+    function updateTotal(data) {
         let total = 0;
         $('.product-subtotal .amount').map(function () {
             total += parseFloat($(this).html().replace(/\./g, "").replace(",", "."));
         });
         let subtotal = parseFloat($('.cart-page-total .subtotal span').html());
-        $('.cart-page-total .total-payment span').html(app.fmnumber(total - subtotal));
+        $('.cart-page-total .total-payment span').html('&#8363;' + app.fmnumber(total - subtotal));
     }
 })();
 $(document).ready(function () {

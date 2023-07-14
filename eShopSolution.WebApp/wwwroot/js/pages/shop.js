@@ -1,5 +1,5 @@
 ﻿
-var category = (function () {
+var shop = (function () {
     "use strict";
     var mol = {};
     mol.origin = 'https://localhost:5001';
@@ -8,6 +8,7 @@ var category = (function () {
         var B = $('body');
         mol.page = 1, mol.size = 9, mol.language = 'vi-VN';
         let token = app.getcookie('Token');
+        
         getProducts();
 
         B.delegate(".pagination1", "click", function () {
@@ -19,20 +20,21 @@ var category = (function () {
 
         B.delegate(".pnext", "click", function () {
             if (typeof (mol.page) == "string")
-                mol.page = parseInt(page)
+                mol.page = parseInt(mol.page)
             mol.page += 1;
             getProducts();
         })
 
         B.delegate(".pprev", "click", function () {
             if (typeof (mol.page) == "string")
-                mol.page = parseInt(page)
+                mol.page = parseInt(mol.page)
             mol.page -= 1;
             getProducts();
         })
 
         B.delegate('.product-select-box .list .option:not(.selected)', 'click', function () {
             mol.order = $(this).data('value')
+            mol.page = 1;
             getProducts();
         })
 
@@ -166,9 +168,9 @@ var category = (function () {
 
                         for (let r = 1; r <= 5; r++) {
                             if (r <= i.rating) {
-                                rating += '<li><i class="fa fa-star-o"></i></li>'
+                                rating += '<li><i class="fa fa-star" aria-hidden="true"></i></li>'
                             } else {
-                                rating += '<li class="no-star"><i class="fa fa-star-o"></i></li>'
+                                rating += '<li class="no-star"><i class="fa fa-star" aria-hidden="true"></i></li>'
                             }
                         }
 
@@ -246,7 +248,9 @@ var category = (function () {
                                     </div>`);
 
                         $('.product-area.shop-product-area').html('<div class="row">' + p1.join('') + '</div > ');
-                        $('#list-view').html('<div class="row">' + p2.join('') + '</div > ');
+                        $('#list-view').html('<div class="row"><div class="col">' + p2.join('') + '</div></div>');
+
+                        
                     })
                 } else {
                     $('.product-area.shop-product-area').html('');
@@ -265,6 +269,6 @@ var category = (function () {
     }
 })();
 $(document).ready(function () {
-    category.init();
+    shop.init();
 
 })

@@ -57,6 +57,14 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(products);
         }
 
+        [HttpGet("brand")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetBrandProducts(int brandId, int take, string languageId)
+        {
+            var products = await _productService.GetBrandProducts(brandId, languageId, take);
+            return Ok(products);
+        }
+
         [HttpGet("latest/{languageId}/{take}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetLatestProducts(int take, string languageId)
@@ -65,9 +73,17 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(products);
         }
 
-        [HttpGet("category/{languageId}/{categoryId}")]
+        [HttpGet("category")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAllProductsByCategory(int categoryId, string languageId)
+        public async Task<IActionResult> GetAllByCategoryId([FromQuery] GetPublicProductPagingRequest request)
+        {
+            var products = await _productService.GetAllByCategoryId(request);
+            return Ok(products);
+        }
+
+        [HttpGet("getallbycategory")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllProductByCategory(string languageId, int categoryId)
         {
             var products = await _productService.GetAllProductByCategory(languageId, categoryId);
             return Ok(products);

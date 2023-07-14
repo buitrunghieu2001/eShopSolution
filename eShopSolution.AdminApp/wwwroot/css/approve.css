@@ -1,0 +1,35 @@
+﻿#phan-trang {
+  float: right;
+}
+#phan-trang li {
+  display: inline-block;
+  cursor: pointer;
+  list-style: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin: 0 2px;
+  border-radius: 4px;
+  font-weight: 500;
+  opacity: 0.9;
+  user-select: none;
+}
+#phan-trang li.active {
+  background-color: #4f76dd;
+  border-color: #4f76dd;
+}
+#phan-trang li.active a {
+  color: #fff !important;
+}
+
+#table-danh-gia td.clamp-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#table-danh-gia thead tr {
+  white-space: nowrap;
+}

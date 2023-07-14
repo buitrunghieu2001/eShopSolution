@@ -76,6 +76,24 @@ namespace eShopSolution.Application.Utilities.Slides
             return slides;
         }
 
+        public async Task<List<SlideVM>> GetSlideActive()
+        {
+            var slides = await _context.Slides.Where(x => x.Status == (Status)1).OrderBy(x => x.SortOrder)
+                .Select(x => new SlideVM()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Price = x.Price,
+                    Status = (Status)x.Status,
+                    Url = x.Url,
+                    Image = x.Image,
+                    SortOrder = x.SortOrder,
+                }).ToListAsync();
+
+            return slides;
+        }
+
         public async Task<SlideVM> GetById(int slideId)
         {
             var slide = await _context.Slides.FindAsync(slideId);

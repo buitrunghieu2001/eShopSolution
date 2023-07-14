@@ -44,6 +44,7 @@ namespace eShopSolution.Data.EF
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+            modelBuilder.ApplyConfiguration(new BrandConfiguration());
 
 
             // config những table còn lại của Identity
@@ -76,5 +77,6 @@ namespace eShopSolution.Data.EF
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Slide> Slides { get; set; }
+        public DbSet<Brand> Brands { get; set; }
     }
 }

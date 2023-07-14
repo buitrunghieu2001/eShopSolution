@@ -17,23 +17,33 @@
                     accept: '*/*',
                 },
                 success: function (response) {
-                    mol.cart = response;
-                    let li = [];
-                    for (var i = 0; i < (response.items.length < 2 ? response.items.length : 2); i++) {
-                        li.push(`
-                            <li>
-                                <a href="${mol.o}/vi-VN/san-pham/${response.items[i].productId}" class="minicart-product-image">
-                                    <img src="${mol.origin}/user-content/${response.items[i].imagePath}" alt="${response.items[i].name}">
-                                </a>
-                                <div class="minicart-product-details">
-                                    <h6><a href="${mol.o}/vi-VN/san-pham/${response.items[i].productId}">${response.items[i].name}</a></h6>
-                                    <span>đ${response.items[i].price} x ${response.items[i].quantity}</span>
-                                </div>
-                            </li>
-                        `)
+                    if (response.items.length > 0) {
+                        mol.cart = response;
+                        let li = [];
+                        for (var i = 0; i < (response.items.length < 2 ? response.items.length : 2); i++) {
+                            li.push(`
+                                <li>
+                                    <a href="${mol.o}/vi-VN/san-pham/${response.items[i].productId}" class="minicart-product-image">
+                                        <img src="${mol.origin}/user-content/${response.items[i].imagePath}" alt="${response.items[i].name}">
+                                    </a>
+                                    <div class="minicart-product-details">
+                                        <h6><a href="${mol.o}/vi-VN/san-pham/${response.items[i].productId}">${response.items[i].name}</a></h6>
+                                        <span>đ${response.items[i].price} x ${response.items[i].quantity}</span>
+                                    </div>
+                                </li>
+                            `)
+                        }
+                        $('.minicart-product-list').html(li.join(''))
+
+                    } else {
+                        $('.minicart').html(`
+                            <div class="cart-empty">
+                                <div class="cart-empty-img"></div>
+                                <div class="cart-empty-mess">Giỏ hàng của bạn còn trống</div>
+                            </div>
+                        `);
                     }
                     $('.hm-minicart-trigger .cart-item-count').html(response.items.length)
-                    $('.minicart-product-list').html(li.join(''))
                 },
                 error: function (error) {
                     console.log('Lỗi truy cập vào API: ', error);

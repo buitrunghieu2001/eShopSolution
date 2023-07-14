@@ -55,7 +55,7 @@ var register = (function () {
         B.delegate('.register-button', 'click', function () {
 
         })
-        $('#form-register').submit(function (e) {
+        $('#form-register').click(function (e) {
             e.preventDefault();
             if (validateFirstName() && validateLastName() && validateEmail() && validatePhoneNumber() && validateDateOfBirth() && validatePassword() && validateConfirmPassword() && validateUserName()) {
                 $.ajax({

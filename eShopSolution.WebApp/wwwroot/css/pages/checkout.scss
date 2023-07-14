@@ -1,0 +1,25 @@
+﻿#ShipDistrict,
+#ShipCommune,
+#ShipProvince {
+    & ~ .nice-select {
+        height: 40px; /* Chiều cao cố định */
+        .list {
+            max-height: 200px; /* Chiều cao tối đa của danh sách thả xuống */
+            overflow-y: auto; /* Hiển thị thanh cuộn khi danh sách dài */
+        }
+    }
+}
+
+.your-order-table {
+    table tbody {
+        .cart-product-name {
+            span {
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}

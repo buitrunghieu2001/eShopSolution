@@ -15,7 +15,7 @@
         <div class="breadcrumb-content pl-3">
             <ul>
                 <li><a asp-controller="Home" asp-action="Index" localize-content>Home</a></li>
-                <li class="active" localize-content>List of product</li>
+                <li class="active" localize-content>@ViewData["Category"]</li>
             </ul>
         </div>
     </div>
@@ -67,12 +67,12 @@
                 <!-- shop-products-wrapper start -->
                 <div class="shop-products-wrapper">
                     <div class="tab-content">
-                        <div id="grid-view" class="tab-pane fade" role="tabpanel">
+                        <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                             <div class="product-area shop-product-area">
                                 
                             </div>
                         </div>
-                        <div id="list-view" class="tab-pane fade product-list-view active show" role="tabpanel">
+                        <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                             <div class="row">
                                 <div class="col">
                                 </div>
@@ -189,38 +189,38 @@
                         <div class="categori-checkbox evaluate">
                             <ul>
                                 <li data-rating="5">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
                                 </li>
                                 <li data-rating="4">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <span>trở lên</span>
                                 </li>
                                 <li data-rating="3">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <span>trở lên</span>
                                 </li>
                                 <li data-rating="2">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <span>trở lên</span>
                                 </li>
                                 <li data-rating="1">
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <i class="fa fa-star-o no-star"></i>
                                     <i class="fa fa-star-o no-star"></i>

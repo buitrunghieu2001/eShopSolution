@@ -6,6 +6,10 @@
     var culture = CultureInfo.CurrentCulture.Name;
 }
 
+@section Scripts {
+    <script src="~/js/pages/login.js"></script>
+}
+
 <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
@@ -23,17 +27,19 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 mb-30">
                 <!-- Login Form s-->
-                <form action="/@culture/Account/Login" method="post">
+                <form id="form-login" action="/@culture/Account/Login" method="post">
                     <div class="login-form">
                         <h4 class="login-title" localize-content>Login</h4>
                         <div class="row">
-                            <div class="col-md-12 col-12 mb-20">
+                            <div id="input-username" class="col-md-12 col-12 mb-20">
                                 <label localize-content>User Name or Phone Number*</label>
-                                <input asp-for="UserName" class="mb-0" type="text" placeholder="Tên đăng nhập hoặc số điện thoại">
+                                <input id="username" asp-for="UserName" class="mb-0" type="text" placeholder="Tên đăng nhập hoặc số điện thoại">
+                                <span></span>
                             </div>
-                            <div class="col-12 mb-20">
+                            <div id="input-password" class="col-12 mb-20">
                                 <label localize-content>Password*</label>
-                                <input asp-for="Password" class="mb-0" type="password" placeholder="Mật khẩu">
+                                <input id="password" asp-for="Password" class="mb-0" type="password" placeholder="Mật khẩu">
+                                <span></span>
                             </div>
                             <div class="col-md-8">
                                 <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
