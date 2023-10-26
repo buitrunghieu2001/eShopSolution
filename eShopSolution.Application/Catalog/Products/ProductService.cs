@@ -280,11 +280,11 @@ namespace eShopSolution.Application.Catalog.Products
                 Name = productTranslation != null ? productTranslation.Name : null,
                 OriginalPrice = product.OriginalPrice,
                 Price = product.Price,
-                Brand = new BrandVM()
+                Brand = brand != null ? new BrandVM()
                 {
                     Id = brand.Id,
                     Name = brand.Name,
-                },
+                } : null,
                 Origin = product.Origin,
                 Warranty = product.Warranty,
                 SeoAlias = productTranslation != null ? productTranslation.SeoAlias : null,
@@ -469,11 +469,11 @@ namespace eShopSolution.Application.Catalog.Products
                     IsFeatured = x.p.IsFeatured,
                     ThumbnailImage = x.pi.ImagePath,
                     Categories = new List<string>() { x.ct.Name },
-                    Brand = new BrandVM()
+                    Brand = x.b != null ? new BrandVM()
                     {
                         Id = x.b.Id,
                         Name = x.b.Name,
-                    }
+                    } : null
                 }).ToListAsync();
 
             // step 4: select and projection
@@ -558,11 +558,11 @@ namespace eShopSolution.Application.Catalog.Products
                     IsFeatured = x.p.IsFeatured,
                     ThumbnailImage = x.pi.ImagePath,
                     Categories = new List<string>() { x.ct.Name },
-                    Brand = new BrandVM()
+                    Brand = x.b != null ? new BrandVM()
                     {
                         Id = x.b.Id,
                         Name = x.b.Name,
-                    }
+                    } : null
                 }).ToListAsync();
 
             return data;
@@ -607,11 +607,11 @@ namespace eShopSolution.Application.Catalog.Products
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
                     Categories = new List<string>() { x.ct.Name },
-                    Brand = new BrandVM()
+                    Brand = x.b != null ? new BrandVM()
                     {
                         Id = x.b.Id,
                         Name = x.b.Name,
-                    }
+                    } : null
                 }).ToListAsync();
 
             return data;
@@ -656,11 +656,11 @@ namespace eShopSolution.Application.Catalog.Products
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
                     Categories = new List<string>() { x.ct.Name },
-                    Brand = new BrandVM()
+                    Brand = x.b != null ? new BrandVM()
                     {
                         Id = x.b.Id,
                         Name = x.b.Name,
-                    }
+                    } : null
                 }).ToListAsync();
 
             return data;
@@ -705,11 +705,11 @@ namespace eShopSolution.Application.Catalog.Products
                     ViewCount = x.p.ViewCount,
                     ThumbnailImage = x.pi.ImagePath,
                     Categories = new List<string>() { x.ct.Name },
-                    Brand = new BrandVM()
+                    Brand = x.b != null ? new BrandVM()
                     {
                         Id = x.b.Id,
                         Name = x.b.Name,
-                    }
+                    } : null
                 }).ToListAsync();
 
             return data;
@@ -773,11 +773,11 @@ namespace eShopSolution.Application.Catalog.Products
                     IsFeatured = x.p.IsFeatured,
                     ThumbnailImage = x.pi.ImagePath,
                     Categories = new List<string>() { x.ct.Name },
-                    Brand = new BrandVM()
+                    Brand = x.b != null ? new BrandVM()
                     {
                         Id = x.b.Id,
                         Name = x.b.Name,
-                    }
+                    } : null
                 }).ToListAsync();
 
             return data;
