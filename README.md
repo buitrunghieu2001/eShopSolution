@@ -1,4 +1,4 @@
-![image](https://github.com/hieubuitrung/eShopSolution/assets/78369225/5088863b-9234-4681-b242-b4edf91dbda7)# Hệ thống bán máy ảnh
+# Hệ thống bán máy ảnh
 ## Technologies
 - ASP.NET Core 7.0
 - Entity Framework 3.1
