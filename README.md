@@ -38,7 +38,7 @@
 #### 1.7. Dịch vụ slide
 ![image](https://github.com/hieubuitrung/eShopSolution/assets/78369225/88246b00-41bd-4315-ac71-c6cb3b403157)
 
-### 3. Trang web dành cho quản trị
+### 3. Trang web dành cho người dùng
 #### 3.1. Trang chủ
 ![image](https://github.com/hieubuitrung/eShopSolution/assets/78369225/ab4f1b4a-a2b1-4123-b8aa-21851351c48c)
 
