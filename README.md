@@ -13,7 +13,7 @@
 - Microsoft.AspNetCore.Identity.EntityFrameworkCore
 - Cung cấp các lớp và phương thức để quản lý xác thực người dùng và phân quyền trong ứng dụng web.
   
-## Tenplate:
+## Template:
 - [Admin template](https://startbootstrap.com/templates/sb-admin/) 
 - [Portal template](https://www.free-css.com/free-css-templates/page194/bootstrap-shop)
 
