@@ -95,6 +95,6 @@
 #### 2.14. Trang danh sách slide
 ![image](https://github.com/hieubuitrung/eShopSolution/assets/78369225/9e1d5b70-c007-4962-8d8d-b9498e18a825)
 
-
+##### Copyright 2023 @hieubuitrung
 
 
