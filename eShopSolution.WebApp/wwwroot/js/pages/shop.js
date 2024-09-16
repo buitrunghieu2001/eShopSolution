@@ -93,8 +93,8 @@ var shop = (function () {
         })
 
         B.delegate('.price-range > button', 'click', function () {
-            let f = parseInt($('.price-range #price-from').val());
-            let t = parseInt($('.price-range #price-to').val());
+            let f = app.fmNumberToNumber($('.price-range #price-from').val());
+            let t = app.fmNumberToNumber($('.price-range #price-to').val());
 
             if (f > t || (f == t && f == 0)) {
                 alert('Vui lòng điền khoảng giá phù hợp');
@@ -137,7 +137,7 @@ var shop = (function () {
                 numericValue = numericValue.substr(1); // Xóa số 0 ở đầu
             }
 
-            $(this).val(numericValue);
+            $(this).val(app.fmnumber(numericValue));
         });
     }
 

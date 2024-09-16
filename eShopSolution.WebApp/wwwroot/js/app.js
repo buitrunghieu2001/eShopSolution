@@ -27,6 +27,10 @@ var app = (function () {
         return c.replace(/\./g, '!').replace(/\,/g, '.').replace(/\!/g, ',');
     }
 
+    mol.fmNumberToNumber = function (v) {
+        return parseFloat(v.replace(/\./g, '').replace(/,/g, '.'));
+    }
+
     mol.phantrang = function (iPage, sum, row) {
         var stemp = "";
         if (sum > row) {
