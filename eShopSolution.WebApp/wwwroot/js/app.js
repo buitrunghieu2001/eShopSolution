@@ -28,7 +28,7 @@ var app = (function () {
     }
 
     mol.fmNumberToNumber = function (v) {
-        return parseFloat(v.replace(/\./g, '').replace(/,/g, '.'));
+        return v.replace(/\./g, '').replace(/,/g, '.');
     }
 
     mol.phantrang = function (iPage, sum, row) {

@@ -128,13 +128,21 @@ var shop = (function () {
             getProducts();
         })
 
-        B.delegate('.price-range input','input', function (event) {
-            var inputValue = $(this).val();
+        B.delegate('.price-range input', 'input', function (event) {
+            var inputValue = app.fmNumberToNumber($(this).val());
             var numericValue = inputValue.replace(/[^0-9]/g, '');
 
-            // Kiểm tra nếu giá trị là số 0 ở đầu tiên
-            if (numericValue.length > 1 && numericValue.charAt(0) === '0') {
-                numericValue = numericValue.substr(1); // Xóa số 0 ở đầu
+            /// Kiểm tra nếu người dùng xóa hết giá trị (chuỗi rỗng)
+            if (numericValue === '') {
+                numericValue = '0'; // Đặt lại giá trị mặc định là 0 nếu rỗng
+            }
+
+            // Xóa tất cả các số 0 ở đầu (nếu có)
+            numericValue = numericValue.replace(/^0+/, '');
+
+            // Nếu tất cả các số đã bị xóa, đặt giá trị thành '0'
+            if (numericValue === '') {
+                numericValue = '0';
             }
 
             $(this).val(app.fmnumber(numericValue));
