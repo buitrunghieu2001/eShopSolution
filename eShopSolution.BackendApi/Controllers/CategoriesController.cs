@@ -30,7 +30,15 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(product);
         }
 
-        [HttpGet("{categoryTranslationId}")]
+        [HttpGet("{seoAlias}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetBySeoAlias(string seoAlias)
+        {
+            var product = await _categoryService.GetBySeoAlias(seoAlias);
+            return Ok(product);
+        }
+
+        [HttpGet("{categoryTranslationId::int}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById([FromRoute]int categoryTranslationId)
         {

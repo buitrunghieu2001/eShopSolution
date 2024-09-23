@@ -97,6 +97,29 @@ namespace eShopSolution.Application.Catalog.Categories
             return category;
         }
 
+        public async Task<CategoryVM> GetBySeoAlias(string seoAlias)
+        {
+            var query = from c in _context.Categories
+                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
+                        where ct.SeoAlias == seoAlias
+                        select new { c, ct };
+            var result = await query.FirstOrDefaultAsync();
+
+            var category = new CategoryVM
+            {
+                Id = result.c.Id,
+                Name = result.ct.Name,
+                Status = result.c.Status,
+                SortOrder = result.c.SortOrder,
+                ParentId = result.c.ParentId,
+                SeoTitle = result.ct.SeoTitle,
+                SeoDescription = result.ct.SeoDescription,
+                SeoAlias = result.ct.SeoAlias,
+            };
+
+            return category;
+        }
+
         public async Task<List<CategoryVM>> GetAll(string languageId)
         {
             // step 1: select join

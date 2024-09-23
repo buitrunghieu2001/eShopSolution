@@ -48,6 +48,7 @@
                     data: '',
                     success: function (response) {
                         if (response) {
+                            index.getCart(language, token);
                             index.toast({
                                 title: "Thành công",
                                 message: "Đã thêm sản phẩm vào giỏ hàng.",

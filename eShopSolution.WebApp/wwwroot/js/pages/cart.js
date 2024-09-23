@@ -180,7 +180,7 @@
         }
     }
 
-    function updateTotal(data) {
+    function updateTotal() {
         let total = 0;
         $('.product-subtotal .amount').map(function () {
             total += parseFloat($(this).html().replace(/\./g, "").replace(",", "."));

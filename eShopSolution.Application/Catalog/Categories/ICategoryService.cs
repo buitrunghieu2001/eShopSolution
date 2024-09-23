@@ -13,5 +13,6 @@ namespace eShopSolution.Application.Catalog.Categories
         Task<int> Create(CategoryCreateRequest request);
         Task<CategoryVM> GetById(int categoryTranslationId);
         Task<int> Update(int categoryTranslationId, CategoryUpdateRequest request);
+        Task<CategoryVM> GetBySeoAlias(string seoAlias);
     }
 }

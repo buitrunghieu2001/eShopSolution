@@ -1,17 +1,26 @@
 ﻿var index = (function () {
     "use strict";
     var mol = {};
+    var token = app.getcookie("Token");
+    var languageId = 'vi-VN';
     mol.origin = 'https://localhost:5001';
     mol.o = location.origin;
     mol.init = function () {
         var B = $('body');
-        var token = app.getcookie("Token");
-        var languageId = 'vi-VN';
         // render minicart
+        mol.getCart(languageId, token);
+
+        B.delegate('#btn-logout', 'click', function () {
+            app.deletecookie('Token');
+        });
+
+    }
+
+    mol.getCart = function (language, token) {
         if (token != null) {
             $.ajax({
                 method: "GET",
-                url: mol.origin + `/api/Carts?languageId=${languageId}`,
+                url: mol.origin + `/api/Carts?languageId=${language}`,
                 headers: {
                     Authorization: `Bearer ${token}`,
                     accept: '*/*',
@@ -50,11 +59,6 @@
                 }
             })
         }
-
-        B.delegate('#btn-logout', 'click', function () {
-            app.deletecookie('Token');
-        });
-
     }
 
     function showSuccessToast(config) {

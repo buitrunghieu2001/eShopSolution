@@ -67,8 +67,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddSession(options =>
 {
     // Thiết lập thời gian hủy của phiên làm việc khi không có hoạt động
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    //options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(720);
+    options.Cookie.HttpOnly = true; // Tăng bảo mật cookie.
+    options.Cookie.IsEssential = true; // Đảm bảo cookie session luôn tồn tại.
 });
 
 // inject 

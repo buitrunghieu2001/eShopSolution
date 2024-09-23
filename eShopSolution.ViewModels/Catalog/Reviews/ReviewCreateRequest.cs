@@ -11,7 +11,7 @@ namespace eShopSolution.ViewModels.Catalog.Reviews
     {
         public int ProductId { get; set; }
         public Guid? UserId { get; set; }
-        public string Content { get; set; }
+        public string? Content { get; set; }
         public int Rating { get; set; }
         public string Name { get; set; }
         public string? Email { get; set; }

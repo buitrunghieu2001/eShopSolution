@@ -8,7 +8,10 @@ var shop = (function () {
         var B = $('body');
         mol.page = 1, mol.size = 9, mol.language = 'vi-VN';
         let token = app.getcookie('Token');
-        
+        const path = window.location.pathname;
+        const parts = path.split('/');
+        mol.category = parts[parts.length - 1];
+        $('.categori-checkbox.categories li > input[data-category="' + mol.category +'"]:first').prop('checked', true);
         getProducts();
 
         B.delegate(".pagination1", "click", function () {
@@ -85,10 +88,13 @@ var shop = (function () {
             if ($(this).is(':checked')) {
                 mol.category = $(this).data('category');
                 $('.categori-checkbox.categories li > input').not(this).prop('checked', false);
+                
             } else {
                 delete mol.category;
             }
             mol.page = 1;
+            var newUrl = `${mol.o}/${mol.language}${mol.category ? '/' + mol.category : ''}`;
+            window.history.pushState({ path: newUrl }, '', newUrl);
             getProducts();
         })
 
@@ -165,8 +171,8 @@ var shop = (function () {
             url: url
         })
             .done(data => {
-                    mol.data = data;
-                    $('.pagination-box').html(app.phantrang(data.pageIndex, data.totalRecords, data.pageSize))
+                mol.data = data;
+                $('.pagination-box').html(app.phantrang(data.pageIndex, data.totalRecords, data.pageSize))
                 if (data.items.length > 0) {
                     $('.search-empty-result-section').html('');
                     $('.toolbar-amount').html(`<span>Hiển thị ${data.pageIndex * data.pageSize - data.pageSize + 1} - ${data.pageIndex * data.pageSize < data.totalRecords ? data.pageIndex * data.pageSize : data.totalRecords} trên ${data.totalRecords} sản phẩm</span>`)
@@ -258,7 +264,7 @@ var shop = (function () {
                         $('.product-area.shop-product-area').html('<div class="row">' + p1.join('') + '</div > ');
                         $('#list-view').html('<div class="row"><div class="col">' + p2.join('') + '</div></div>');
 
-                        
+
                     })
                 } else {
                     $('.product-area.shop-product-area').html('');
