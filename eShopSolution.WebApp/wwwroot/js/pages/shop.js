@@ -10,7 +10,7 @@ var shop = (function () {
         let token = app.getcookie('Token');
         const path = window.location.pathname;
         const parts = path.split('/');
-        mol.category = parts[parts.length - 1];
+        mol.category = parts[parts.length - 1] != 'san-pham' ? parts[parts.length - 1] : null;
         $('.categori-checkbox.categories li > input[data-category="' + mol.category +'"]:first').prop('checked', true);
         getProducts();
 

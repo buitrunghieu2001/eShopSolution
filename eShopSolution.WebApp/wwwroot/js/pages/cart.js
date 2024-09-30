@@ -17,8 +17,8 @@
                     accept: '*/*',
                 },
                 success: function (response) {
-                    console.log(response)
                     mol.data = response.items;
+                    if (mol.data.length == 0) window.location.href = '/';
                     let tr = [];
                     response.items.map(i => {
                         tr.push(`<tr id=${i.id}>
@@ -135,14 +135,17 @@
         B.delegate('.li-product-remove a', 'click', function () {
             let cart = $(this).closest('tr');
             let cartId = cart.attr('id');
-            let nameProduct = mol.data.find(i => i.id = cartId).name;
+            let nameProduct = mol.data.find(i => i.id == cartId).name;
             $('#confirmRemoveCart .modal-body').html(nameProduct)
             $('#confirmRemoveCart').attr('data-id', cartId);
             updateTotal();
+            if (nameProduct) {
+                mol.data = mol.data.filter(i => i.id != cartId);
+            }
         });
 
         B.delegate('.btn-accept', 'click', function () {
-            let cartId = $(this).closest('#confirmRemoveCart').data('id');
+            let cartId = $(this).closest('#confirmRemoveCart').attr('data-id');
             if (cartId) {
                 $.ajax({
                     method: "DELETE",
@@ -152,11 +155,12 @@
                         accept: '*/*',
                     },
                     success: function (response) {
-                        if (response) {
+                        if (response >= 0) {
                             console.log(response)
                             $(`#${cartId}`).remove();
                             $('.hm-minicart-trigger .cart-item-count').html(response);
                             updateTotal();
+                            if (response == 0) window.location.href = '/';
                         }
                     },
                     error: function (error) {

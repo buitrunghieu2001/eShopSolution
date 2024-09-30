@@ -9,7 +9,7 @@
         var B = $('body');
         // render minicart
         mol.getCart(languageId, token);
-
+        getUser(token);
         B.delegate('#btn-logout', 'click', function () {
             app.deletecookie('Token');
         });
@@ -37,20 +37,18 @@
                                     </a>
                                     <div class="minicart-product-details">
                                         <h6><a href="${mol.o}/vi-VN/san-pham/${response.items[i].productId}">${response.items[i].name}</a></h6>
-                                        <span>đ${response.items[i].price} x ${response.items[i].quantity}</span>
+                                        <span>đ${app.fmnumber(response.items[i].price)} x ${response.items[i].quantity}</span>
                                     </div>
                                 </li>
                             `)
                         }
-                        $('.minicart-product-list').html(li.join(''))
+                        $('.minicart-product-list').html(li.join(''));
+                        $('.cart-empty').addClass('d-none');
+                        $('.cart-products').removeClass('d-none');
 
                     } else {
-                        $('.minicart').html(`
-                            <div class="cart-empty">
-                                <div class="cart-empty-img"></div>
-                                <div class="cart-empty-mess">Giỏ hàng của bạn còn trống</div>
-                            </div>
-                        `);
+                        $('.cart-products').addClass('d-none');
+                        $('.cart-empty').removeClass('d-none');
                     }
                     $('.hm-minicart-trigger .cart-item-count').html(response.items.length)
                 },
@@ -59,6 +57,10 @@
                 }
             })
         }
+    }
+
+    function getUser (token) {
+
     }
 
     function showSuccessToast(config) {

@@ -49,6 +49,9 @@
                     $('.your-order-table table tfoot .cart-subtotal .amount').html('&#8363;' + app.fmnumber(total));
                     $('.your-order-table table tfoot .order-total .amount').html('&#8363;' + app.fmnumber(total));
                 }
+                else {
+                    window.location.href = '/';
+                }
                 console.log(response);
             },
             error: function (xhr, textStatus, error) {
