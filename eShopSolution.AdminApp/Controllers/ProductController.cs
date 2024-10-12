@@ -78,10 +78,11 @@ namespace eShopSolution.AdminApp.Controllers
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create([FromForm]ProductCreateRequest request)
+        public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
         {
             var languageId = HttpContext.Session.GetString(SystemConstants.AppSettings.DefaultLanguageId);
-            // kiểm tra validate
+
+            // Kiểm tra nếu ModelState không hợp lệ
             if (!ModelState.IsValid)
             {
                 var categories = await _categoryApiClient.GetAll(languageId);
@@ -90,6 +91,10 @@ namespace eShopSolution.AdminApp.Controllers
                 ViewBag.Categories = categories;
                 return View();
             }
+
+            // Xử lý các trường decimal? (nếu cần giá trị mặc định)
+            request.Price = request.Price == null ? 0m : request.Price;  // Gán 0m nếu Price là null
+            request.OriginalPrice = request.OriginalPrice == null ? 0m : request.OriginalPrice;  // Gán 0m nếu OriginalPrice là null
 
             var result = await _productApiClient.CreateProduct(request);
             if (result)
@@ -101,6 +106,7 @@ namespace eShopSolution.AdminApp.Controllers
             ModelState.AddModelError("", "Thêm sản phẩm thất bại");
             return View(request);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> CategoryAssign(int id)
@@ -171,6 +177,9 @@ namespace eShopSolution.AdminApp.Controllers
                 ViewBag.Categories = categories;
                 return View(request);
             }
+            // Xử lý các trường decimal? (nếu cần giá trị mặc định)
+            request.Price = request.Price == null ? 0m : request.Price;  // Gán 0m nếu Price là null
+            request.OriginalPrice = request.OriginalPrice == null ? 0m : request.OriginalPrice;  // Gán 0m nếu OriginalPrice là null
 
             var result = await _productApiClient.UpdateProduct(request);
             if (result)

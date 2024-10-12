@@ -18,10 +18,10 @@ namespace eShopSolution.ViewModels.Catalog.Products
         public string Name { set; get; }
 
         [Required(ErrorMessage = "Trường này là bắt buộc")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [Required(ErrorMessage = "Trường này là bắt buộc")]
-        public decimal OriginalPrice { get; set; }
+        public decimal? OriginalPrice { get; set; }
 
         [Required(ErrorMessage = "Trường này là bắt buộc")]
         public int? BrandId { get; set; }

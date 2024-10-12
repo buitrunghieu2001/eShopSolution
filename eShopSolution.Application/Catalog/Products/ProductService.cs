@@ -100,8 +100,8 @@ namespace eShopSolution.Application.Catalog.Products
 
             var product = new Product()
             {
-                Price = request.Price,
-                OriginalPrice = request.OriginalPrice,
+                Price = request.Price ?? 0m,
+                OriginalPrice = request.OriginalPrice ?? 0m,
                 Stock = request.Stock,
                 ViewCount = 0,
                 DateCreated = DateTime.Now,
@@ -350,8 +350,8 @@ namespace eShopSolution.Application.Catalog.Products
             var productTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id && x.LanguageId == request.LanguageId);
             if (product == null) throw new EShopException($"Cannot find a product with id: {request.Id}");
 
-            product.Price = request.Price;
-            product.OriginalPrice = request.OriginalPrice;
+            product.Price = request.Price.HasValue ? request.Price.Value : 0m;
+            product.OriginalPrice = request.OriginalPrice.HasValue ? request.OriginalPrice.Value : 0m;
             product.BrandId = request.BrandId;
             product.Origin = request.Origin;
             product.Warranty = request.Warranty;

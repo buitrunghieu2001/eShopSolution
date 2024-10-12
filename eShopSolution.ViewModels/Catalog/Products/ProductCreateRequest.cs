@@ -12,10 +12,10 @@ namespace eShopSolution.ViewModels.Catalog.Products
     public class ProductCreateRequest
     {
         [Required(ErrorMessage = "Bạn phải nhập giá bán")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [Required(ErrorMessage = "Bạn phải nhập giá gốc")]
-        public decimal OriginalPrice { get; set; }
+        public decimal? OriginalPrice { get; set; }
 
         [Required(ErrorMessage = "Bạn phải số lượng")]
         public int Stock { get; set; }
