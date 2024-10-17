@@ -1,9 +1,12 @@
 ﻿using Azure.Core;
 using eShopSolution.Application.System.Users;
+using eShopSolution.Data.Entities;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,9 +22,11 @@ namespace eShopSolution.BackendApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
-        public UsersController(IUserService userService, IConfiguration configuration) {
+        private readonly UserManager<AppUser> _userManager;
+        public UsersController(IUserService userService, IConfiguration configuration, UserManager<AppUser> userManager) {
             _userService = userService;
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         [HttpPost("authenticate")]
@@ -97,6 +102,19 @@ namespace eShopSolution.BackendApi.Controllers
         {
             var user = await _userService.GetById(id);
             return Ok(user);
+        }
+
+        [HttpGet("info")]
+        public async Task<IActionResult> GetInfo()
+        {
+            var userIdentity = User.Identity;
+            if (userIdentity.IsAuthenticated)
+            {
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
+                var info = await _userService.GetById(user.Id);
+                return Ok(info);
+            }
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]

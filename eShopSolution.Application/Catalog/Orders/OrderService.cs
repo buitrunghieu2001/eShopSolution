@@ -1,9 +1,11 @@
-﻿using eShopSolution.Application.Catalog.Cart;
+﻿using Azure.Core;
+using eShopSolution.Application.Catalog.Cart;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 using eShopSolution.Data.Enums;
 using eShopSolution.ViewModels.Catalog.Orders;
 using eShopSolution.ViewModels.Common;
+using eShopSolution.ViewModels.System.Languages;
 using Microsoft.EntityFrameworkCore;
 
 namespace eShopSolution.Application.Catalog.Orders
@@ -60,7 +62,35 @@ namespace eShopSolution.Application.Catalog.Orders
                     return new ApiSuccessResult<string>("Đặt hàng thành công.");
                 }
             } 
-            return new ApiErrorResult<string>("Đặt hàng thất bại");
+            return new ApiErrorResult<string>("Đặt hàng thất bại. Giỏ hàng không có sản phẩm");
         }
+
+        public async Task<ApiResult<OrderDetailVM>> HasUserPurchasedProductAsync(Guid? userId, int productId)
+        {
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefaultAsync(o => o.UserId == userId && o.OrderDetails.Any(od => od.ProductId == productId));
+
+            var isFeedback = await _context.ProductReviews
+                .FirstOrDefaultAsync(o => o.UserId == userId && o.ProductId == productId);
+
+
+            if (order != null && isFeedback == null)
+            {
+                var orderDetail = order.OrderDetails.FirstOrDefault(od => od.ProductId == productId);
+                var orderDetailVM = new OrderDetailVM()
+                {
+                    OrderId = orderDetail.OrderId, // Sử dụng order.OrderId
+                    ProductId = orderDetail.ProductId,
+                    Quantity = orderDetail.Quantity,
+                    Price = orderDetail.Price
+                };
+
+                return new ApiSuccessResult<OrderDetailVM>(orderDetailVM);
+            }
+            
+            return new ApiErrorResult<OrderDetailVM>();
+        }
+
     }
 }

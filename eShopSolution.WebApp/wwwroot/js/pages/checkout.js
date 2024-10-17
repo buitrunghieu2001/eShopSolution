@@ -60,6 +60,30 @@
             }
         });
 
+        $.ajax({
+            url: mol.origin + `/api/Users/info`,
+            type: 'GET',
+            headers: {
+                'accept': '*/*',
+                'Authorization': 'Bearer ' + token
+            },
+            data: {
+                languageId: 'vi-VN'
+            },
+            success: function (response) {
+                if (response.isSuccessed) {
+                    const d = response.resultObj;
+                    $('#ShipName').val(d.firstName + ' ' + d.lastName);
+                    $('#ShipEmail').val(d.email);
+                    $('#ShipPhoneNumber').val(d.phoneNumber);
+                }
+                console.log(response);
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error);
+            }
+        });
+
 
         B.delegate('.order-button-payment > input', 'click', function () {
             if (validateName() && validateShipProvince() && validateShipDistrict() && validateShipCommune() && validateAddress() && validateEmail() && validatePhoneNumber()) {
@@ -78,6 +102,7 @@
                     url: mol.origin + '/api/Orders',
                     type: 'POST',
                     headers: {
+                        'accept': '*/*',
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
                     },

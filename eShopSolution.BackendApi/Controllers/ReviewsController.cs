@@ -1,10 +1,13 @@
 ﻿using eShopSolution.Application.Catalog.Products;
 using eShopSolution.Application.Catalog.Reviews;
+using eShopSolution.Data.Entities;
 using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.Catalog.Reviews;
 using eShopSolution.ViewModels.Common;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShopSolution.BackendApi.Controllers
 {
@@ -15,13 +18,15 @@ namespace eShopSolution.BackendApi.Controllers
     {
         private readonly IReviewService _reviewService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<AppUser> _userManager;
         // khi ProductController được khởi tạo thì nó sẽ gọi Constructor
         // Constructor nó yêu cầu một đối tượng IPublicProductService, DI trong Program.cs đã được hưỡng dẫn
         // Sau đó nó sẽ gán đối tượng IPublicProductService vào publicProductService
-        public ReviewsController(IReviewService reviewService, IHttpContextAccessor httpContextAccessor)
+        public ReviewsController(IReviewService reviewService, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager)
         {
             _reviewService = reviewService;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
         [HttpGet("approved")]
         [Authorize(Roles = "admin")]
@@ -62,15 +67,26 @@ namespace eShopSolution.BackendApi.Controllers
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        [AllowAnonymous]
         public async Task<IActionResult> CreateReview([FromForm] ReviewCreateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var result = await _reviewService.Create(request);
-
-            return Ok(result);
+            var userIdentity = User.Identity;
+            if (userIdentity.IsAuthenticated)
+            {
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == userIdentity.Name || u.UserName == userIdentity.Name);
+                if (user != null)
+                {
+                    request.UserId = user.Id;
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (roles.Contains("user"))
+                    {
+                        var result = await _reviewService.Create(request);
+                        return Ok(result);
+                    }
+                }
+            }
+            return BadRequest(ModelState);
         }
 
         [HttpGet("{reviewId}")]

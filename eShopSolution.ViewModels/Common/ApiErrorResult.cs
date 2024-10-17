@@ -25,5 +25,11 @@ namespace eShopSolution.ViewModels.Common
             IsSuccessed = false;
             ValidationErrors = validationErrors;
         }
+
+        public ApiErrorResult(T resultObj)
+        {
+            IsSuccessed = false;
+            ResultObj = resultObj;
+        }
     }
 }

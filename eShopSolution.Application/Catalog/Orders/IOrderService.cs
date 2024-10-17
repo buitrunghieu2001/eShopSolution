@@ -6,5 +6,6 @@ namespace eShopSolution.Application.Catalog.Orders
     public interface IOrderService
     {
         Task<ApiResult<string>> Create(OrderCreateRequest request);
+        Task<ApiResult<OrderDetailVM>> HasUserPurchasedProductAsync(Guid? userId, int productId);
     }
 }

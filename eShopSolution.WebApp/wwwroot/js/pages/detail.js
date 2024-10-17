@@ -1,5 +1,6 @@
 ﻿var detail = (function () {
     "use strict";
+    var token = app.getcookie("Token");
     var mol = {};
     mol.origin = 'https://localhost:5001';
     mol.o = location.origin;
@@ -8,7 +9,6 @@
         var B = $('body');
         let language = 'vi-VN';
         getProduct(language, mol.productId);
-        var token = app.getcookie("Token");
 
         renderReviews();
 
@@ -64,6 +64,32 @@
             }
         });
 
+        B.delegate('.review-links', 'click', function () {
+            $.ajax({
+                url: mol.origin + `/api/Users/info`,
+                type: 'GET',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': 'Bearer ' + token
+                },
+                data: {
+                    languageId: 'vi-VN'
+                },
+                success: function (response) {
+                    if (response.isSuccessed) {
+                        const d = response.resultObj;
+                        $('#author').val(d.firstName + ' ' + d.lastName);
+                        $('#phone').val(d.phoneNumber);
+                        $('#email').val(d.email);
+                    }
+                    console.log(response);
+                },
+                error: function (xhr, textStatus, error) {
+                    console.log(error);
+                }
+            });
+        })
+
         B.delegate('.feedback-btn .send', 'click', function () {
             if (validateName() && validatePhoneNumber()) {
                 var formData = new FormData();
@@ -81,6 +107,10 @@
                     data: formData,
                     processData: false,
                     contentType: false,
+                    headers: {
+                        accept: '*/*',
+                        Authorization: `Bearer ${token}`,
+                    },
                     success: function (response) {
                         if (response.isSuccessed) {
                             index.toast({
@@ -358,14 +388,29 @@
                         }
                     })
                 }
-                else {
-                    window.location.href = "/pages/404.html";
-                }
             })
             .error(error => {
-                window.location.href = "/pages/404.html";
                 console.log('Lỗi truy cập vào API: ', error);
             })
+
+        $.ajax({
+            method: "GET",
+            url: mol.origin + `/api/Orders/check-purchase?productId=${productId}`,
+            headers: {
+                accept: '*/*',
+                Authorization: `Bearer ${token}`,
+            },
+            success: function (response) {
+                if (response.isSuccessed && response.resultObj) {
+                    $('.review-btn').removeClass('d-none');
+                } else {
+                    $('.review-btn').addClass('d-none');
+                }
+            },
+            error: function (error) {
+                console.log('Lỗi truy cập vào API: ', error);
+            }
+        })
     }
 
     function sliderProduct() {
